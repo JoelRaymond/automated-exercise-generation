@@ -1,9 +1,9 @@
 # Timelog
 
-* PROJECT NAME
-* YOUR NAME
-* STUDENT_ID
-* SUPERVISOR NAME
+* AUTOMATED EXERCISE GENERATION
+* ZOLTAN SOJTORY
+* 2442602S
+* OANA ANDREI
 
 ## Guidance
 
@@ -12,15 +12,15 @@
 * This timelog should be filled out honestly, regularly (daily) and accurately. It is for *your* benefit.
 * Follow the structure provided, grouping time by weeks.  Quantise time to the half hour.
 
-## Week 1
+## Week 2
 
-### 19 Oct 2019
+### 28 Sept 2022
 
-* *4 hours* Read the project guidance notes
-* *0.5 hour* Created GitLab repository and cloned the cookiecutter for the projects
-* *1 hour* Modified dissertation template, compiled  
+* *0.5 hour* Agreed on meeting time with supervisor
 
-## 20 Oct 2019
+## 29 Sept 2022
 
-* *1 hour* meeting with supervisor
-* *2 hours* writing initial version of test harness
+* *2 hours* Online information session
+* *0.5 hour* Set up github repo
+* *0.5 hour* Created rough timeline for project
+* *0.5 hour* Created plan for supervisor meeting tomorrow
