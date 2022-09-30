@@ -14,4 +14,5 @@ Meeting notes
 - Share report and plan day before each week's meeting
 - Meetings will be 12:00 each Friday
 - Share GitHub repo
+- Start LaTeX file
 - Research for next week 
