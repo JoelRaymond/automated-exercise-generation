@@ -24,3 +24,9 @@
 * *0.5 hour* Set up github repo
 * *0.5 hour* Created rough timeline for project
 * *0.5 hour* Created plan for supervisor meeting tomorrow
+
+## 30 Sept 2022
+
+* *0.5 hour* Supervisor meeting
+* *0.5 hour* Wrote up meeting notes
+* *0.5 hour* Updated project timeline
