@@ -1,0 +1,3 @@
+- Technologies used
+- Wireframes
+- Choosing algorithms to generate for 
