@@ -30,3 +30,9 @@
 * *0.5 hour* Supervisor meeting
 * *0.5 hour* Wrote up meeting notes
 * *0.5 hour* Updated project timeline
+
+## 4 Oct 2022
+
+* *0.5 hour* Reviewed Project Outline
+* *0.5 hour* Started working on weekly report and agenda for supervisor meeting
+* *1 hour* Worked on formulating MoSCoW requirements
