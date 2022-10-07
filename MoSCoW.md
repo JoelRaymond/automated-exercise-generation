@@ -1,6 +1,6 @@
 Must Have
  - Automatic exercise generation for at least two different assessment tasks
- - Algorithms in place to ensure uniform difficulty between generated examples
+ - Ensure uniform difficulty between generated examples
  - Simple user interface
  - Generate at most 50 unique and solvable instances of a given exercise 
 
