@@ -8,6 +8,7 @@ Pre-Meeting Plans (Agenda)
  - How to handle difficulty
 
 Targets for following week
+ - Further research on technologies and automated exercise generation
  - Wireframes
 
 Meeting notes
