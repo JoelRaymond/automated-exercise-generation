@@ -12,10 +12,9 @@ Should Have
 
 Could Have
  - Automatic exercise generation for at least four different assessment tasks
- - Automatic feedback
  - Refined user interface
  - Step by step solutions for each generated exercise
 
 Will Not Have
- -
+ - Automatic feedback
  
