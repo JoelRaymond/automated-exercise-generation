@@ -36,3 +36,13 @@
 * *0.5 hour* Reviewed Project Outline
 * *0.5 hour* Started working on weekly report and agenda for supervisor meeting
 * *1 hour* Worked on formulating MoSCoW requirements
+
+## 6 Oct 2022
+
+* *1 hour* Looked through Algorithmics 1 slides and past papers to research suitable algorithms
+* *0.5 hour* Worked on initial brainstorm including algorithms and technologies used
+
+## 7 Oct 2022
+
+* *0.5 hour* Supervisor meeting
+* *0.5 hour* Took notes on the meeting
