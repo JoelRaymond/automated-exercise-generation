@@ -3,6 +3,7 @@ Must Have
  - Ensure uniform difficulty between generated examples (template-based approach)
  - Simple user interface (JavaFX)
  - Generate at most 50 unique and solvable instances of a given exercise 
+ - An object oriented approach for dealing with different exercises
 
 Should Have
  - Automatic exercise generation for at least three different assessment tasks
