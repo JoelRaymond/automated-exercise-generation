@@ -1,7 +1,7 @@
 Must Have
  - Automatic exercise generation for at least two different assessment tasks
- - Ensure uniform difficulty between generated examples
- - Simple user interface
+ - Ensure uniform difficulty between generated examples (template-based approach)
+ - Simple user interface (JavaFX)
  - Generate at most 50 unique and solvable instances of a given exercise 
 
 Should Have
