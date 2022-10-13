@@ -47,10 +47,18 @@
 * *0.5 hour* Supervisor meeting
 * *0.5 hour* Took notes on the meeting
 
-## 10 Oct 2022
+## 11 Oct 2022
 
 * *0.5 hour* Started plan for 3rd meeting
 * *1.5 hour* Went trough research papers provided and on Google Scholar
 * *1 hour* Wrote about findings in the Background section of the dissertation
 * *0.5 hour* Cited sources in the Bibliography section
 * *0.5 hour* Learnt how to use BiBteX
+
+## 13 Oct 2022
+
+* *1 hour* Further research on Google Scholar
+* *0.5 hour* Continued agenda for Meeting 3
+* *1 hour* Further development of the Background section
+* *0.5 hour* Cited sources in the Bibliography section
+* *0.5 hour* Updated requirements and initial brainstorm
