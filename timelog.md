@@ -62,3 +62,13 @@
 * *1 hour* Further development of the Background section
 * *0.5 hour* Cited sources in the Bibliography section
 * *0.5 hour* Updated requirements and initial brainstorm
+
+## 14 Oct 2022
+
+* *0.5 hour* Supervisor meeting
+* *0.5 hour* Wrote up meeting notes
+
+## 18 Oct 2022
+
+* *0.5 hour* Fixed bibliography
+* *1 hour* Edited format of background section
