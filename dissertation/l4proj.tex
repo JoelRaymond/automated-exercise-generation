@@ -12,7 +12,7 @@
 %==============================================================================
 %% METADATA
 \title{Level 4 Project Report Template}
-\author{John H. Williamson}
+\author{Zoltan Sojtory}
 \date{September 14, 2018}
 
 \maketitle
@@ -154,13 +154,11 @@ If you are unsure about how to cite online sources, please see this guide: \url{
 %==================================================================================================================================
 \chapter{Background}
 What did other people do, and how is it relevant to what you want to do?
-\section{Motivation paper}
-The main inspiration for this project was a research paper by \citet{Hoz21}, which explores the challenges introduced to examination in higher education by the COVID-19 pandemic and suggests  automated exercise generation as a solution specifically for logic and computation courses (e.g. Algorithmics 1). The paper has a very similar premise to this one, as they are generating unique exercies for predetermined algorithms (namely SAT, SMT, and first-order theorem proving), with the main challenge being striking a balance between providing different exercises while keeping the difficulty uniform (research in this area further explored in \nameref{2.2}). Furthermore. approaches for how different algorithms should be generated are also explored. For instance in SAT solving, some syntactical characteristics are identified based on existing exercises before constraints are applied on these characteristics. These methods should prove useful at providing relatively equal workloads when applied to the algorithms in this project. \citet{Hoz21} used Haskell for most of the implementation, however I am unsure if I have enough experience with Haskell to use it in this project (further findings on possible technologies in \nameref{2.3}). 
-\section{Uniform difficulty}
-\label{2.2}
+\section{Research papers on the topic}
+The main inspiration for this project was a research paper by \citet{Hoz21}, which explores the challenges introduced to examination in higher education by the COVID-19 pandemic and suggests  automated exercise generation as a solution specifically for logic and computation courses (e.g. Algorithmics 1). The paper has a very similar premise to this one, as they are generating unique exercies for predetermined algorithms (namely SAT, SMT, and first-order theorem proving), with the main challenge being striking a balance between providing different exercises while keeping the difficulty uniform. Furthermore. approaches for how different algorithms should be generated are also explored. For instance in SAT solving, some syntactical characteristics are identified based on existing exercises before constraints are applied on these characteristics. These methods should prove useful at providing relatively equal workloads when applied to the algorithms in this project. \citet{Hoz21} used Haskell for most of the implementation, however I am unsure if I have enough experience with Haskell to use it in this project. 
+
 It became apparent quite early on in the project that ensuring uniform difficulty across exercises would be one of the greatest challenges of automated exercise generation. This issue can be handled via a number of methods based on the type exercise as shown by the following. \citet{Hoz21} suggests that for examples with pre-existing exam questions, these should be searched for syntactical characteristics, which must be kept constant to ensure uniform workloads for students (some of these characteristics would be altered to adjust difficulty based on whichever level is required. This is quite helpful for my own project, as there are quite a few past-paper questions to analyse for Algorithmics 1. \citet{Sad12} sports a similar idea called  "\emph{tempalate-based approach}", where specific exercises are given templates which highlight their common features while referencing their variables are parameters or "holes". What all of these methods have in common is that it is essential that exercises are deconstructed into fixed and varying parts to ensure uniform difficulty.
-\section{Technologies}
-\label{2.3}
+
 Since automated exercise generation only became an area of focus for researchers with the rise of the COVID-19 pandemic, there does not yet exist a universally standard technology for implementation. For instance, \citet{Hoz21} used mostly Haskell and some Python, while \citet {Esh22} used Java entirely, with \citet{Kot19} implementing a web based approach with php and javascript. This gave me a lot of freedom to choose how I was going to implement my own solution. I eventually settled on Java, due to its object oriented nature (different exercises can be well represented with all their parameters), ease of creating simple UI and my overall experience with it.
 \section{Guidance}
 \begin{itemize}    
