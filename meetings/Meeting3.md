@@ -11,7 +11,16 @@ Questions
   - Why are some sources not showing up?
 
 Next Week
+  - Fix bibliography
+  - Fix Background format and add more detail
   - Picking algorithms and designing templates for them
 
 Meeting Notes
-  - 
+  - Restructure background section
+  - Make background section more detailed
+  - Replace Algorithmics 1 with COMPSCI2026 Algorithmics
+  - Good amount and quality of research papers for background
+  - Do not reference supervisor in diss
+  - Cite course spec
+  - Use misc for sources
+  - Use present tense and first person sometimes
