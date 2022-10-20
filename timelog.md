@@ -72,3 +72,9 @@
 
 * *0.5 hour* Fixed bibliography
 * *1 hour* Edited format of background section
+
+## 20 Oct 2022
+
+* *4.5 hour* Mostly completed the background section of the dissertation
+* *1 hour* Researched and chose initial algorithms
+* *0.5 hour* Finished plan for 4th supervisor meeting
