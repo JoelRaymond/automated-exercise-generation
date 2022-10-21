@@ -5,10 +5,11 @@ Pre-meeting plan (Agenda)
 Questions
   - Section for each source
   - Course notes / past papers 
-  - Last source
 
 
 Next Week
+  - Organise background section
+  - Designing templates for chosen algorithms
   - Programming?
 
 Meeting Notes
