@@ -82,3 +82,8 @@
 ## 21 Oct 2022
 
 * *0.5 hour* Supervisor meeting and notes taken
+
+## 25 Oct 2022
+
+* *2 hours* Designed template for Dijkstra's algorithm
+* *0.5 hour* Extended bibliography
