@@ -87,3 +87,9 @@
 
 * *2 hours* Designed template for Dijkstra's algorithm
 * *0.5 hour* Extended bibliography
+
+## 27 Oct 2022
+
+* *2 hours* Designed template for KMP algorithm
+* *0.5 hour* Created meeting agenda
+
