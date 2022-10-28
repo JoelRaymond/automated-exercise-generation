@@ -93,3 +93,7 @@
 * *2 hours* Designed template for KMP algorithm
 * *0.5 hour* Created meeting agenda
 
+## 28 Oct 2022
+
+* *0.5 hours* Supervisor meeting
+* *0.5 hour* Notes taken from meeting
