@@ -9,7 +9,7 @@ Find the shortest paths, and their lengths, from vertex v1 to each other vertice
 
 Properties:
   - 7-9 vertices RECOMMENDED (input depending on difficulty, kept uniform)
-  - 1-23 weight values randomly generated (for not too difficult calculations)
+  - 1-23 weight values (for not too difficult calculations)
   - 12 edges for 7 vertices, 16 edges for 8 vertices, 21 edges for 9 vertices RECOMMENDED, allowed up to complete (same ratio, to keep uniform difficulty across number of vertices input)
   - Connected (No redundant nodes)
   - Pseudo random edge placement, ensuring somewhat even distribution and outside circle
