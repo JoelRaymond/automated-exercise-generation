@@ -97,3 +97,7 @@
 
 * *0.5 hours* Supervisor meeting
 * *0.5 hour* Notes taken from meeting
+
+## 1 Nov 2022
+
+* *3 hours* Improved the details of template document
