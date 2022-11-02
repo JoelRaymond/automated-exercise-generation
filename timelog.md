@@ -101,3 +101,7 @@
 ## 1 Nov 2022
 
 * *3 hours* Improved the details of template document
+
+## 2 Nov 2022
+
+* *1.5 hours* Refined templates
