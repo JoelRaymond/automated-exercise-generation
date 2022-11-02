@@ -40,3 +40,5 @@ Properties:
   - String length 13-15 RECOMMENDED (chosen to vary difficulty)
   - Random 3 character alphabet chosen from {A, C, G, U, T}
   - Generation of order (to be tested): fully random (to be tested) OR (at least one border of size ~0.3*n (4 in recommended case) and build rest of the string around it)
+  - Optional input of largest border
+  - Two types of borders (overlapping and non-overlapping)
