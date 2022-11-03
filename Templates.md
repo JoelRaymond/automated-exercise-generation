@@ -11,7 +11,6 @@ Properties:
   - 7-9 vertices ~ RECOMMENDED (input depending on difficulty, kept uniform)
   - Undirected graph
   - Connected (No redundant nodes)
-  - Pseudo random edge placement, ensuring somewhat even distribution and outside circle
   - Number of edge relaxations: at most e (e = number of edges) relaxations, so the number edges varies difficulty more than number of vertices (vertices just makes for more calcuations), more relaxations if edge distribution is uneven; at most (|v|(|v|-1))/2, RECOMMEMDED ~ |v| edge relaxations
   - Each vertex must have a unique minimum distance (up to ~2.5 * |v|) from starting vertex
   - Build graph by reversing Dijkstra's algorithm (filling in adjacency matrix? -> start with adjacency matrix with all zeros):
@@ -22,6 +21,7 @@ Properties:
   4. If more edge relaxations are required, add the vertex with an indirect path to the start (attached to any other random vertex), adding up to its minimum distance (dist(vertex being attached to) + **remaining dist** = dist(new vertex)) OR just add it to start and make up for edge relaxations in next step (rare occasion, 1/6 chance)
   5. Once all the vertices are added, and more edge relaxations are needed, add edges between random non-starting vertices, with higher than dist(origin) and dist(dest) weights until no more edge relaxations
   6. Optionally , add edges from starting vertex to others with weights higher than dist(second vertex) to fill out the graph (should have about |v|/2 edges).
+  7. Repeat 2-6 for each example generated. 
 
 ##KMP Algorithm
 
@@ -36,8 +36,12 @@ Properties:
   - String length 13-15 RECOMMENDED (chosen to vary difficulty)
   - Random 3 character alphabet chosen from {A, C, G, U, T}
   - Generation of order (to be tested): fully random (to be tested) OR (at least one border of size ~0.3*n (4 in recommended case) and build rest of the string around it)
-  - Optional input of largest border
+  - Optional input of largest border (varying difficulty)
   - Two types of borders (overlapping and non-overlapping)
   - Generation algorithm:
   
-  1. 
+  1. Take string length and largest border size as input, along with choice of overlapping or non-overlapping longest border.
+  2. Choose three random characters from {A, C, G, U, T} to 
+  3. Generate longest border: Non-overlapping: border-length string inserted at random locations, less than the size of the string; Overlapping: overlap last and first letter in border-length string
+  4. Fill in random letters from the alphabet until string is required length.
+  5. Repeat 2-4 for each exercise.
