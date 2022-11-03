@@ -105,3 +105,9 @@
 ## 2 Nov 2022
 
 * *1.5 hours* Refined templates
+
+## 3 Nov 2022
+
+* *0.5 hours* Created meeting agenda
+* *3 hours* Finished template document
+* *0.5 hours* Updated requirements
