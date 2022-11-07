@@ -4,6 +4,7 @@ Pre-meeting plan (Agenda)
 
 Questions
   - Not sure about generating for KMP
+  - Private variables?
 
 Next Week
   - Presentation slides
