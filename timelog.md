@@ -115,4 +115,4 @@
 ## 7 Nov 2022
 
 * *1 hours* Set up Java environment with basic classes for Dijkstra and KMP (Eclipse)
-* *1 hours* Research on how to implement matrices and graphs in Java
+* *1 hours* Research on how to implement matrices and graphs in Java (exporting with LaTeX)
