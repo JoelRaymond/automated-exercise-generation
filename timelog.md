@@ -111,3 +111,7 @@
 * *0.5 hours* Created meeting agenda
 * *3 hours* Finished template document
 * *0.5 hours* Updated requirements
+
+## 7 Nov 2022
+
+* *1 hours* Set up Java environment with basic classes for Dijkstra and KMP (Eclipse)
