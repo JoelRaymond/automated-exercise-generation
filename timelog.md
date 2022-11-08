@@ -121,3 +121,4 @@
 ## 8 Nov 2022
 
 * *3 hours* Worked on presentation slides
+* *1 hours* Continued Dijkstra implementation
