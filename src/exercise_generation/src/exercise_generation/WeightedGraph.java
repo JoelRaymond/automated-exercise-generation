@@ -55,5 +55,6 @@ public class WeightedGraph {
 		 graph.addEdge(4, 1, 4);
 		 graph.addEdge(4, 5, 6);
 		 graph.printGraph();
+		 System.out.println(graph.adjacencylist[0].get(0).end);
 		 }
 }
