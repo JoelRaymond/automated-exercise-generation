@@ -11,7 +11,14 @@ Questions
 
 Next Week
   - Presentation 
+  - Finish KMP template
+  - Algorithm proofs
   - Further programming implementation
 
 Meeting Notes
-  - 
+  - Never create longer border (for KMP template)
+  - Prove Dijkstra algorithm
+  - Proof of correctness
+  - 1 oclock f121 lillybank
+  - Change paper titles
+  - Change My Project section in slides
