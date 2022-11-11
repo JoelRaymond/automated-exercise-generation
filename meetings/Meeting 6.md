@@ -7,6 +7,7 @@ Pre-meeting plan (Agenda)
 Questions
   - Not sure about generating for KMP
   - Private variables?
+  - Where and when to go for presentation
 
 Next Week
   - Presentation 
