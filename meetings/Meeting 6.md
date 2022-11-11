@@ -1,7 +1,7 @@
 Pre-meeting plan (Agenda)
   - Templates
   - Requirements
-  - Code
+  - Code (Current bug for backwards edges)
 
 Questions
   - Not sure about generating for KMP
