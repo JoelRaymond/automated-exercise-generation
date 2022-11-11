@@ -9,8 +9,8 @@ Questions
   - Private variables?
 
 Next Week
-  - Presentation slides
-  - Programming implementation
+  - Presentation 
+  - Further programming implementation
 
 Meeting Notes
   - 
