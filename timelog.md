@@ -128,3 +128,8 @@
 * *0.5 hours* Updated meeting agenda
 * *0.5 hours* Finished up PowerPoint
 * *2 hours* Continued Dijkstra implementation
+* ## 8 Nov 2022
+
+* *0.5 hours* Prepare for meeting
+* *1 hours* Meetings
+* *0.5 hours* Took notes for meeting
