@@ -1,6 +1,7 @@
 Pre-meeting plan (Agenda)
   - Templates
   - Requirements
+  - Presentation slides
   - Code (Current bug for backwards edges)
 
 Questions
