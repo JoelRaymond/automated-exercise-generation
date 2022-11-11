@@ -122,3 +122,9 @@
 
 * *3 hours* Worked on presentation slides
 * *1 hours* Continued Dijkstra implementation
+
+## 8 Nov 2022
+
+* *0.5 hours* Updated meeting agenda
+* *0.5 hours* Finished up PowerPoint
+* *2 hours* Continued Dijkstra implementation
