@@ -135,3 +135,7 @@
 * *0.5 hours* Prepare for meeting
 * *1 hours* Meetings
 * *0.5 hours* Took notes for meeting
+
+## 13 Nov 2022
+
+* *1.5 hours* Prepare for presentation 
