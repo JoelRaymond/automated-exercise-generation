@@ -139,3 +139,7 @@
 ## 13 Nov 2022
 
 * *1.5 hours* Prepare for presentation 
+
+## 14 Nov 2022
+
+* *1 hours* Presentation of a brief introduction of the project at the Centre for Computing Science Education
