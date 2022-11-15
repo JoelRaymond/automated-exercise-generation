@@ -15,13 +15,12 @@ Properties:
   - Each vertex must have a unique minimum distance (up to ~2.5 * |v|) from starting vertex
   - Build graph by reversing Dijkstra's algorithm (filling in adjacency matrix? -> start with adjacency matrix with all zeros):
   
-  1. Get number of vertices and number of edge relaxations as input
+  1. Get number of vertices and number of edge relaxations (error if over |v|(|v|-1))/2) as input.
   2. Assign each vertex with unique minimum distance (0 for starting vertex)
   3. Add vertices to graph in increasing order of minimum distance (after adding first two with edge in between them of weight dist(second vertex))
   4. If more edge relaxations are required, add the vertex with an indirect path to the start (attached to any other random vertex), adding up to its minimum distance (dist(vertex being attached to) + **remaining dist** = dist(new vertex)) OR just add it to start and make up for edge relaxations in next step (rare occasion, 1/6 chance)
   5. Once all the vertices are added, and more edge relaxations are needed, add edges between random non-starting vertices, with higher than dist(origin) and dist(dest) weights until no more edge relaxations
   6. Optionally , add edges from starting vertex to others with weights higher than dist(second vertex) to fill out the graph (should have about |v|/2 edges).
-  7. Repeat 2-6 for each example generated. 
 
 ##KMP Algorithm
 
@@ -39,9 +38,21 @@ Properties:
   - Optional input of largest border (varying difficulty)
   - Two types of borders (overlapping and non-overlapping)
   - Generation algorithm:
-  
-  1. Take string length and largest border size as input, along with choice of overlapping or non-overlapping longest border.
-  2. Choose three random characters from {A, C, G, U, T} to 
-  3. Generate longest border: Non-overlapping: border-length string inserted at random locations, less than the size of the string; Overlapping: overlap last and first letter in border-length string
-  4. Fill in random letters from the alphabet until string is required length.
-  5. Repeat 2-4 for each exercise.
+
+For all: 
+  1. Take string length, largest border size as input (at most string length-1 for overlapping and (string length-1) // 2 for non-overlapping) and overlapping or non-overlapping. (if border too long --> change to overlapping or throw error if already overlapping)
+  2. Choose three random characters from {A, C, G, U, T} to represent the alphabet. (may want to make it variable from three chosen)
+
+Non-overlapping: 
+  1. Generate longest border: Generate a random string from alphabet of size largest border and place it at the start of the string. Randomly pick and index between the length of the starting longest border and the last index - length of the longest border. Insert the generated longest border at this index.
+  2. Insert remaining random letters so that the value after the last longest borders cannot be the same (do these first).
+  3. Once string is full, check that the number of occurances of the longest border is only 2, otherwise change a random letter of any other ones.
+  4. Run KMP on it to get border table.
+
+Overlapping (simple iterative approach): 
+  1. Get the overlap length: if longest border > (string length - 1) // 2 then (longest border length-1)//2 > overlap length >= longest border length - ((string length - 1) // 2) else it is 1 <= overlap length < (longest border length - 1) // 2.
+  2. Generate a random string of size overlap and place it at the start and end of the longest border. Fill in the middle with random characters if required, giving the longest border.
+  3. Insert longest border at the beginning of the string, followed by the middle of the border and the and the overlap.
+  4. Follow steps 2-4 from non-overlapping.
+
+Overlapping (recursive approach):
