@@ -143,3 +143,7 @@
 ## 14 Nov 2022
 
 * *1 hours* Presentation of a brief introduction of the project at the Centre for Computing Science Education
+
+## 15 Nov 2022
+
+* *2 hours* Redesigned template for KMP
