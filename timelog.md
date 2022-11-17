@@ -151,3 +151,7 @@
 ## 16 Nov 2022
 
 * *0.5 hours* Finished Dijkstra implementation (no graphics yet)
+
+## 16 Nov 2022
+
+* *1 hours* Worked on KMP implementation
