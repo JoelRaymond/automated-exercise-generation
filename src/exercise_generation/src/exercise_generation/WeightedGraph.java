@@ -31,6 +31,9 @@ public class WeightedGraph {
 		 public void addEdge(int start, int end, int weight) {
 			 Edge edge = new Edge(start, end, weight);
 			 adjacencylist[start].addFirst(edge); 
+			 
+			 Edge edge2 = new Edge(end, start, weight);
+			 adjacencylist[end].addFirst(edge2);
 		 }
 	
 		 public void printGraph(){

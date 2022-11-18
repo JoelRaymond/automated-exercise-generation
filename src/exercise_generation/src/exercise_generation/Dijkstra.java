@@ -3,7 +3,6 @@ package exercise_generation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,15 +12,27 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Dijkstra {
-	public int vertices;
-	public int relaxations;
-	public int maxDistance;
-	public LinkedHashMap<Integer, Integer> shortestDistance;
-	public WeightedGraph.Graph graph;
+	private int vertices;
+	private int relaxations;
+	private int maxDistance;
+	private LinkedHashMap<Integer, Integer> shortestDistance;
+	private WeightedGraph.Graph graph;
 	
 	public Dijkstra(int vertices, int relaxations) {
-		this.vertices = vertices;
-		this.relaxations = relaxations;
+		if (vertices > 0) {
+			this.vertices = vertices;
+		}
+		else {
+			throw new IllegalArgumentException("Illegal vertex input.");
+		}
+		
+		if (relaxations <= (vertices * (vertices - 1))/2) {
+			this.relaxations = relaxations;
+		}
+		else {
+			throw new IllegalArgumentException("Too many relaxations.");
+		}
+		
 		this.maxDistance = calculateMaxDistance();
 		this.shortestDistance = generateDistances();
 		this.graph = generateGraph();
@@ -112,6 +123,7 @@ public class Dijkstra {
 			for (int i = 0; i < result.adjacencylist[start].size(); i++) {
 				noEdgeWithVertices.remove(Integer.valueOf(result.adjacencylist[start].get(i).end));
 			}
+			noEdgeWithVertices.remove(Integer.valueOf(start));
 			
 			if (noEdgeWithVertices.size() != 0) {
 				int end = (int) noEdgeWithVertices.get(ThreadLocalRandom.current().nextInt(0, noEdgeWithVertices.size()));
@@ -131,6 +143,7 @@ public class Dijkstra {
 		for (int i = 0; i < result.adjacencylist[0].size(); i++) {
 			noEdgeWith.remove(Integer.valueOf(result.adjacencylist[0].get(i).end));
 		}
+		noEdgeWith.remove(Integer.valueOf(0));
 		while (result.adjacencylist[0].size() < (this.vertices / 2)) {
 			int end = (int) noEdgeWith.get(ThreadLocalRandom.current().nextInt(0, noEdgeWith.size()));
 			int weightIncrease = ThreadLocalRandom.current().nextInt(1, 6);
