@@ -152,7 +152,11 @@
 
 * *0.5 hours* Finished Dijkstra implementation (no graphics yet)
 
-## 16 Nov 2022
+## 17 Nov 2022
 
 * *3 hours* Worked on KMP implementation
 * *0.5 hours* Created meeting agenda
+
+## 1 Nov 2022
+
+* *0.5 hours* Supervisor meeting
