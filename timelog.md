@@ -154,4 +154,5 @@
 
 ## 16 Nov 2022
 
-* *1 hours* Worked on KMP implementation
+* *3 hours* Worked on KMP implementation
+* *0.5 hours* Created meeting agenda
