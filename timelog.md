@@ -157,6 +157,10 @@
 * *3 hours* Worked on KMP implementation
 * *0.5 hours* Created meeting agenda
 
-## 1 Nov 2022
+## 18 Nov 2022
 
 * *0.5 hours* Supervisor meeting
+
+## 21 Nov 2022
+
+* *1 hours* KMP implementation
