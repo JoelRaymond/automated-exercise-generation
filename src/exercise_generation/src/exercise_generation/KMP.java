@@ -59,11 +59,55 @@ public class KMP {
 	public String generateString() {
 		String[] result = new String[this.length];
 		String longestBorder = "";
+		int borderStart;
 		if (this.overlapping) {
+			int overlapLength;
+			if (this.largestBorder > (this.length-1)/2) {
+				overlapLength = ThreadLocalRandom.current().nextInt(this.largestBorder-(this.length-1)/2, (this.largestBorder-1)/2);
+			}
+			else {
+				int upper = (int) (Math.ceil((this.largestBorder-1)/2.0));
+				overlapLength = ThreadLocalRandom.current().nextInt(1, upper);
+			}
+			int count = 0;
+			String overlap = "";
+			for (int i=0; i < overlapLength; i++) {
+				char random = getRandomChar();
+				overlap += random;
+				result[count] = Character.toString(random);
+				count++;
+			}
 			
+			String middle = "";
+			longestBorder += overlap;
+			for (int i=0; i < this.largestBorder-(2*overlapLength); i++) {
+				char random = getRandomChar();
+				middle += random;
+				result[count] = Character.toString(random);
+				count++;
+			}
+			longestBorder += middle;
+			longestBorder += overlap;
+			
+			for (int i = 0; i < overlapLength; i++) {
+				result[count] = Character.toString(overlap.charAt(i));
+				count++;
+			}
+			
+			for (int i = 0; i < middle.length(); i++) {
+				result[count] = Character.toString(middle.charAt(i));
+				count++;
+			}
+			
+			for (int i = 0; i < overlapLength; i++) {
+				result[count] = Character.toString(overlap.charAt(i));
+				count++;
+			}
+			
+			borderStart = overlapLength*3 + middle.length()*2;
 		}
 		else {
-			int borderStart = ThreadLocalRandom.current().nextInt(this.largestBorder, this.length-this.largestBorder);
+			borderStart = ThreadLocalRandom.current().nextInt(this.largestBorder, this.length-this.largestBorder);
 			for (int i=0; i < this.largestBorder; i++) {
 				char random = getRandomChar();
 				longestBorder += random;
@@ -73,51 +117,52 @@ public class KMP {
 				result[borderStart] = c;
 				borderStart++;
 			}
-			
-			String afterFirst;
-			if (result[this.largestBorder] == null) {
-				afterFirst = Character.toString(getRandomChar());
-				result[this.largestBorder] = afterFirst;
+		}
+		
+		String afterFirst;
+		if (result[this.largestBorder] == null) {
+			afterFirst = Character.toString(getRandomChar());
+			result[this.largestBorder] = afterFirst;
+		}
+		else {
+			afterFirst = result[this.largestBorder];
+		}
+		
+		while (true) {
+			String afterSecond = Character.toString(getRandomChar());
+			if (!afterSecond.equals(afterFirst)) {
+				result[borderStart] = afterSecond;
+				break;
+			}
+		}
+		
+		for (int i=this.largestBorder; i < result.length; i++) {
+			if (result[i] == null) {
+				result[i] = Character.toString(getRandomChar());
+			}
+		}
+		
+		String string = String.join("", result);
+		int index = 0;
+		while (true) {
+			index = string.indexOf(longestBorder, index+1);
+			if (index != borderStart - this.largestBorder && index != -1) {
+				while (true) {
+					String ran = Character.toString(getRandomChar());
+					if (!ran.equals(result[index])) {
+						result[index] = ran;
+						break;
+					} 
+				}
 			}
 			else {
-				afterFirst = result[this.largestBorder];
+				break;
 			}
-			
-			while (true) {
-				String afterSecond = Character.toString(getRandomChar());
-				if (!afterSecond.equals(afterFirst)) {
-					result[borderStart] = afterSecond;
-					break;
-				}
-			}
-			
-			for (int i=0; i < result.length; i++) {
-				if (result[i] == null) {
-					result[i] = Character.toString(getRandomChar());
-				}
-			}
-			
-			String string = String.join("", result);
-			int index = 0;
-			while (true) {
-				index = string.indexOf(longestBorder, index+1);
-				if (index != borderStart - this.largestBorder && index != -1) {
-					while (true) {
-						String ran = Character.toString(getRandomChar());
-						if (!ran.equals(result[index])) {
-							result[index] = ran;
-							break;
-						} 
-					}
-				}
-				else {
-					break;
-				}
-			}
-			
-			System.out.println(longestBorder);
-			System.out.println(Arrays.toString(result));
 		}
+		
+		System.out.println(longestBorder);
+		System.out.println(Arrays.toString(result));
+
 		return String.join("", result);
 	}
 	
