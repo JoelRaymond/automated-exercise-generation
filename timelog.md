@@ -164,3 +164,7 @@
 ## 21 Nov 2022
 
 * *1 hours* KMP implementation
+
+## 22 Nov 2022
+
+* *2 hours* Worked on proofs for algorithms
