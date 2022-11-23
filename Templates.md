@@ -22,6 +22,19 @@ Properties:
   5. Once all the vertices are added, and more edge relaxations are needed, add edges between random non-starting vertices, with higher than dist(origin) and dist(dest) weights until no more edge relaxations
   6. Optionally , add edges from starting vertex to others with weights higher than dist(second vertex) to fill out the graph (should have about |v|/2 edges).
 
+Mathematical proof (by induction):
+
+Prove that the graph generated from v vertices (2 <= v where v ∈ Z) and e edge relaxations (0 <= e <= v(v-1))/2 where e ∈ Z) by the algorithm above, requires e edge relaxations to run Dijkstra's algorithm for. 
+
+Base case:
+v=2, e=0
+shortestDistances = {0, <(2.5*v=5)dd} 
+Since no more edge relaxations are required, vertex 2 is given an edge to vertex1 with its shortest distance as weight, resulting in a complete graph.
+
+Running Dijkstra's algorithm on this graph only requires one step, adding vertex 2 to S (set of vertices for which shortest path is known) as it is the only option, which involves 0 edge relaxations, as required.
+
+Inductive step for v:
+
 ##KMP Algorithm
 
 Example problems:
