@@ -20,7 +20,8 @@ Properties:
   3. Add vertices to graph in increasing order of minimum distance (after adding first two with edge in between them of weight dist(second vertex))
   4. If more edge relaxations are required, add the vertex with an indirect path to the start (attached to any other random vertex), adding up to its minimum distance (dist(vertex being attached to) + **remaining dist** = dist(new vertex)) OR just add it to start and make up for edge relaxations in next step (rare occasion, 1/6 chance)
   5. Once all the vertices are added, and more edge relaxations are needed, add edges between random non-starting vertices, with higher than dist(origin) and dist(dest) weights until no more edge relaxations
-  6. Optionally , add edges from starting vertex to others with weights higher than dist(second vertex) to fill out the graph (should have about |v|/2 edges).
+  6. If no more edge relaxations are required, connect new vertex directly to starting vertex.
+  7. Optionally , add edges from starting vertex to others with weights higher than dist(second vertex) to fill out the graph (should have about |v|/2 edges).
 
 Mathematical proof (by induction):
 
@@ -34,6 +35,7 @@ Since no more edge relaxations are required, vertex 2 is given an edge to vertex
 Running Dijkstra's algorithm on this graph only requires one step, adding vertex 2 to S (set of vertices for which shortest path is known) as it is the only option, which involves 0 edge relaxations, as required.
 
 Inductive step for v:
+
 
 ##KMP Algorithm
 
