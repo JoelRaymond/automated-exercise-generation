@@ -168,3 +168,8 @@
 ## 22 Nov 2022
 
 * *2 hours* Worked on proofs for algorithms
+
+## 24 Nov 2022
+
+* *1.5 hours* Worked on proofs for algorithms
+* *0.5 hours* Created meeting agenda
