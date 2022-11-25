@@ -3,11 +3,12 @@ Pre-meeting plan (Agenda)
   - Proofs
 
 Questions
-  - Empricial analysis?
+  - Empirical analysis?
 
 Next Week
   - Proofs
   - Visualisations
 
 Meeting Notes
-  - 
+  - Structural induction
+  - Some edge cases in diss
