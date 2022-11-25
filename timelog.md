@@ -173,3 +173,7 @@
 
 * *1.5 hours* Worked on proofs for algorithms
 * *0.5 hours* Created meeting agenda
+
+## 25 Nov 2022
+
+* *0.5 hours* Supervisor meeting and notes taken
