@@ -177,3 +177,7 @@
 ## 25 Nov 2022
 
 * *0.5 hours* Supervisor meeting and notes taken
+
+## 5 Dec 2022
+
+* *3 hours* Worked on visualisations of generated exercises
