@@ -18,13 +18,16 @@ public class WeightedGraph {
 	 static class Graph {
 		 int vertices;
 		 LinkedList<Edge> [] adjacencylist;
+		 LinkedList<Edge> [] dirAdjacencylist;
 	
 		 Graph(int vertices) {
 			 this.vertices = vertices;
 			 adjacencylist = new LinkedList[vertices];
+			 dirAdjacencylist = new LinkedList[vertices];
 
 			 for (int i = 0; i <vertices ; i++) {
 				 adjacencylist[i] = new LinkedList<>();
+				 dirAdjacencylist[i] = new LinkedList<>();
 			 }
 		 }
 
@@ -32,15 +35,17 @@ public class WeightedGraph {
 			 Edge edge = new Edge(start, end, weight);
 			 adjacencylist[start].addFirst(edge); 
 			 
+			 dirAdjacencylist[start].addFirst(edge); 
+			 
 			 Edge edge2 = new Edge(end, start, weight);
 			 adjacencylist[end].addFirst(edge2);
 		 }
 	
 		 public void printGraph(){
 			 for (int i = 0; i <vertices ; i++) {
-				 LinkedList<Edge> list = adjacencylist[i];
+				 LinkedList<Edge> list = dirAdjacencylist[i];
 				 for (int j = 0; j <list.size() ; j++) {
-					 System.out.println("vertex-" + i + " is connected to " + list.get(j).end + " with weight " + list.get(j).weight);
+					 System.out.println("vertex-" + (i+1) + " is connected to " + (list.get(j).end+1) + " with weight " + list.get(j).weight);
 				 }
 			 }
 		 }

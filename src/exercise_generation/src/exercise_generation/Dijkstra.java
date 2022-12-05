@@ -156,8 +156,8 @@ public class Dijkstra {
 	}
 	
 	public static void main(String[] args) {
-		for(int i = 0; i <50; i++) {
-			Dijkstra test = new Dijkstra(7, 5);
+		for(int i = 0; i <1; i++) {
+			Dijkstra test = new Dijkstra(5, 5);
 			System.out.println(test.maxDistance);
 			System.out.println(test.shortestDistance);
 			test.graph.printGraph();
