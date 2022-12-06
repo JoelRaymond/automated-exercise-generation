@@ -181,3 +181,7 @@
 ## 5 Dec 2022
 
 * *5.5 hours* Worked on visualisations of generated exercises
+
+## 6 Dec 2022
+
+* *2 hours* Worked on visualisations of generated exercises (graphs)
