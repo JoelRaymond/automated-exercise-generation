@@ -18,6 +18,46 @@ public class Dijkstra {
 	private LinkedHashMap<Integer, Integer> shortestDistance;
 	private WeightedGraph.Graph graph;
 	
+	public int getVertices() {
+		return vertices;
+	}
+
+	public void setVertices(int vertices) {
+		this.vertices = vertices;
+	}
+
+	public int getRelaxations() {
+		return relaxations;
+	}
+
+	public void setRelaxations(int relaxations) {
+		this.relaxations = relaxations;
+	}
+
+	public int getMaxDistance() {
+		return maxDistance;
+	}
+
+	public void setMaxDistance(int maxDistance) {
+		this.maxDistance = maxDistance;
+	}
+
+	public LinkedHashMap<Integer, Integer> getShortestDistance() {
+		return shortestDistance;
+	}
+
+	public void setShortestDistance(LinkedHashMap<Integer, Integer> shortestDistance) {
+		this.shortestDistance = shortestDistance;
+	}
+
+	public WeightedGraph.Graph getGraph() {
+		return graph;
+	}
+
+	public void setGraph(WeightedGraph.Graph graph) {
+		this.graph = graph;
+	}
+
 	public Dijkstra(int vertices, int relaxations) {
 		if (vertices > 0) {
 			this.vertices = vertices;
