@@ -13,6 +13,46 @@ public class KMP {
 	private List<Character> alphabet;
 	private String string;
 	
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public int getLargestBorder() {
+		return largestBorder;
+	}
+
+	public void setLargestBorder(int largestBorder) {
+		this.largestBorder = largestBorder;
+	}
+
+	public Boolean getOverlapping() {
+		return overlapping;
+	}
+
+	public void setOverlapping(Boolean overlapping) {
+		this.overlapping = overlapping;
+	}
+
+	public List<Character> getAlphabet() {
+		return alphabet;
+	}
+
+	public void setAlphabet(List<Character> alphabet) {
+		this.alphabet = alphabet;
+	}
+
+	public String getString() {
+		return string;
+	}
+
+	public void setString(String string) {
+		this.string = string;
+	}
+
 	public KMP(int length, int largestBorder, Boolean overlapping) {
 		if (length > 0) {
 			this.length = length;
@@ -159,10 +199,6 @@ public class KMP {
 				break;
 			}
 		}
-		
-		System.out.println(longestBorder);
-		System.out.println(Arrays.toString(result));
-
 		return String.join("", result);
 	}
 	

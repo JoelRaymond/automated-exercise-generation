@@ -1,8 +1,13 @@
 package exercise_generation;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Scanner;
+
+import org.apache.commons.io.FileUtils;
 
 import com.aspose.tex.InputFileSystemDirectory;
 import com.aspose.tex.OutputFileSystemDirectory;
@@ -59,10 +64,93 @@ public class Visualiser {
         
         new TeXJob (filename, new PdfDevice(), options).run();
 	}
+	
+	public static void generateString(KMP k, String filename) {
+		try {
+        	FileWriter f = new FileWriter(filename);
+        	f.write("\\documentclass{article}\n");
+        	f.write("\\begin{document}\n");
+        	f.write(k.getString() + "\n");
+        	f.write("\\end{document}\n");
+        	f.close();
+        }
+        catch (IOException e) {
+        	System.out.println("Error");
+        	e.printStackTrace();
+        }
+        
+        TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
+        options.setInputWorkingDirectory(new InputFileSystemDirectory("exercises/tex"));
+        options.setOutputWorkingDirectory(new OutputFileSystemDirectory("exercises/pdf"));
+        options.setTerminalOut(new OutputMemoryTerminal());
+        options.setSaveOptions(new PdfSaveOptions());
+        
+        new TeXJob (filename, new PdfDevice(), options).run();
+	}
 
-    public static void main(String[] args) {
-    	Dijkstra test = new Dijkstra(5, 5);
-    	test.getGraph().printGraph();
-    	generateGraph(test, "exercises/tex/test.tex");
+    public static void main(String[] args) throws IOException {
+    	File tex = new File("exercises/tex");
+    	FileUtils.cleanDirectory(tex);
+    	File pdf = new File("exercises/pdf");
+    	FileUtils.cleanDirectory(pdf);
+    	
+    	Scanner sc = new Scanner(System.in);
+    	
+    	System.out.println("How many Dijkstra graphs would you like to generate? ");
+    	int dijkstraLimit = sc.nextInt();
+    	
+    	int v = 0;
+    	int e = 0;
+    	if(dijkstraLimit != 0) {
+    		System.out.println("How many vertices? ");
+        	v = sc.nextInt();
+        	
+        	System.out.println("How many edge-relaxations? ");
+        	e = sc.nextInt();
+    	}
+    	
+    	System.out.println("How many KMP strings would you like to generate? ");
+    	int kmpLimit = sc.nextInt();
+    	
+    	int s = 0;
+    	int lb = 0;
+    	boolean o = false;
+    	if(kmpLimit != 0) {
+    		System.out.println("What size string? ");
+        	s = sc.nextInt();
+        	
+        	System.out.println("What size largest border? ");
+        	lb = sc.nextInt();
+        	
+        	System.out.println("Overlapping? (T/F) ");
+        	while (true) {
+	        	String oString = sc.nextLine();
+	        	if (oString.equals("T")) {
+	        		o = true;
+	        		break;
+	        	}
+	        	else if (oString.equals("F")) {
+	        		o = false;
+	        		break;
+	        	}
+        	}
+    	}
+    	sc.close();
+    	
+    	System.out.println("Generating...");
+    	
+    	for(int i = 0; i <dijkstraLimit; i++) {
+			Dijkstra test = new Dijkstra(v, e);
+			generateGraph(test, "exercises/tex/dijkstra"+Integer.toString(i+1)+".tex");
+		}
+    	
+    	for(int i = 0; i <kmpLimit; i++) {
+			KMP test = new KMP(s, lb, o);
+			generateString(test, "exercises/tex/kmp"+Integer.toString(i+1)+".tex");
+		}
+    	
+    	System.out.println("Generation complete.");
+    	
+    	Desktop.getDesktop().open(pdf);
     }
 }

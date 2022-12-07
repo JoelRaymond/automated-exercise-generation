@@ -11,12 +11,12 @@
 \node[vertex] (3) at ({360/5 * (2 )}:\radius) {$V_{3}$};
 \node[vertex] (4) at ({360/5 * (3 )}:\radius) {$V_{4}$};
 \node[vertex] (5) at ({360/5 * (4 )}:\radius) {$V_{5}$};
-\path[edge] (1) -- node[weight] {$7$} (2);
-\path[edge] (1) -- node[weight] {$4$} (4);
-\path[edge] (2) -- node[weight] {$11$} (5);
-\path[edge] (2) -- node[weight] {$7$} (3);
-\path[edge] (4) -- node[weight] {$16$} (3);
-\path[edge] (4) -- node[weight] {$11$} (2);
-\path[edge] (4) -- node[weight] {$4$} (5);
+\path[edge] (1) -- node[weight] {$2$} (5);
+\path[edge] (1) -- node[weight] {$1$} (4);
+\path[edge] (2) -- node[weight] {$16$} (5);
+\path[edge] (3) -- node[weight] {$13$} (5);
+\path[edge] (4) -- node[weight] {$12$} (2);
+\path[edge] (4) -- node[weight] {$9$} (3);
+\path[edge] (4) -- node[weight] {$2$} (5);
 \end{tikzpicture}
 \end{document}
