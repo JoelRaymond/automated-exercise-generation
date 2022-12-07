@@ -17,6 +17,7 @@ Could Have
  - Automatic exercise generation for at least four different assessment tasks
  - Refined user interface
  - Step by step solutions for each generated exercise
+ - Proper exam formatting for questions
 
 Will Not Have
  - Automatic feedback
