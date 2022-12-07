@@ -185,3 +185,10 @@
 ## 6 Dec 2022
 
 * *2 hours* Worked on visualisations of generated exercises (graphs)
+
+## 7 Dec 2022
+
+* *1.5 hours* Worked on LaTeX and PDF files of generated exercises (graphs and strings)
+* *1.5 hours* Developed simple command line interface for program.
+* *0.5 hours* Created agenda for tomorrow's meeting
+* *0.5 hours* Updated requirements
