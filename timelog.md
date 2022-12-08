@@ -192,3 +192,7 @@
 * *1.5 hours* Developed simple command line interface for program.
 * *0.5 hours* Created agenda for tomorrow's meeting
 * *0.5 hours* Updated requirements
+
+## 7 Dec 2022
+
+* *0.5 hours* Prepared for supervisor meeting
