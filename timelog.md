@@ -196,3 +196,5 @@
 ## 7 Dec 2022
 
 * *0.5 hours* Prepared for supervisor meeting
+* *0.5 hours* Supervisor meeting
+* *0.5 hours* Took notes on supervisor meetig
