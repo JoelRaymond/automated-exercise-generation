@@ -193,8 +193,12 @@
 * *0.5 hours* Created agenda for tomorrow's meeting
 * *0.5 hours* Updated requirements
 
-## 7 Dec 2022
+## 8 Dec 2022
 
 * *0.5 hours* Prepared for supervisor meeting
 * *0.5 hours* Supervisor meeting
 * *0.5 hours* Took notes on supervisor meetig
+
+## 11 Dec 2022
+
+* *0.5 hours* Worked on status report
