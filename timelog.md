@@ -202,3 +202,7 @@
 ## 11 Dec 2022
 
 * *1 hours* Worked on status report
+
+## 13 Dec 2022
+
+* *2.5 hours* Worked on status report
