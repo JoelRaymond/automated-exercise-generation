@@ -206,3 +206,7 @@
 ## 13 Dec 2022
 
 * *2.5 hours* Worked on status report
+
+## 14 Dec 2022
+
+* *0.5 hours* Refined LaTeX output
