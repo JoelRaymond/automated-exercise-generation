@@ -28,6 +28,10 @@ public class Visualiser {
         	f.write("\\documentclass{article}\n");
         	f.write("\\usepackage{tikz}\n");
         	f.write("\\begin{document}\n");
+        	f.write("\\begin{flushleft}");
+        	f.write("Find the shortest paths, and their lengths, "
+        			+ "from vertex v1 to each of the other vertices in the graph shown below.\n");
+        	f.write("\\end{flushleft}");
         	f.write("\\begin{tikzpicture}[auto]\n");
         	f.write("\\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]\n");
         	f.write("\\tikzstyle{edge} = [draw,thick,-]\n");
@@ -43,8 +47,8 @@ public class Visualiser {
         		LinkedList<Edge> list = d.getGraph().dirAdjacencylist[i];
         		for (int j=0; j<list.size(); j++) {
         			f.write("\\path[edge] (" + Integer.toString(i+1) 
-        			+ ") -- node[weight] {$" + Integer.toString(list.get(j).weight) 
-        			+ "$} (" + Integer.toString(list.get(j).end+1) + ");\r\n");
+        			+ ") -- node[weight] {$\\textcolor{red}{" + Integer.toString(list.get(j).weight) 
+        			+ "}$} (" + Integer.toString(list.get(j).end+1) + ");\r\n");
         		}
         	}
         	f.write("\\end{tikzpicture}\n");
@@ -70,7 +74,12 @@ public class Visualiser {
         	FileWriter f = new FileWriter(filename);
         	f.write("\\documentclass{article}\n");
         	f.write("\\begin{document}\n");
-        	f.write(k.getString() + "\n");
+        	f.write("Construct the border table of the KMP algorithm when "
+        			+ "the string being searched for equals: \n\n");
+        	f.write("\\begin{center}\n");
+        	f.write("\\emph{" + k.getString() + "}\n\n");
+        	f.write("\\end{center}\n");
+        	f.write("where the text is over the alphabet \\{A,C,G,U,T\\}.\n");
         	f.write("\\end{document}\n");
         	f.close();
         }
