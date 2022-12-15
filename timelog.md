@@ -210,3 +210,9 @@
 ## 14 Dec 2022
 
 * *0.5 hours* Refined LaTeX output
+
+## 15 Dec 2022
+
+* *0.5 hours* Prepared agenda for supervisor meeting
+* *0.5 hours* Supervisor meeting
+* *0.5 hours* Took notes about supervisor meeting / completed status report and submitted
