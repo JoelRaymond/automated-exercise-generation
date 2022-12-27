@@ -41,7 +41,7 @@ public class Visualiser {
         	for (int i=1; i<=n; i++) {
         		f.write("\\node[vertex] (" + Integer.toString(i) 
         		+ ") at ({360/" + Integer.toString(n) + " * (" + Integer.toString(i-1) 
-        		+ " )}:\\radius) {$V_{" + Integer.toString(i) + "}$};\r\n");
+        		+ " )}:\\radius) {$v_{" + Integer.toString(i) + "}$};\r\n");
         	}
         	for (int i=0; i<n; i++) {
         		LinkedList<Edge> list = d.getGraph().dirAdjacencylist[i];
@@ -63,6 +63,42 @@ public class Visualiser {
         TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
         options.setInputWorkingDirectory(new InputFileSystemDirectory("exercises/tex"));
         options.setOutputWorkingDirectory(new OutputFileSystemDirectory("exercises/pdf"));
+        options.setTerminalOut(new OutputMemoryTerminal());
+        options.setSaveOptions(new PdfSaveOptions());
+        
+        new TeXJob (filename, new PdfDevice(), options).run();
+	}
+	
+	public static void generateGraphSolution(Dijkstra d, String filename) {
+		try {
+        	FileWriter f = new FileWriter(filename);
+        	f.write("\\documentclass{article}\n");
+        	f.write("\\begin{document}\n");
+        	f.write("\\begin{flushleft}");
+        	f.write("\\textbf{Solution}: These following distances are found, by Dijkstra's algorithm.\n");
+        	f.write("\\end{flushleft}");
+        	f.write("\\begin{center}\n");
+        	f.write("\\begin{tabular}{||c c c||}\n");
+        	f.write("\\hline\n");
+        	f.write("vertex & shortest path & length \\\\ [0.5ex]\n");
+        	f.write("\\hline\\hline\n");
+        	for (int i=2; i<=d.getVertices(); i++) {
+        		f.write("{$v_{" + Integer.toString(i) + "}$} &  & " + Integer.toString(d.getShortestDistance().get(i-1)) + "\\\\ \n");
+        		f.write("\\hline");
+        	}
+        	f.write("\\end{tabular}");
+        	f.write("\\end{center}\n");
+        	f.write("\\end{document}\n");
+        	f.close();
+        }
+        catch (IOException e) {
+        	System.out.println("Error");
+        	e.printStackTrace();
+        }
+        
+        TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
+        options.setInputWorkingDirectory(new InputFileSystemDirectory("solutions/tex"));
+        options.setOutputWorkingDirectory(new OutputFileSystemDirectory("solutions/pdf"));
         options.setTerminalOut(new OutputMemoryTerminal());
         options.setSaveOptions(new PdfSaveOptions());
         
