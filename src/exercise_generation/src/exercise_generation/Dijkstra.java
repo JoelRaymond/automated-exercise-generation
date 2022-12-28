@@ -3,6 +3,7 @@ package exercise_generation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Dijkstra {
 	private int relaxations;
 	private int maxDistance;
 	private LinkedHashMap<Integer, Integer> shortestDistance;
+	private HashMap<Integer, String> shortestPaths;
 	private WeightedGraph.Graph graph;
 	
 	public int getVertices() {
@@ -49,6 +51,15 @@ public class Dijkstra {
 	public void setShortestDistance(LinkedHashMap<Integer, Integer> shortestDistance) {
 		this.shortestDistance = shortestDistance;
 	}
+	
+	
+	public void setShortestPaths(HashMap<Integer, String> shortestPaths) {
+		this.shortestPaths = shortestPaths;
+	}
+
+	public HashMap<Integer, String> getShortestPaths() {
+		return shortestPaths;
+	}
 
 	public WeightedGraph.Graph getGraph() {
 		return graph;
@@ -75,6 +86,7 @@ public class Dijkstra {
 		
 		this.maxDistance = calculateMaxDistance();
 		this.shortestDistance = generateDistances();
+		this.shortestPaths = new HashMap<Integer, String>();
 		this.graph = generateGraph();
 	}
 	
@@ -127,10 +139,13 @@ public class Dijkstra {
 		for (Entry<Integer, Integer> entry : this.shortestDistance.entrySet()) {
 
 			if (entry.getValue() == 0) {
+				this.shortestPaths.put(entry.getKey(), "v_{1}");
 				continue;
 			}
 			else if (first) {
 				result.addEdge(0, entry.getKey(), entry.getValue());
+				this.shortestPaths.put(entry.getKey(), this.shortestPaths.get(0) + 
+						" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
 				firstWeight = entry.getValue();
 				verticesInGraph.add(entry.getKey());
 				first = false;
@@ -140,17 +155,23 @@ public class Dijkstra {
 				int chance = ThreadLocalRandom.current().nextInt(1, 7);
 				if (chance == 1) {
 					result.addEdge(0, entry.getKey(), entry.getValue());
+					this.shortestPaths.put(entry.getKey(), this.shortestPaths.get(0) + 
+							" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
 					verticesInGraph.add(entry.getKey());
 				}
 				else {
 					int start = verticesInGraph.get(ThreadLocalRandom.current().nextInt(0, verticesInGraph.size()));
 					result.addEdge(start, entry.getKey(), entry.getValue() - this.shortestDistance.get(start));
+					this.shortestPaths.put(entry.getKey(), this.shortestPaths.get(start) + 
+							" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
 					verticesInGraph.add(entry.getKey());
 					this.relaxations --;
 				}
 			}
 			else {
 				result.addEdge(0, entry.getKey(), entry.getValue());
+				this.shortestPaths.put(entry.getKey(), this.shortestPaths.get(0) + 
+						" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
 				verticesInGraph.add(entry.getKey());
 			}
 		}
@@ -200,6 +221,7 @@ public class Dijkstra {
 			Dijkstra test = new Dijkstra(5, 5);
 			System.out.println(test.maxDistance);
 			System.out.println(test.shortestDistance);
+			System.out.println(test.shortestPaths);
 			test.graph.printGraph();
 		}
 	}

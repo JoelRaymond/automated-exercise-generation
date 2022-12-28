@@ -28,10 +28,10 @@ public class Visualiser {
         	f.write("\\documentclass{article}\n");
         	f.write("\\usepackage{tikz}\n");
         	f.write("\\begin{document}\n");
-        	f.write("\\begin{flushleft}");
+        	f.write("\\begin{flushleft}\n");
         	f.write("Find the shortest paths, and their lengths, "
         			+ "from vertex v1 to each of the other vertices in the graph shown below.\n");
-        	f.write("\\end{flushleft}");
+        	f.write("\\end{flushleft}\n");
         	f.write("\\begin{tikzpicture}[auto]\n");
         	f.write("\\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]\n");
         	f.write("\\tikzstyle{edge} = [draw,thick,-]\n");
@@ -74,19 +74,21 @@ public class Visualiser {
         	FileWriter f = new FileWriter(filename);
         	f.write("\\documentclass{article}\n");
         	f.write("\\begin{document}\n");
-        	f.write("\\begin{flushleft}");
+        	f.write("\\begin{flushleft}\n");
         	f.write("\\textbf{Solution}: These following distances are found, by Dijkstra's algorithm.\n");
-        	f.write("\\end{flushleft}");
+        	f.write("\\end{flushleft}\n");
         	f.write("\\begin{center}\n");
-        	f.write("\\begin{tabular}{||c c c||}\n");
+        	f.write("\\begin{tabular}{| c c c |}\n");
         	f.write("\\hline\n");
-        	f.write("vertex & shortest path & length \\\\ [0.5ex]\n");
+        	f.write("vertex & shortest path & length \\\\\n");
         	f.write("\\hline\\hline\n");
         	for (int i=2; i<=d.getVertices(); i++) {
-        		f.write("{$v_{" + Integer.toString(i) + "}$} &  & " + Integer.toString(d.getShortestDistance().get(i-1)) + "\\\\ \n");
-        		f.write("\\hline");
+        		f.write("{$v_{" + Integer.toString(i) + "}$} & $" + 
+        				d.getShortestPaths().get(i-1) + "$ & " + 
+        				Integer.toString(d.getShortestDistance().get(i-1)) + "\\\\ \n");
         	}
-        	f.write("\\end{tabular}");
+        	f.write("\\hline\n");
+        	f.write("\\end{tabular}\n");
         	f.write("\\end{center}\n");
         	f.write("\\end{document}\n");
         	f.close();
@@ -134,10 +136,14 @@ public class Visualiser {
 	}
 
     public static void main(String[] args) throws IOException {
-    	File tex = new File("exercises/tex");
-    	FileUtils.cleanDirectory(tex);
-    	File pdf = new File("exercises/pdf");
-    	FileUtils.cleanDirectory(pdf);
+    	File exTex = new File("exercises/tex");
+    	FileUtils.cleanDirectory(exTex);
+    	File exPdf = new File("exercises/pdf");
+    	FileUtils.cleanDirectory(exPdf);
+    	File solTex = new File("solutions/tex");
+    	FileUtils.cleanDirectory(solTex);
+    	File solPdf = new File("solutions/pdf");
+    	FileUtils.cleanDirectory(solPdf);
     	
     	Scanner sc = new Scanner(System.in);
     	
@@ -187,6 +193,7 @@ public class Visualiser {
     	for(int i = 0; i <dijkstraLimit; i++) {
 			Dijkstra test = new Dijkstra(v, e);
 			generateGraph(test, "exercises/tex/dijkstra"+Integer.toString(i+1)+".tex");
+			generateGraphSolution(test, "solutions/tex/dijkstra_answer"+Integer.toString(i+1)+".tex");
 		}
     	
     	for(int i = 0; i <kmpLimit; i++) {
@@ -196,6 +203,7 @@ public class Visualiser {
     	
     	System.out.println("Generation complete.");
     	
-    	Desktop.getDesktop().open(pdf);
+    	Desktop.getDesktop().open(exPdf);
+    	Desktop.getDesktop().open(solPdf);
     }
 }
