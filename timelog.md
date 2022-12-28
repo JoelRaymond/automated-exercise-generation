@@ -222,3 +222,8 @@
 
 * *1 hours* Fixed layout of Eclipse project
 * *2.5 hours* Worked on solution generation
+
+## 28 Dec 2022
+
+* *3 hours* Continued work on solution generation (shortest paths implementation in original Dijkstra code)
+
