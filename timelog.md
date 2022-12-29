@@ -209,7 +209,7 @@
 
 ## 14 Dec 2022
 
-* *0.5 hours* Refined LaTeX output
+* *1 hours* Refined LaTeX output
 
 ## 15 Dec 2022
 
@@ -227,3 +227,7 @@
 
 * *3 hours* Continued work on solution generation (shortest paths implementation in original Dijkstra code)
 
+## 28 Dec 2022
+
+* *3 hours* Solution generation for KMP
+* *0.5 hours* Set up .gitignore
