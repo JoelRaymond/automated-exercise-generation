@@ -134,6 +134,48 @@ public class Visualiser {
         
         new TeXJob (filename, new PdfDevice(), options).run();
 	}
+	
+	public static void generateStringSolution(KMP k, String filename) {
+		try {
+        	FileWriter f = new FileWriter(filename);
+        	f.write("\\documentclass{article}\n");
+        	f.write("\\begin{document}\n");
+        	f.write("\\textbf{Solution}: The border table is given by:\n");
+        	f.write("\\begin{center}\n");
+        	
+        	String c = "|c";
+        	String j = "j";
+        	String b = "B(j)";
+        	int border[] = k.constructBorderTable();
+        	for(int i=0; i<k.getLength(); i++) {
+        		c += "|c";
+        		j += " & " + Integer.toString(i);
+        		b += " & " + Integer.toString(border[i]);
+        	}
+        	f.write("\\begin{tabular}{" + c + "|}\n");
+        	f.write("\\hline\n");
+        	f.write(j + " \\\\\n");
+        	f.write("\\hline\n");
+        	f.write(b + " \\\\\n");
+        	f.write("\\hline\n");
+        	f.write("\\end{tabular}\n");
+        	f.write("\\end{center}\n");
+        	f.write("\\end{document}\n");
+        	f.close();
+        }
+        catch (IOException e) {
+        	System.out.println("Error");
+        	e.printStackTrace();
+        }
+        
+        TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
+        options.setInputWorkingDirectory(new InputFileSystemDirectory("solutions/tex"));
+        options.setOutputWorkingDirectory(new OutputFileSystemDirectory("solutions/pdf"));
+        options.setTerminalOut(new OutputMemoryTerminal());
+        options.setSaveOptions(new PdfSaveOptions());
+        
+        new TeXJob (filename, new PdfDevice(), options).run();
+	}
 
     public static void main(String[] args) throws IOException {
     	File exTex = new File("exercises/tex");
@@ -199,6 +241,7 @@ public class Visualiser {
     	for(int i = 0; i <kmpLimit; i++) {
 			KMP test = new KMP(s, lb, o);
 			generateString(test, "exercises/tex/kmp"+Integer.toString(i+1)+".tex");
+			generateStringSolution(test, "solutions/tex/kmp_answer"+Integer.toString(i+1)+".tex");
 		}
     	
     	System.out.println("Generation complete.");

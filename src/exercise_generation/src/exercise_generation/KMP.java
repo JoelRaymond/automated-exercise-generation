@@ -1,7 +1,6 @@
 package exercise_generation;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -204,6 +203,31 @@ public class KMP {
 	
 	public char getRandomChar() {
 		return this.alphabet.get(ThreadLocalRandom.current().nextInt(0, this.alphabet.size()));
+	}
+	
+	public int[] constructBorderTable() {
+		int result[] = new int[this.length];
+		int longest = 0;
+		int i = 1;
+		
+		while(i < this.length) {
+			if(this.string.charAt(i) == this.string.charAt(longest)) {
+				longest++;
+				result[i] = longest;
+				i++;
+			}
+			else {
+				if (longest != 0) {
+					longest = result[longest-1];
+				}
+				else {
+					result[i] = longest;
+					i++;
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	public static void main(String[] args) {
