@@ -22,7 +22,7 @@ import exercise_generation.WeightedGraph.Edge;
 
 public class Visualiser {
 	
-	public static void generateGraph(Dijkstra d, String filename) {
+	public static void generateGraph(Dijkstra d, String filename, boolean pdf) {
         try {
         	FileWriter f = new FileWriter(filename);
         	f.write("\\documentclass{article}\n");
@@ -60,16 +60,18 @@ public class Visualiser {
         	e.printStackTrace();
         }
         
-        TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
-        options.setInputWorkingDirectory(new InputFileSystemDirectory("exercises/tex"));
-        options.setOutputWorkingDirectory(new OutputFileSystemDirectory("exercises/pdf"));
-        options.setTerminalOut(new OutputMemoryTerminal());
-        options.setSaveOptions(new PdfSaveOptions());
-        
-        new TeXJob (filename, new PdfDevice(), options).run();
+        if (pdf) {
+	        TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
+	        options.setInputWorkingDirectory(new InputFileSystemDirectory("exercises/tex"));
+	        options.setOutputWorkingDirectory(new OutputFileSystemDirectory("exercises/pdf"));
+	        options.setTerminalOut(new OutputMemoryTerminal());
+	        options.setSaveOptions(new PdfSaveOptions());
+	        
+	        new TeXJob (filename, new PdfDevice(), options).run();
+        }
 	}
 	
-	public static void generateGraphSolution(Dijkstra d, String filename) {
+	public static void generateGraphSolution(Dijkstra d, String filename, boolean pdf) {
 		try {
         	FileWriter f = new FileWriter(filename);
         	f.write("\\documentclass{article}\n");
@@ -98,16 +100,18 @@ public class Visualiser {
         	e.printStackTrace();
         }
         
-        TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
-        options.setInputWorkingDirectory(new InputFileSystemDirectory("solutions/tex"));
-        options.setOutputWorkingDirectory(new OutputFileSystemDirectory("solutions/pdf"));
-        options.setTerminalOut(new OutputMemoryTerminal());
-        options.setSaveOptions(new PdfSaveOptions());
-        
-        new TeXJob (filename, new PdfDevice(), options).run();
+		if (pdf) {
+	        TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
+	        options.setInputWorkingDirectory(new InputFileSystemDirectory("solutions/tex"));
+	        options.setOutputWorkingDirectory(new OutputFileSystemDirectory("solutions/pdf"));
+	        options.setTerminalOut(new OutputMemoryTerminal());
+	        options.setSaveOptions(new PdfSaveOptions());
+	        
+	        new TeXJob (filename, new PdfDevice(), options).run();
+		}
 	}
 	
-	public static void generateString(KMP k, String filename) {
+	public static void generateString(KMP k, String filename, boolean pdf) {
 		try {
         	FileWriter f = new FileWriter(filename);
         	f.write("\\documentclass{article}\n");
@@ -126,16 +130,18 @@ public class Visualiser {
         	e.printStackTrace();
         }
         
-        TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
-        options.setInputWorkingDirectory(new InputFileSystemDirectory("exercises/tex"));
-        options.setOutputWorkingDirectory(new OutputFileSystemDirectory("exercises/pdf"));
-        options.setTerminalOut(new OutputMemoryTerminal());
-        options.setSaveOptions(new PdfSaveOptions());
-        
-        new TeXJob (filename, new PdfDevice(), options).run();
+		if (pdf) {
+	        TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
+	        options.setInputWorkingDirectory(new InputFileSystemDirectory("exercises/tex"));
+	        options.setOutputWorkingDirectory(new OutputFileSystemDirectory("exercises/pdf"));
+	        options.setTerminalOut(new OutputMemoryTerminal());
+	        options.setSaveOptions(new PdfSaveOptions());
+	        
+	        new TeXJob (filename, new PdfDevice(), options).run();
+		}
 	}
 	
-	public static void generateStringSolution(KMP k, String filename) {
+	public static void generateStringSolution(KMP k, String filename, boolean pdf) {
 		try {
         	FileWriter f = new FileWriter(filename);
         	f.write("\\documentclass{article}\n");
@@ -168,13 +174,15 @@ public class Visualiser {
         	e.printStackTrace();
         }
         
-        TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
-        options.setInputWorkingDirectory(new InputFileSystemDirectory("solutions/tex"));
-        options.setOutputWorkingDirectory(new OutputFileSystemDirectory("solutions/pdf"));
-        options.setTerminalOut(new OutputMemoryTerminal());
-        options.setSaveOptions(new PdfSaveOptions());
-        
-        new TeXJob (filename, new PdfDevice(), options).run();
+		if (pdf) {
+	        TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
+	        options.setInputWorkingDirectory(new InputFileSystemDirectory("solutions/tex"));
+	        options.setOutputWorkingDirectory(new OutputFileSystemDirectory("solutions/pdf"));
+	        options.setTerminalOut(new OutputMemoryTerminal());
+	        options.setSaveOptions(new PdfSaveOptions());
+	        
+	        new TeXJob (filename, new PdfDevice(), options).run();
+		}
 	}
 
     public static void main(String[] args) throws IOException {
@@ -228,25 +236,63 @@ public class Visualiser {
 	        	}
         	}
     	}
+    	
+    	boolean sol = false;
+    	System.out.println("Would you like to generate solutions? (Y/N)");
+    	while (true) {
+        	String solString = sc.nextLine();
+        	if (solString.equals("Y")) {
+        		sol = true;
+        		break;
+        	}
+        	else if (solString.equals("N")) {
+        		sol = false;
+        		break;
+        	}
+    	}
+    	
+    	boolean pdf = false;
+    	System.out.println("Would you like to render to PDF? (Y/N)");
+    	while (true) {
+        	String pdfString = sc.nextLine();
+        	if (pdfString.equals("Y")) {
+        		pdf = true;
+        		break;
+        	}
+        	else if (pdfString.equals("N")) {
+        		pdf = false;
+        		break;
+        	}
+    	}
+    	
     	sc.close();
     	
     	System.out.println("Generating...");
     	
     	for(int i = 0; i <dijkstraLimit; i++) {
 			Dijkstra test = new Dijkstra(v, e);
-			generateGraph(test, "exercises/tex/dijkstra"+Integer.toString(i+1)+".tex");
-			generateGraphSolution(test, "solutions/tex/dijkstra_answer"+Integer.toString(i+1)+".tex");
+			generateGraph(test, "exercises/tex/dijkstra"+Integer.toString(i+1)+".tex", pdf);
+			if (sol) {
+				generateGraphSolution(test, "solutions/tex/dijkstra_answer"+Integer.toString(i+1)+".tex", pdf);
+			}
 		}
     	
     	for(int i = 0; i <kmpLimit; i++) {
 			KMP test = new KMP(s, lb, o);
-			generateString(test, "exercises/tex/kmp"+Integer.toString(i+1)+".tex");
-			generateStringSolution(test, "solutions/tex/kmp_answer"+Integer.toString(i+1)+".tex");
+			generateString(test, "exercises/tex/kmp"+Integer.toString(i+1)+".tex", pdf);
+			if (sol) {
+				generateStringSolution(test, "solutions/tex/kmp_answer"+Integer.toString(i+1)+".tex", pdf);
+			}
 		}
     	
     	System.out.println("Generation complete.");
     	
-    	Desktop.getDesktop().open(exPdf);
-    	Desktop.getDesktop().open(solPdf);
+    	if (pdf) {
+    		Desktop.getDesktop().open(exPdf);
+    	}
+    	
+    	if (sol) {
+    		Desktop.getDesktop().open(solPdf);
+    	}
     }
 }
