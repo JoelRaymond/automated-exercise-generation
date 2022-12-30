@@ -227,7 +227,11 @@
 
 * *3 hours* Continued work on solution generation (shortest paths implementation in original Dijkstra code)
 
-## 28 Dec 2022
+## 29 Dec 2022
 
 * *3 hours* Solution generation for KMP
 * *0.5 hours* Set up .gitignore
+
+## 30 Dec 2022
+
+* *2 hours* Further work on solution generation
