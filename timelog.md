@@ -235,3 +235,8 @@
 ## 30 Dec 2022
 
 * *2 hours* Further work on solution generation
+
+
+## 2 Jan 2023
+
+* *4 hours* Implementation of step-by-step solutions.
