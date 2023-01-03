@@ -133,16 +133,42 @@ public class Visualiser {
         	
         	ArrayList<Integer> S = new ArrayList<>();
         	S.add(1);
+        	int curr = 1;
+        	
+        	int[] distances = new int[d.getVertices()];
+        	String[] paths = new String[d.getVertices()];
+        	for (Edge e : d.getGraph().adjacencylist[0]) {
+        		distances[e.end] = e.weight;
+        		int dest = e.end + 1;
+        		paths[e.end] = "v_{1} \\rightarrow v_{" + dest + "}";
+        	}
+        	
         	for (int c=1; c<d.getVertices()+1; c++) {
 	        	f.write("\\begin{center}\n");
 	        	f.write("\\begin{tabular}{| c c c |}\n");
 	        	f.write("\\hline\n");
 	        	f.write("vertex & shortest path & length \\\\\n");
 	        	f.write("\\hline\\hline\n");
+	        	String[] stringDistances = new String[d.getVertices()];
+	        	stringDistances[0] = "0";
+	        	int min = Integer.MAX_VALUE;
+	        	for (int i=1; i<stringDistances.length; i++) {
+	        		if(distances[i] == 0) {
+	        			stringDistances[i] = "$\\infty$";
+	        		}
+	        		else {
+	        			stringDistances[i] = Integer.toString(distances[i]);
+	        		}
+	        		
+	        		if (distances[i] < min && !S.contains(i+1) && distances[i] > 0) {
+	        			min = distances[i];
+	        			curr = i+1;
+	        		}
+	        	}
 	        	for (int i=2; i<=d.getVertices(); i++) {
 	        		f.write("{$v_{" + Integer.toString(i) + "}$} & $" + 
-	        				d.getShortestPaths().get(i-1) + "$ & " + 
-	        				Integer.toString(d.getShortestDistance().get(i-1)) + "\\\\ \n");
+	        				paths[i-1] + "$ & " + 
+	        				stringDistances[i-1] + "\\\\ \n");
 	        	}
 	        	f.write("\\hline\n");
 	        	f.write("\\end{tabular}\n");
@@ -168,7 +194,23 @@ public class Visualiser {
 	        		f.write("\\path node[selected vertex] at (" + Integer.toString(val) + 
 	        				") {$v_{" + Integer.toString(val) + "}$};\n");
 	        	}
-	        	S.add(c+1);
+	        	S.add(curr);
+	        	
+	        	for (Edge e : d.getGraph().adjacencylist[curr-1]) {
+	        		int dest = e.end+1;
+	        		if (e.end != 0) {
+	        			if (distances[e.end] != 0) {
+	        				if (distances[e.end] > distances[e.start]+e.weight) {
+	        					distances[e.end] = distances[e.start]+e.weight;
+	        					paths[e.end] = paths[e.start] + " \\rightarrow v_" + dest;
+	        				}
+	        			}
+	        			else {
+	        				distances[e.end] = distances[e.start]+e.weight;
+	        				paths[e.end] = paths[e.start] + " \\rightarrow v_" + dest;
+	        			}
+	        		}
+	        	}
 	        	
 	        	f.write("\\end{tikzpicture}\n");
 	        	f.write("\\pagebreak\n");
