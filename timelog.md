@@ -240,3 +240,7 @@
 ## 2 Jan 2023
 
 * *4 hours* Implementation of step-by-step solutions.
+
+## 3 Jan 2023
+
+* *4 hours* Furhter implementation of step-by-step solutions (Graph).
