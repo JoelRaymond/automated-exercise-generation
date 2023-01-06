@@ -208,7 +208,7 @@ public class Dijkstra {
 		while (result.adjacencylist[0].size() < (this.vertices / 2)) {
 			int end = (int) noEdgeWith.get(ThreadLocalRandom.current().nextInt(0, noEdgeWith.size()));
 			int weightIncrease = ThreadLocalRandom.current().nextInt(1, 6);
-			int weight = firstWeight + weightIncrease;
+			int weight = this.shortestDistance.get(end) + weightIncrease;
 			result.addEdge(0, end, weight);
 			noEdgeWith.remove(Integer.valueOf(end));
 		}

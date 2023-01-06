@@ -76,7 +76,28 @@ public class Visualiser {
 		try {
         	FileWriter f = new FileWriter(filename);
         	f.write("\\documentclass{article}\n");
+        	f.write("\\usepackage{tikz}\n");
         	f.write("\\begin{document}\n");
+        	f.write("\\begin{tikzpicture}[auto]\n");
+        	f.write("\\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]\n");
+        	f.write("\\tikzstyle{edge} = [draw,thick,-]\n");
+        	f.write("\\tikzstyle{weight} = [font=\\small]\n");
+        	f.write("\\def \\radius {7cm}\n");
+        	int n = d.getGraph().vertices;
+        	for (int i=1; i<=n; i++) {
+        		f.write("\\node[vertex] (" + Integer.toString(i) 
+        		+ ") at ({360/" + Integer.toString(n) + " * (" + Integer.toString(i-1) 
+        		+ " )}:\\radius) {$v_{" + Integer.toString(i) + "}$};\r\n");
+        	}
+        	for (int i=0; i<n; i++) {
+        		LinkedList<Edge> list = d.getGraph().dirAdjacencylist[i];
+        		for (int j=0; j<list.size(); j++) {
+        			f.write("\\path[edge] (" + Integer.toString(i+1) 
+        			+ ") -- node[weight] {$\\textcolor{red}{" + Integer.toString(list.get(j).weight) 
+        			+ "}$} (" + Integer.toString(list.get(j).end+1) + ");\r\n");
+        		}
+        	}
+        	f.write("\\end{tikzpicture}\n");
         	f.write("\\begin{flushleft}\n");
         	f.write("\\textbf{Solution}: These following distances are found, by Dijkstra's algorithm.\n");
         	f.write("\\end{flushleft}\n");
@@ -270,8 +291,9 @@ public class Visualiser {
         	f.write("\\documentclass{article}\n");
         	f.write("\\begin{document}\n");
         	f.write("\\textbf{Solution}: The border table is given by:\n");
+
         	f.write("\\begin{center}\n");
-        	
+        	f.write(k.getString() + "\n");
         	String c = "|c";
         	String j = "j";
         	String b = "B(j)";
@@ -312,27 +334,45 @@ public class Visualiser {
 		try {
         	FileWriter f = new FileWriter(filename);
         	f.write("\\documentclass{article}\n");
+        	f.write("\\usepackage{xcolor}\n");
         	f.write("\\begin{document}\n");
-        	f.write("\\textbf{Solution}: The border table is given by:\n");
-        	f.write("\\begin{center}\n");
-        	
+        	f.write("\\textbf{Solution}: The border table is built as follows:\n");
+        	f.write("\\\\\n");
         	String c = "|c";
         	String j = "j";
-        	String b = "B(j)";
         	int border[] = k.constructBorderTable();
         	for(int i=0; i<k.getLength(); i++) {
         		c += "|c";
         		j += " & " + Integer.toString(i);
-        		b += " & " + Integer.toString(border[i]);
         	}
-        	f.write("\\begin{tabular}{" + c + "|}\n");
-        	f.write("\\hline\n");
-        	f.write(j + " \\\\\n");
-        	f.write("\\hline\n");
-        	f.write(b + " \\\\\n");
-        	f.write("\\hline\n");
-        	f.write("\\end{tabular}\n");
-        	f.write("\\end{center}\n");
+        	
+        	for (int i=0; i<k.getLength(); i++) {
+        		f.write(Integer.toString(i+1) + ".");
+        		String b = "B(j)";
+        		String s = k.getString();
+        		String finalS = "\\textcolor{red}{";
+        		for (int j1=0; j1<i; j1++) {
+        			b += " & " + Integer.toString(border[j1]);
+        			finalS += s.charAt(j1);
+        		}
+        		finalS += "}";
+        		for (int j1=i; j1<k.getLength(); j1++) {
+        			b += " & 0"; 
+        			finalS += s.charAt(j1);
+        		}
+        		f.write("\\begin{center}\n");
+        		f.write(finalS + "\n");
+            	f.write("\\begin{tabular}{" + c + "|}\n");
+            	f.write("\\hline\n");
+            	f.write(j + " \\\\\n");
+            	f.write("\\hline\n");
+            	f.write(b + " \\\\\n");
+            	f.write("\\hline\n");
+            	f.write("\\end{tabular}\n");
+            	f.write("\\\\\n");
+            	f.write("\\end{center}\n");
+        	}
+        	
         	f.write("\\end{document}\n");
         	f.close();
         }
