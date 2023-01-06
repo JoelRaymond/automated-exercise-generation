@@ -243,4 +243,9 @@
 
 ## 3 Jan 2023
 
-* *4 hours* Furhter implementation of step-by-step solutions (Graph).
+* *4 hours* Further implementation of step-by-step solutions (Graph).
+
+## 5 Jan 2023
+
+* *2 hours* Step-by-step solution for KMP implementation.
+* *1 hours* Fixed bug in Dijkstra implementation.
