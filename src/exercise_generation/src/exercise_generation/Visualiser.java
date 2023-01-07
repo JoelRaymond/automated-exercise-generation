@@ -31,28 +31,9 @@ public class Visualiser {
         	f.write("\\begin{document}\n");
         	f.write("\\begin{flushleft}\n");
         	f.write("Find the shortest paths, and their lengths, "
-        			+ "from vertex v1 to each of the other vertices in the graph shown below.\n");
+        			+ "from vertex \\textit{$v_1$} to each of the other vertices in the graph shown below.\n");
         	f.write("\\end{flushleft}\n");
-        	f.write("\\begin{tikzpicture}[auto]\n");
-        	f.write("\\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]\n");
-        	f.write("\\tikzstyle{edge} = [draw,thick,-]\n");
-        	f.write("\\tikzstyle{weight} = [font=\\small]\n");
-        	f.write("\\def \\radius {7cm}\n");
-        	int n = d.getGraph().vertices;
-        	for (int i=1; i<=n; i++) {
-        		f.write("\\node[vertex] (" + Integer.toString(i) 
-        		+ ") at ({360/" + Integer.toString(n) + " * (" + Integer.toString(i-1) 
-        		+ " )}:\\radius) {$v_{" + Integer.toString(i) + "}$};\r\n");
-        	}
-        	for (int i=0; i<n; i++) {
-        		LinkedList<Edge> list = d.getGraph().dirAdjacencylist[i];
-        		for (int j=0; j<list.size(); j++) {
-        			f.write("\\path[edge] (" + Integer.toString(i+1) 
-        			+ ") -- node[weight] {$\\textcolor{red}{" + Integer.toString(list.get(j).weight) 
-        			+ "}$} (" + Integer.toString(list.get(j).end+1) + ");\r\n");
-        		}
-        	}
-        	f.write("\\end{tikzpicture}\n");
+        	drawGraph(f, d);
         	f.write("\\end{document}\n");
         	f.close();
         }
@@ -72,32 +53,43 @@ public class Visualiser {
         }
 	}
 	
+	public static FileWriter drawGraph(FileWriter f, Dijkstra d) {
+		try {
+			f.write("\\begin{tikzpicture}[auto]\n");
+	    	f.write("\\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]\n");
+	    	f.write("\\tikzstyle{edge} = [draw,thick,-]\n");
+	    	f.write("\\tikzstyle{weight} = [font=\\small]\n");
+	    	f.write("\\def \\radius {7cm}\n");
+	    	int n = d.getGraph().vertices;
+	    	for (int i=1; i<=n; i++) {
+	    		f.write("\\node[vertex] (" + Integer.toString(i) 
+	    		+ ") at ({360/" + Integer.toString(n) + " * (" + Integer.toString(i-1) 
+	    		+ " )}:\\radius) {$v_{" + Integer.toString(i) + "}$};\r\n");
+	    	}
+	    	for (int i=0; i<n; i++) {
+	    		LinkedList<Edge> list = d.getGraph().dirAdjacencylist[i];
+	    		for (int j=0; j<list.size(); j++) {
+	    			f.write("\\path[edge] (" + Integer.toString(i+1) 
+	    			+ ") -- node[weight] {$\\textcolor{red}{" + Integer.toString(list.get(j).weight) 
+	    			+ "}$} (" + Integer.toString(list.get(j).end+1) + ");\r\n");
+	    		}
+	    	}
+	    	f.write("\\end{tikzpicture}\n");
+		}
+		catch (IOException e) {
+        	System.out.println("Error");
+        	e.printStackTrace();
+        }
+    	return f;
+	}
+	
 	public static void generateGraphSolution(Dijkstra d, String filename, boolean pdf) {
 		try {
         	FileWriter f = new FileWriter(filename);
         	f.write("\\documentclass{article}\n");
         	f.write("\\usepackage{tikz}\n");
         	f.write("\\begin{document}\n");
-        	f.write("\\begin{tikzpicture}[auto]\n");
-        	f.write("\\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]\n");
-        	f.write("\\tikzstyle{edge} = [draw,thick,-]\n");
-        	f.write("\\tikzstyle{weight} = [font=\\small]\n");
-        	f.write("\\def \\radius {7cm}\n");
-        	int n = d.getGraph().vertices;
-        	for (int i=1; i<=n; i++) {
-        		f.write("\\node[vertex] (" + Integer.toString(i) 
-        		+ ") at ({360/" + Integer.toString(n) + " * (" + Integer.toString(i-1) 
-        		+ " )}:\\radius) {$v_{" + Integer.toString(i) + "}$};\r\n");
-        	}
-        	for (int i=0; i<n; i++) {
-        		LinkedList<Edge> list = d.getGraph().dirAdjacencylist[i];
-        		for (int j=0; j<list.size(); j++) {
-        			f.write("\\path[edge] (" + Integer.toString(i+1) 
-        			+ ") -- node[weight] {$\\textcolor{red}{" + Integer.toString(list.get(j).weight) 
-        			+ "}$} (" + Integer.toString(list.get(j).end+1) + ");\r\n");
-        		}
-        	}
-        	f.write("\\end{tikzpicture}\n");
+        	drawGraph(f, d);
         	f.write("\\begin{flushleft}\n");
         	f.write("\\textbf{Solution}: These following distances are found, by Dijkstra's algorithm.\n");
         	f.write("\\end{flushleft}\n");
@@ -394,12 +386,16 @@ public class Visualiser {
 
     public static void main(String[] args) throws IOException {
     	File exTex = new File("exercises/tex");
+    	exTex.mkdirs();
     	FileUtils.cleanDirectory(exTex);
     	File exPdf = new File("exercises/pdf");
+    	exPdf.mkdirs();
     	FileUtils.cleanDirectory(exPdf);
     	File solTex = new File("solutions/tex");
+    	solTex.mkdirs();
     	FileUtils.cleanDirectory(solTex);
     	File solPdf = new File("solutions/pdf");
+    	solPdf.mkdirs();
     	FileUtils.cleanDirectory(solPdf);
     	
     	Scanner sc = new Scanner(System.in);
@@ -430,14 +426,14 @@ public class Visualiser {
         	System.out.println("What size largest border? ");
         	lb = sc.nextInt();
         	
-        	System.out.println("Overlapping? (T/F) ");
+        	System.out.println("Overlapping? (t/f) ");
         	while (true) {
 	        	String oString = sc.nextLine();
-	        	if (oString.equals("T")) {
+	        	if (oString.equals("t")) {
 	        		o = true;
 	        		break;
 	        	}
-	        	else if (oString.equals("F")) {
+	        	else if (oString.equals("f")) {
 	        		o = false;
 	        		break;
 	        	}
@@ -446,41 +442,41 @@ public class Visualiser {
     	
     	boolean sol = false;
     	boolean fullSol = false;
-    	System.out.println("Would you like to generate solutions? (Y/N)");
+    	System.out.println("Would you like to generate solutions? (y/n)");
     	while (true) {
         	String solString = sc.nextLine();
-        	if (solString.equals("Y")) {
+        	if (solString.equals("y")) {
         		sol = true;
         		
-            	System.out.println("Would you like to generate step-by-step solutions? (Y/N)");
+            	System.out.println("Would you like to generate step-by-step solutions? (y/n)");
             	while (true) {
                 	String fullSolString = sc.nextLine();
-                	if (fullSolString.equals("Y")) {
+                	if (fullSolString.equals("y")) {
                 		fullSol = true;
                 		break;
                 	}
-                	else if (fullSolString.equals("N")) {
+                	else if (fullSolString.equals("n")) {
                 		fullSol = false;
                 		break;
                 	}
             	}
         		break;
         	}
-        	else if (solString.equals("N")) {
+        	else if (solString.equals("n")) {
         		sol = false;
         		break;
         	}
     	}
     	
     	boolean pdf = false;
-    	System.out.println("Would you like to render to PDF? (Y/N)");
+    	System.out.println("Would you like to render to PDF? (y/n)");
     	while (true) {
         	String pdfString = sc.nextLine();
-        	if (pdfString.equals("Y")) {
+        	if (pdfString.equals("y")) {
         		pdf = true;
         		break;
         	}
-        	else if (pdfString.equals("N")) {
+        	else if (pdfString.equals("n")) {
         		pdf = false;
         		break;
         	}
