@@ -249,3 +249,7 @@
 
 * *2 hours* Step-by-step solution for KMP implementation.
 * *1 hours* Fixed bug in Dijkstra implementation.
+
+## 7 Jan 2023
+
+* *2 hours* Improved user experience for visualisations.
