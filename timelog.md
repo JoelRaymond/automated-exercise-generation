@@ -253,3 +253,7 @@
 ## 7 Jan 2023
 
 * *2 hours* Improved user experience for visualisations.
+
+## 7 Jan 2023
+
+* *3 hours* Further improvements to existing code (refactoring, polishing generated solutions)
