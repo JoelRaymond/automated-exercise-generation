@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -34,6 +35,7 @@ public class Visualiser {
         			+ "from vertex \\textit{$v_1$} to each of the other vertices in the graph shown below.\n");
         	f.write("\\end{flushleft}\n");
         	drawGraph(f, d);
+        	f.write("\\end{tikzpicture}\n");
         	f.write("\\end{document}\n");
         	f.close();
         }
@@ -74,7 +76,6 @@ public class Visualiser {
 	    			+ "}$} (" + Integer.toString(list.get(j).end+1) + ");\r\n");
 	    		}
 	    	}
-	    	f.write("\\end{tikzpicture}\n");
 		}
 		catch (IOException e) {
         	System.out.println("Error");
@@ -90,6 +91,7 @@ public class Visualiser {
         	f.write("\\usepackage{tikz}\n");
         	f.write("\\begin{document}\n");
         	drawGraph(f, d);
+        	f.write("\\end{tikzpicture}\n");
         	f.write("\\begin{flushleft}\n");
         	f.write("\\textbf{Solution}: These following distances are found, by Dijkstra's algorithm.\n");
         	f.write("\\end{flushleft}\n");
@@ -135,10 +137,7 @@ public class Visualiser {
         	f.write("\\begin{document}\n");
         	f.write("\\pgfdeclarelayer{background}\n");
         	f.write("\\pgfsetlayers{background,main}\n");
-        	f.write("\\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]\n");
         	f.write("\\tikzstyle{selected vertex} = [vertex, fill=red!24]\n");
-        	f.write("\\tikzstyle{edge} = [draw,thick,-]\n");
-        	f.write("\\tikzstyle{weight} = [font=\\small]\n");
         	f.write("\\tikzstyle{selected edge} = [draw,line width=5pt,-,red!50]");
         	f.write("\\begin{flushleft}\n");
         	f.write("\\textbf{Solution}: These following distances are found, by Dijkstra's algorithm.\n");
@@ -149,6 +148,8 @@ public class Visualiser {
         	int curr = 1;
         	
         	int[] distances = new int[d.getVertices()];
+        	String[] calculations = new String[d.getVertices()];
+        	Arrays.fill(calculations, "");
         	String[] paths = new String[d.getVertices()];
         	for (Edge e : d.getGraph().adjacencylist[0]) {
         		distances[e.end] = e.weight;
@@ -162,6 +163,7 @@ public class Visualiser {
 	        	f.write("\\hline\n");
 	        	f.write("vertex & shortest path & length \\\\\n");
 	        	f.write("\\hline\\hline\n");
+	        	int prev = curr;
 	        	String[] stringDistances = new String[d.getVertices()];
 	        	stringDistances[0] = "0";
 	        	int min = Integer.MAX_VALUE;
@@ -181,51 +183,54 @@ public class Visualiser {
 	        	for (int i=2; i<=d.getVertices(); i++) {
 	        		f.write("{$v_{" + Integer.toString(i) + "}$} & $" + 
 	        				paths[i-1] + "$ & " + 
-	        				stringDistances[i-1] + "\\\\ \n");
+	        				stringDistances[i-1] + calculations[i-1] + "\\\\ \n");
 	        	}
 	        	f.write("\\hline\n");
 	        	f.write("\\end{tabular}\n");
 	        	f.write("\\end{center}\n");
-	        	f.write("\\begin{tikzpicture}[auto]\n");
-	        	f.write("\\def \\radius {7cm}\n");
-	        	int n = d.getGraph().vertices;
-	        	for (int i=1; i<=n; i++) {
-	        		f.write("\\node[vertex] (" + Integer.toString(i) 
-	        		+ ") at ({360/" + Integer.toString(n) + " * (" + Integer.toString(i-1) 
-	        		+ " )}:\\radius) {$v_{" + Integer.toString(i) + "}$};\r\n");
-	        	}
-	        	for (int i=0; i<n; i++) {
-	        		LinkedList<Edge> list = d.getGraph().dirAdjacencylist[i];
-	        		for (int j=0; j<list.size(); j++) {
-	        			f.write("\\path[edge] (" + Integer.toString(i+1) 
-	        			+ ") -- node[weight] {$\\textcolor{red}{" + Integer.toString(list.get(j).weight) 
-	        			+ "}$} (" + Integer.toString(list.get(j).end+1) + ");\r\n");
-	        		}
-	        	}
+	        	drawGraph(f, d);
 	        	
 	        	for (Integer val : S) {
 	        		f.write("\\path node[selected vertex] at (" + Integer.toString(val) + 
 	        				") {$v_{" + Integer.toString(val) + "}$};\n");
 	        	}
+	        	
+	        	LinkedList<Edge> prevEdges = d.getGraph().adjacencylist[prev-1];
+	        	f.write("\\begin{pgfonlayer}{background}");
+	        	for (Edge e : prevEdges) {
+	        		f.write("\\path [selected edge] ( " + Integer.toString(e.start+1) + ".center) -- (" +
+	        				Integer.toString(e.end+1) + ".center);\n");
+	        	}
+	        	f.write("\\end{pgfonlayer}");
+	        	
+	        	f.write("\\end{tikzpicture}\n");
+	        	
 	        	S.add(curr);
 	        	
+	        	Arrays.fill(calculations, "");
 	        	for (Edge e : d.getGraph().adjacencylist[curr-1]) {
 	        		int dest = e.end+1;
 	        		if (e.end != 0) {
 	        			if (distances[e.end] != 0) {
 	        				if (distances[e.end] > distances[e.start]+e.weight) {
+	        					calculations[e.end] = " = min\\{" + distances[e.end] +
+	        							", " + distances[e.start] + "+" + e.weight + "\\}";
 	        					distances[e.end] = distances[e.start]+e.weight;
 	        					paths[e.end] = paths[e.start] + " \\rightarrow v_" + dest;
 	        				}
+	        				else if (distances[e.end] < distances[e.start]+e.weight) {
+	        					calculations[e.end] = " = min\\{" + distances[e.end] +
+	        							", " + distances[e.start] + "+" + e.weight + "\\}";
+	        				}
 	        			}
 	        			else {
+	        				calculations[e.end] = " = min\\{$\\infty$, " + distances[e.start] + "+" + e.weight + "\\}";
 	        				distances[e.end] = distances[e.start]+e.weight;
 	        				paths[e.end] = paths[e.start] + " \\rightarrow v_" + dest;
 	        			}
 	        		}
 	        	}
 	        	
-	        	f.write("\\end{tikzpicture}\n");
 	        	f.write("\\pagebreak\n");
         	}
         	f.write("\\end{document}\n");
