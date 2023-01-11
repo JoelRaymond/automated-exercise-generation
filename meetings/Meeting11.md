@@ -10,8 +10,14 @@ Questions
 
 Next Week
   - Work on implementation
-  - User study?
-  - Proofs?
 
 Meeting Notes
-  - 
+  - KMP use different colours for border
+  - Bold progression KMP
+  - Accessibility
+  - Separate Dijkstra and KMP
+  - Include adjacency matrix
+  - Explain edge weights
+  - Varying edge thickness
+  - Weights on the edge
+  - Requirements for exercises
