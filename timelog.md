@@ -261,3 +261,8 @@
 ## 10 Jan 2023
 
 * *1 hours* Meeting agenda
+
+## 11 Jan 2023
+
+* *0.5 hours* Meeting prep
+* *0.5 hours* Supervisor meeting
