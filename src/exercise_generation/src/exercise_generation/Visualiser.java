@@ -6,7 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
@@ -72,8 +74,8 @@ public class Visualiser {
 	    		LinkedList<Edge> list = d.getGraph().dirAdjacencylist[i];
 	    		for (int j=0; j<list.size(); j++) {
 	    			f.write("\\path[edge] (" + Integer.toString(i+1) 
-	    			+ ") -- node[weight] {$\\textcolor{red}{" + Integer.toString(list.get(j).weight) 
-	    			+ "}$} (" + Integer.toString(list.get(j).end+1) + ");\r\n");
+	    			+ ") -- node[weight] {$" + Integer.toString(list.get(j).weight) 
+	    			+ "$} (" + Integer.toString(list.get(j).end+1) + ");\r\n");
 	    		}
 	    	}
 		}
@@ -349,8 +351,15 @@ public class Visualiser {
         		String s = k.getString();
         		String finalS = "\\textcolor{red}{";
         		for (int j1=0; j1<i; j1++) {
-        			b += " & " + Integer.toString(border[j1]);
-        			finalS += s.charAt(j1);
+        			b += " & \\textbf{" + Integer.toString(border[j1]) + "}";
+        			
+        			int borderLength = border[i-1];
+        			if (j1 < borderLength || j1 >= (i-borderLength)) {
+        				finalS += "\\textbf{" + s.charAt(j1) + "}";
+        			}
+        			else {
+        				finalS += s.charAt(j1);
+        			}
         		}
         		finalS += "}";
         		for (int j1=i; j1<k.getLength(); j1++) {
@@ -405,46 +414,6 @@ public class Visualiser {
     	
     	Scanner sc = new Scanner(System.in);
     	
-    	System.out.println("How many Dijkstra graphs would you like to generate? ");
-    	int dijkstraLimit = sc.nextInt();
-    	
-    	int v = 0;
-    	int e = 0;
-    	if(dijkstraLimit != 0) {
-    		System.out.println("How many vertices? ");
-        	v = sc.nextInt();
-        	
-        	System.out.println("How many edge-relaxations? ");
-        	e = sc.nextInt();
-    	}
-    	
-    	System.out.println("How many KMP strings would you like to generate? ");
-    	int kmpLimit = sc.nextInt();
-    	
-    	int s = 0;
-    	int lb = 0;
-    	boolean o = false;
-    	if(kmpLimit != 0) {
-    		System.out.println("What size string? ");
-        	s = sc.nextInt();
-        	
-        	System.out.println("What size largest border? ");
-        	lb = sc.nextInt();
-        	
-        	System.out.println("Overlapping? (t/f) ");
-        	while (true) {
-	        	String oString = sc.nextLine();
-	        	if (oString.equals("t")) {
-	        		o = true;
-	        		break;
-	        	}
-	        	else if (oString.equals("f")) {
-	        		o = false;
-	        		break;
-	        	}
-        	}
-    	}
-    	
     	boolean sol = false;
     	boolean fullSol = false;
     	System.out.println("Would you like to generate solutions? (y/n)");
@@ -487,31 +456,96 @@ public class Visualiser {
         	}
     	}
     	
+    	HashMap<String, Boolean> algorithms = new HashMap<String, Boolean>();
+    	algorithms.put("Dijkstra", false);
+    	algorithms.put("KMP", false);
+    	
+    	System.out.println("Which algorithm/s would you like to generate for? (Enter to confirm)");
+    	System.out.println("Available algorithms: " + algorithms.keySet().toString());
+    	while (true) {
+        	String algString = sc.nextLine();
+        	if (algorithms.containsKey(algString)) {
+        		algorithms.put(algString, true);
+        	}
+        	else if (algString.equals("")) {
+        		break;
+        	}
+    	}
+    	
+    	int dijkstraLimit = 0;	    	
+    	int v = 0;
+    	int e = 0;
+    	if (algorithms.get("Dijkstra")) {
+	    	System.out.println("How many Dijkstra graphs would you like to generate? ");
+	    	dijkstraLimit = sc.nextInt();
+	    	if(dijkstraLimit != 0) {
+	    		System.out.println("How many vertices? ");
+	        	v = sc.nextInt();
+	        	
+	        	System.out.println("How many edge-relaxations? ");
+	        	e = sc.nextInt();
+	    	}
+    	}
+    	
+    	int kmpLimit = 0;
+    	int s = 0;
+    	int lb = 0;
+    	boolean o = false;
+    	if (algorithms.get("KMP")) {
+	    	System.out.println("How many KMP strings would you like to generate? ");
+	    	kmpLimit = sc.nextInt();
+	    	
+	    	if(kmpLimit != 0) {
+	    		System.out.println("What size string? ");
+	        	s = sc.nextInt();
+	        	
+	        	System.out.println("What size largest border? ");
+	        	lb = sc.nextInt();
+	        	
+	        	System.out.println("Overlapping? (t/f) ");
+	        	while (true) {
+		        	String oString = sc.nextLine();
+		        	if (oString.equals("t")) {
+		        		o = true;
+		        		break;
+		        	}
+		        	else if (oString.equals("f")) {
+		        		o = false;
+		        		break;
+		        	}
+	        	}
+	    	}
+    	}
+    	
     	sc.close();
     	
     	System.out.println("Generating...");
     	
-    	for(int i = 0; i <dijkstraLimit; i++) {
-			Dijkstra test = new Dijkstra(v, e);
-			generateGraph(test, "exercises/tex/dijkstra"+Integer.toString(i+1)+".tex", pdf);
-			if (sol && !fullSol) {
-				generateGraphSolution(test, "solutions/tex/dijkstra_answer"+Integer.toString(i+1)+".tex", pdf);
+    	if (algorithms.get("Dijkstra")) {
+	    	for(int i = 0; i <dijkstraLimit; i++) {
+				Dijkstra test = new Dijkstra(v, e);
+				generateGraph(test, "exercises/tex/dijkstra"+Integer.toString(i+1)+".tex", pdf);
+				if (sol && !fullSol) {
+					generateGraphSolution(test, "solutions/tex/dijkstra_answer"+Integer.toString(i+1)+".tex", pdf);
+				}
+				if (fullSol) {
+					generateFullGraphSolution(test, "solutions/tex/dijkstra_answer"+Integer.toString(i+1)+".tex", pdf);
+				}
 			}
-			if (fullSol) {
-				generateFullGraphSolution(test, "solutions/tex/dijkstra_answer"+Integer.toString(i+1)+".tex", pdf);
-			}
-		}
+    	}
     	
-    	for(int i = 0; i <kmpLimit; i++) {
-			KMP test = new KMP(s, lb, o);
-			generateString(test, "exercises/tex/kmp"+Integer.toString(i+1)+".tex", pdf);
-			if (sol && !fullSol) {
-				generateStringSolution(test, "solutions/tex/kmp_answer"+Integer.toString(i+1)+".tex", pdf);
+    	if (algorithms.get("KMP")) {
+	    	for(int i = 0; i <kmpLimit; i++) {
+				KMP test = new KMP(s, lb, o);
+				generateString(test, "exercises/tex/kmp"+Integer.toString(i+1)+".tex", pdf);
+				if (sol && !fullSol) {
+					generateStringSolution(test, "solutions/tex/kmp_answer"+Integer.toString(i+1)+".tex", pdf);
+				}
+				if (fullSol) {
+					generateFullStringSolution(test, "solutions/tex/kmp_answer"+Integer.toString(i+1)+".tex", pdf);
+				}
 			}
-			if (fullSol) {
-				generateFullStringSolution(test, "solutions/tex/kmp_answer"+Integer.toString(i+1)+".tex", pdf);
-			}
-		}
+    	}
     	
     	System.out.println("Generation complete.");
     	
