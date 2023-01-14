@@ -266,3 +266,10 @@
 
 * *0.5 hours* Meeting prep
 * *0.5 hours* Supervisor meeting
+* 
+
+## 14 Jan 2023
+
+* *1 hours* Improved visualisation of step-by-step KMP.
+* *1 hours* Improved accessibility by replacing some colours with bold text.
+* *1 hours* Separate programs for Dijkstra and KMP (for scalability).
