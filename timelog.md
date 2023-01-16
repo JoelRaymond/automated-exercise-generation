@@ -273,3 +273,7 @@
 * *1 hours* Improved visualisation of step-by-step KMP.
 * *1 hours* Improved accessibility by replacing some colours with bold text.
 * *1 hours* Separate programs for Dijkstra and KMP (for scalability).
+
+## 16 Jan 2023
+
+* *2 hours* Dijkstra edge weight visualisation improvements. 
