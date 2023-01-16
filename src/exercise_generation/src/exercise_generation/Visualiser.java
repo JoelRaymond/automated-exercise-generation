@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
@@ -34,8 +33,39 @@ public class Visualiser {
         	f.write("\\begin{document}\n");
         	f.write("\\begin{flushleft}\n");
         	f.write("Find the shortest paths, and their lengths, "
-        			+ "from vertex \\textit{$v_1$} to each of the other vertices in the graph shown below.\n");
+        			+ "from vertex \\textit{$v_1$} to each of the other vertices in the graph shown below. "
+        			+ "\\textit{(Weights appear off the centre point of corresponding edge.)}\n");
         	f.write("\\end{flushleft}\n");
+        	
+        	//adjacency matrix
+        	f.write("\\begin{center}\n");
+        	String c = "|c|";
+        	String v = "";
+        	for (int i=0; i<d.getVertices(); i++) {
+        		c += "|c";
+        		v += " & \\textit{$v_" + Integer.toString(i+1) + "$}";
+        	}
+        	c += "|";
+        	v += "\\\\";
+        	f.write("\\begin{tabular}{ " + c + "}\n");
+           	f.write("\\hline\n");
+           	f.write(v + "\n");
+           	f.write("\\hline\\hline\n");
+        	for (int i=0; i<d.getVertices(); i++) {
+        		String line = "\\textit{$v_" + Integer.toString(i+1) + "$} & ";
+        		int[] weights = new int[d.getVertices()];
+        		for (Edge edge : d.getGraph().adjacencylist[i]) {
+        			weights[edge.end] = edge.weight;
+        		}
+        		String strWeights = Arrays.toString(weights).replaceAll(",", "&");
+        		strWeights = strWeights.substring(1, strWeights.length()-1);
+        		line += strWeights;
+        		f.write(line + "\\\\\n");
+        		f.write("\\hline\n");
+        	}
+        	f.write("\\end{tabular}\n");
+        	f.write("\\end{center}\n");
+        	
         	drawGraph(f, d);
         	f.write("\\end{tikzpicture}\n");
         	f.write("\\end{document}\n");
