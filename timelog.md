@@ -277,3 +277,7 @@
 ## 16 Jan 2023
 
 * *2 hours* Dijkstra edge weight visualisation improvements. 
+
+## 17 Jan 2023
+
+* *1 hours* Prepared agenda for supervisor meeting.
