@@ -4,7 +4,7 @@ Pre-meeting plan (progress)
   - Dijkstra questions now explain edge weights and show adjacency matrices
 
 Questions
-  - 
+  - Edge weights are about as good as they can get (maybe changes for user study)
 
 Next Week
   - Implementation?
@@ -12,12 +12,4 @@ Next Week
   - Proofs?
 
 Meeting Notes
-  - KMP use different colours for border
-  - Bold progression KMP
-  - Accessibility
-  - Separate Dijkstra and KMP
-  - Include adjacency matrix
-  - Explain edge weights
-  - Varying edge thickness
-  - Weights on the edge
-  - Requirements for exercises
+  - 
