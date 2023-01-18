@@ -282,3 +282,7 @@
 
 * *1 hours* Prepared agenda for supervisor meeting.
 * *1 hours* Put weights on the edges but decided that it was better the way it was originally.
+
+## 18 Jan 2023
+
+* *1 hours* Customer meeting, prep, notes.
