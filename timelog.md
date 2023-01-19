@@ -286,3 +286,7 @@
 ## 18 Jan 2023
 
 * *1 hours* Customer meeting, prep, notes.
+
+## 19 Jan 2023
+
+* *1 hours* UI improvements.
