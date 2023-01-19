@@ -487,25 +487,35 @@ public class Visualiser {
     	}
     	
     	HashMap<String, Boolean> algorithms = new HashMap<String, Boolean>();
-    	algorithms.put("Dijkstra", false);
-    	algorithms.put("KMP", false);
+    	algorithms.put("(1) Dijkstra", false);
+    	algorithms.put("(2) KMP", false);
     	
-    	System.out.println("Which algorithm/s would you like to generate for? (Enter to confirm)");
+    	System.out.println("Which algorithm/s would you like to generate for? (Can choose multiple, "
+    			+ "enter to confirm)");
     	System.out.println("Available algorithms: " + algorithms.keySet().toString());
     	while (true) {
-        	String algString = sc.nextLine();
-        	if (algorithms.containsKey(algString)) {
-        		algorithms.put(algString, true);
+        	String algString = sc.nextLine().toLowerCase();
+        	switch (algString) {
+        		case "1":
+        		case "dijkstra":
+        			algorithms.put("(1) Dijkstra", true);
+        			continue;
+        		case "2":
+        		case "kmp":
+        			algorithms.put("(2) KMP", true);
+        			continue;
+        		case "":
+        			break;
+        		default:
+        			continue;
         	}
-        	else if (algString.equals("")) {
-        		break;
-        	}
+        	break;
     	}
     	
     	int dijkstraLimit = 0;	    	
     	int v = 0;
     	int e = 0;
-    	if (algorithms.get("Dijkstra")) {
+    	if (algorithms.get("(1) Dijkstra")) {
 	    	System.out.println("How many Dijkstra graphs would you like to generate? ");
 	    	dijkstraLimit = sc.nextInt();
 	    	if(dijkstraLimit != 0) {
@@ -521,7 +531,7 @@ public class Visualiser {
     	int s = 0;
     	int lb = 0;
     	boolean o = false;
-    	if (algorithms.get("KMP")) {
+    	if (algorithms.get("(2) KMP")) {
 	    	System.out.println("How many KMP strings would you like to generate? ");
 	    	kmpLimit = sc.nextInt();
 	    	
