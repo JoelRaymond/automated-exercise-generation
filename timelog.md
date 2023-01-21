@@ -290,3 +290,7 @@
 ## 19 Jan 2023
 
 * *1 hours* UI improvements.
+
+## 21 Jan 2023
+
+* *2 hours* Visualisation improvements. 
