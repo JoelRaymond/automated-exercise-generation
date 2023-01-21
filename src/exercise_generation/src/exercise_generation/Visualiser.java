@@ -171,9 +171,6 @@ public class Visualiser {
         	f.write("\\pgfsetlayers{background,main}\n");
         	f.write("\\tikzstyle{selected vertex} = [vertex, fill=red!24]\n");
         	f.write("\\tikzstyle{selected edge} = [draw,line width=5pt,-,red!50]");
-        	f.write("\\begin{flushleft}\n");
-        	f.write("\\textbf{Solution}: These following distances are found, by Dijkstra's algorithm.\n");
-        	f.write("\\end{flushleft}\n");
         	
         	ArrayList<Integer> S = new ArrayList<>();
         	S.add(1);
@@ -236,6 +233,11 @@ public class Visualiser {
 	        	f.write("\\end{pgfonlayer}");
 	        	
 	        	f.write("\\end{tikzpicture}\n");
+	        	
+	        	f.write("\\begin{center}\n");
+	        	f.write("Vertices explored from $v_{" + Integer.toString(prev) 
+	        	+ "}$. Next vertex is $v_{" + Integer.toString(curr) + "}$.\n");
+	        	f.write("\\end{center}\n");
 	        	
 	        	S.add(curr);
 	        	
@@ -380,10 +382,11 @@ public class Visualiser {
         		String b = "B(j)";
         		String s = k.getString();
         		String finalS = "\\textcolor{red}{";
+        		int borderLength = 0;
         		for (int j1=0; j1<i; j1++) {
         			b += " & \\textbf{" + Integer.toString(border[j1]) + "}";
         			
-        			int borderLength = border[i-1];
+        			borderLength = border[i-1];
         			if (j1 < borderLength || j1 >= (i-borderLength)) {
         				finalS += "\\textbf{" + s.charAt(j1) + "}";
         			}
@@ -406,6 +409,14 @@ public class Visualiser {
             	f.write("\\hline\n");
             	f.write("\\end{tabular}\n");
             	f.write("\\\\\n");
+            	f.write("\\end{center}\n");
+            	f.write("\\begin{center}\n");
+            	if (borderLength == 0) {
+            		f.write("No border found.\n");
+            	}
+            	else {
+            		f.write("A border of length \\textbf{" + borderLength + "} is found.\n");
+            	}
             	f.write("\\end{center}\n");
         	}
         	
@@ -561,7 +572,7 @@ public class Visualiser {
     	
     	System.out.println("Generating...");
     	
-    	if (algorithms.get("Dijkstra")) {
+    	if (algorithms.get("(1) Dijkstra")) {
 	    	for(int i = 0; i <dijkstraLimit; i++) {
 				Dijkstra test = new Dijkstra(v, e);
 				generateGraph(test, "exercises/tex/dijkstra"+Integer.toString(i+1)+".tex", pdf);
@@ -574,7 +585,7 @@ public class Visualiser {
 			}
     	}
     	
-    	if (algorithms.get("KMP")) {
+    	if (algorithms.get("(2) KMP")) {
 	    	for(int i = 0; i <kmpLimit; i++) {
 				KMP test = new KMP(s, lb, o);
 				generateString(test, "exercises/tex/kmp"+Integer.toString(i+1)+".tex", pdf);
