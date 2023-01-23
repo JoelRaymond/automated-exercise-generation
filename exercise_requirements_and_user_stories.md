@@ -1,5 +1,5 @@
 User stories
-  1. Lecturer (uses program)
+  1. Lecturer (uses program) \n
   fewfw
 
   2. Student (recieves exercise and solution)
