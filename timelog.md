@@ -294,3 +294,7 @@
 ## 21 Jan 2023
 
 * *2 hours* Visualisation improvements. 
+
+## 22 Jan 2023
+
+* *1 hours* Requirements and user stories for generated exercises/solutions.
