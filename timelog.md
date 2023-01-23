@@ -298,3 +298,7 @@
 ## 22 Jan 2023
 
 * *1 hours* Requirements and user stories for generated exercises/solutions.
+
+## 23 Jan 2023
+
+* *4 hours* Requirements and user stories for generated exercises/solutions. 
