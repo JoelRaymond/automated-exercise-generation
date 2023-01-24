@@ -301,4 +301,9 @@
 
 ## 23 Jan 2023
 
-* *4 hours* Requirements and user stories for generated exercises/solutions. 
+* *4 hours* Requirements and user stories for generated exercises/solutions. \
+
+
+* ## 24 Jan 2023
+
+* *1 hours* Wrote up agenda for supervisor meeting.
