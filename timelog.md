@@ -307,3 +307,7 @@
 * ## 24 Jan 2023
 
 * *1 hours* Wrote up agenda for supervisor meeting.
+
+* ## 25 Jan 2023
+
+* *1 hours* Supervisor meeting and prep.
