@@ -8,7 +8,12 @@ Questions
 
 Next Week
   - User study
-  - Proofs
+  - Merge requirements
+  - Edge relaxation highlight
 
 Meeting Notes
-  - 
+  - User study questions
+  - Merge requirements
+  - Separate survey for students and lecturers
+  - Ethics document
+  - Open ended and non-leading questions
