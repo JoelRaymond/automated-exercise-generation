@@ -78,7 +78,8 @@ public class Dijkstra {
 			throw new IllegalArgumentException("Illegal vertex input.");
 		}
 		
-		if (relaxations <= (vertices * (vertices - 1))/2) {
+		int n = vertices-2;
+		if (relaxations <= (n * (n + 1))/2) {
 			this.relaxations = relaxations;
 		}
 		else {
