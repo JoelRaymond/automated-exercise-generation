@@ -8,8 +8,8 @@ Questions
 
 Next Week
   - User study
-  - Merge requirements
-  - Edge relaxation highlight
+  - Merge requirements X
+  - Edge relaxation highlight X
 
 Meeting Notes
   - User study questions
