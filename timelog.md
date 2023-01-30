@@ -311,3 +311,7 @@
 * ## 25 Jan 2023
 
 * *1 hours* Supervisor meeting and prep.
+
+* ## 29 Jan 2023
+
+* *5 hours* Edge relaxation highlight + bug fixing Dijkstra algorithm 2230
