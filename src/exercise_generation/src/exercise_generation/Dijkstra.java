@@ -1,6 +1,7 @@
 package exercise_generation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -133,9 +134,14 @@ public class Dijkstra {
 	public WeightedGraph.Graph generateGraph(){
 		WeightedGraph.Graph result = new WeightedGraph.Graph(this.vertices);
 		LinkedList<Integer> verticesInGraph = new LinkedList<Integer>();
+		HashMap<Integer, Integer> relaxedTo = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> relaxedWeight = new HashMap<Integer, Integer>();
+		Integer[] verticesInOrder = this.shortestDistance.keySet().toArray(new Integer[this.shortestDistance.keySet().size()]);
+		
 		int firstWeight = 0;
 		//connect vertices
 		boolean first = true;
+		int prevVertex = 0;
 		for (Entry<Integer, Integer> entry : this.shortestDistance.entrySet()) {
 
 			if (entry.getValue() == 0) {
@@ -153,18 +159,25 @@ public class Dijkstra {
 			else if (this.relaxations > 0) {
 				//either add to start or another node based on chance and edge relaxations remaining
 				int chance = ThreadLocalRandom.current().nextInt(1, 7);
-				if (chance == 1) {
+				if (chance == 0) {
 					result.addEdge(0, entry.getKey(), entry.getValue());
 					this.shortestPaths.put(entry.getKey(), this.shortestPaths.get(0) + 
 							" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
 					verticesInGraph.add(entry.getKey());
+					relaxedTo.put(entry.getKey(), 0);
+					relaxedWeight.put(entry.getKey(), 0);
 				}
 				else {
-					int start = verticesInGraph.get(ThreadLocalRandom.current().nextInt(0, verticesInGraph.size()));
+					int start = prevVertex;
 					result.addEdge(start, entry.getKey(), entry.getValue() - this.shortestDistance.get(start));
 					this.shortestPaths.put(entry.getKey(), this.shortestPaths.get(start) + 
 							" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
 					verticesInGraph.add(entry.getKey());
+					int relaxStart = verticesInOrder[Arrays.asList(verticesInOrder).indexOf(entry.getKey())-2];
+					int weightIncrease = ThreadLocalRandom.current().nextInt(1, 6);
+					result.addEdge(relaxStart, entry.getKey(), this.maxDistance + weightIncrease);
+					relaxedTo.put(entry.getKey(), relaxStart);
+					relaxedWeight.put(entry.getKey(),  this.maxDistance + weightIncrease + this.shortestDistance.get(relaxStart));
 					this.relaxations --;
 				}
 			}
@@ -173,45 +186,47 @@ public class Dijkstra {
 				this.shortestPaths.put(entry.getKey(), this.shortestPaths.get(0) + 
 						" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
 				verticesInGraph.add(entry.getKey());
+				relaxedTo.put(entry.getKey(), 0);
+				relaxedWeight.put(entry.getKey(), 0);
 			}
+			prevVertex = entry.getKey();
 		}
 			
 		//add more edges to get to no more edge relaxations
 		while (this.relaxations > 0) {
-			LinkedList noEdgeWithVertices = new LinkedList();
-			noEdgeWithVertices = (LinkedList) verticesInGraph.clone();
-			int start = ThreadLocalRandom.current().nextInt(1, noEdgeWithVertices.size());
-			for (int i = 0; i < result.adjacencylist[start].size(); i++) {
-				noEdgeWithVertices.remove(Integer.valueOf(result.adjacencylist[start].get(i).end));
-			}
-			noEdgeWithVertices.remove(Integer.valueOf(start));
-			
-			if (noEdgeWithVertices.size() != 0) {
-				int end = (int) noEdgeWithVertices.get(ThreadLocalRandom.current().nextInt(0, noEdgeWithVertices.size()));
+			int start = verticesInOrder[ThreadLocalRandom.current().nextInt(2, verticesInOrder.length)];
+			int relax = relaxedTo.get(start);
+				
+			if (relax != 0) {
+				int end = verticesInOrder[Arrays.asList(verticesInOrder).indexOf(relax)-1];
 				int weightIncrease = ThreadLocalRandom.current().nextInt(1, 6);
-				int weight = Math.max(this.shortestDistance.get(start), this.shortestDistance.get(end)) + weightIncrease;
+				
+				int weight = relaxedWeight.get(start) + weightIncrease;
 				result.addEdge(start, end, weight);
+				relaxedTo.put(start, end);
+				relaxedWeight.put(start, weight);
 				this.relaxations--;
 			}
 			else {
 				continue;
 			}
 		}
+		System.out.println(this.shortestDistance);
 			
 		//optionally add decorator edges
-		LinkedList noEdgeWith = new LinkedList();
-		noEdgeWith = (LinkedList) verticesInGraph.clone();
-		for (int i = 0; i < result.adjacencylist[0].size(); i++) {
-			noEdgeWith.remove(Integer.valueOf(result.adjacencylist[0].get(i).end));
-		}
-		noEdgeWith.remove(Integer.valueOf(0));
-		while (result.adjacencylist[0].size() < (this.vertices / 2)) {
-			int end = (int) noEdgeWith.get(ThreadLocalRandom.current().nextInt(0, noEdgeWith.size()));
-			int weightIncrease = ThreadLocalRandom.current().nextInt(1, 6);
-			int weight = this.shortestDistance.get(end) + weightIncrease;
-			result.addEdge(0, end, weight);
-			noEdgeWith.remove(Integer.valueOf(end));
-		}
+		//LinkedList noEdgeWith = new LinkedList();
+		//noEdgeWith = (LinkedList) verticesInGraph.clone();
+		//for (int i = 0; i < result.adjacencylist[0].size(); i++) {
+			//noEdgeWith.remove(Integer.valueOf(result.adjacencylist[0].get(i).end));
+		//}
+		//noEdgeWith.remove(Integer.valueOf(0));
+		//while (result.adjacencylist[0].size() < (this.vertices / 2)) {
+			//int end = (int) noEdgeWith.get(ThreadLocalRandom.current().nextInt(0, noEdgeWith.size()));
+			//int weightIncrease = ThreadLocalRandom.current().nextInt(1, 6);
+			//int weight = this.shortestDistance.get(end) + weightIncrease;
+			//result.addEdge(0, end, weight);
+			//noEdgeWith.remove(Integer.valueOf(end));
+		//}
 		
 		return result;
 	}

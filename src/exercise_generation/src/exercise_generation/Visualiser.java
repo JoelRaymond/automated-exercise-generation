@@ -236,7 +236,7 @@ public class Visualiser {
 	        	
 	        	f.write("\\begin{center}\n");
 	        	f.write("Vertices explored from $v_{" + Integer.toString(prev) 
-	        	+ "}$. Next vertex is $v_{" + Integer.toString(curr) + "}$.\n");
+	        	+ "}$. Next vertex is $v_{" + Integer.toString(curr) + "}$. Edge relaxations shown in \\textbf{bold}.\n");
 	        	f.write("\\end{center}\n");
 	        	
 	        	S.add(curr);
@@ -247,8 +247,8 @@ public class Visualiser {
 	        		if (e.end != 0) {
 	        			if (distances[e.end] != 0) {
 	        				if (distances[e.end] > distances[e.start]+e.weight) {
-	        					calculations[e.end] = " = min\\{" + distances[e.end] +
-	        							", " + distances[e.start] + "+" + e.weight + "\\}";
+	        					calculations[e.end] = " = \\textbf{min\\{" + distances[e.end] +
+	        							", " + distances[e.start] + "+" + e.weight + "\\}}";
 	        					distances[e.end] = distances[e.start]+e.weight;
 	        					paths[e.end] = paths[e.start] + " \\rightarrow v_" + dest;
 	        				}
