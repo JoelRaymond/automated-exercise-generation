@@ -175,7 +175,7 @@ public class Dijkstra {
 							" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
 					verticesInGraph.add(entry.getKey());
 					int relaxStart = verticesInOrder[Arrays.asList(verticesInOrder).indexOf(entry.getKey())-2];
-					int weightIncrease = ThreadLocalRandom.current().nextInt(1, 6);
+					int weightIncrease = ThreadLocalRandom.current().nextInt(1, 4);
 					result.addEdge(relaxStart, entry.getKey(), this.maxDistance + weightIncrease);
 					relaxedTo.put(entry.getKey(), relaxStart);
 					relaxedWeight.put(entry.getKey(),  this.maxDistance + weightIncrease + this.shortestDistance.get(relaxStart));
@@ -200,7 +200,7 @@ public class Dijkstra {
 				
 			if (relax != 0) {
 				int end = verticesInOrder[Arrays.asList(verticesInOrder).indexOf(relax)-1];
-				int weightIncrease = ThreadLocalRandom.current().nextInt(1, 6);
+				int weightIncrease = ThreadLocalRandom.current().nextInt(1, 4);
 				
 				int weight = relaxedWeight.get(start) + weightIncrease;
 				result.addEdge(start, end, weight);
@@ -212,23 +212,6 @@ public class Dijkstra {
 				continue;
 			}
 		}
-		System.out.println(this.shortestDistance);
-			
-		//optionally add decorator edges
-		//LinkedList noEdgeWith = new LinkedList();
-		//noEdgeWith = (LinkedList) verticesInGraph.clone();
-		//for (int i = 0; i < result.adjacencylist[0].size(); i++) {
-			//noEdgeWith.remove(Integer.valueOf(result.adjacencylist[0].get(i).end));
-		//}
-		//noEdgeWith.remove(Integer.valueOf(0));
-		//while (result.adjacencylist[0].size() < (this.vertices / 2)) {
-			//int end = (int) noEdgeWith.get(ThreadLocalRandom.current().nextInt(0, noEdgeWith.size()));
-			//int weightIncrease = ThreadLocalRandom.current().nextInt(1, 6);
-			//int weight = this.shortestDistance.get(end) + weightIncrease;
-			//result.addEdge(0, end, weight);
-			//noEdgeWith.remove(Integer.valueOf(end));
-		//}
-		
 		return result;
 	}
 	
