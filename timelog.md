@@ -319,3 +319,7 @@
 * ## 30 Jan 2023
 
 * *1 hours* Merge requirements 
+
+* ## 31 Jan 2023
+
+* *1 hours* Ethics Form
