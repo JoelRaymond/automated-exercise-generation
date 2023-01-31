@@ -323,3 +323,5 @@
 * ## 31 Jan 2023
 
 * *1 hours* Ethics Form
+* *4 hours* Design user study 
+* *1 hours* Supervisor meeting agenda 
