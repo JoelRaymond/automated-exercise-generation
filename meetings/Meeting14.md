@@ -6,6 +6,7 @@ Pre-meeting plan (progress)
 
 Questions
   - Higher number of edge relaxations vs more diverse paths
+  - Large difference in edge weights
   - Ethics form signature
   - How many participants
   - Open ended question required
