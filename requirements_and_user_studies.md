@@ -1,4 +1,5 @@
-User stories
+<h2>User stories</h2>
+
   1. Lecturer (uses program) 
   - As an algorithmics lecturer, I want to be able to generate many exercises and solutions, so that each one of my students get unique exercises.
   - As an algorithmics lecturer, I want to have solutions generated for exercises, so that students can double check their answers.
@@ -21,7 +22,8 @@ User stories
   - As an algorithmics student, I want an exercise which looks similar to the class examples I have been practising, so it applies well to my course.
   - As an algorithmics student, I want clear instructions as to what an exercise is asking me to do, so that I can solve it effectively.
 
-Requirements
+<h2>Output Requirements</h2>
+
   1. Dijkstra (Exercise and solution)
   - Must have
     - Exercise corresponding to user inputs
@@ -59,27 +61,28 @@ Requirements
     - String search
 
 
+<h2>Project Requirements</h2>
+
 Must Have
  - Automatic exercise generation for at least two different assessment tasks (Dijkstra's Algorithm and KMP Algorithm)
- - Ensure uniform difficulty between generated examples (template-based approach; number of edge relaxations for Dijkstra and longest border for KMP)
+ - Ensure uniform difficulty between generated examples
  - Generate at most 50 unique and solvable instances of a given exercise 
  - An object oriented approach for dealing with different exercises (Java)
- - Clear visual tree generated for Dijkstra
- - Strings generated for KMP
 
 Should Have
- - Automatic exercise generation for at least three different assessment tasks
+ - Basic user interface (command line)
  - Automatic answer key
- - Simple user interface (JavaFX)
  - Allow users to adjust certain settings before generation (number of exercises, difficulty, etc.)
  - Generated PDFs for each exercise (LaTeX generation)
 
 Could Have
- - Automatic exercise generation for at least four different assessment tasks
- - Refined user interface
+ - Simple user interface (JavaFX)
+ - Automatic exercise generation for at least three different assessment tasks
  - Step by step solutions for each generated exercise
  - Proper exam formatting for questions
 
 Will Not Have
+ - Refined user interface
+ - Automatic exercise generation for at least four different assessment tasks
  - Automatic feedback
  
