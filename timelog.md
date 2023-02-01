@@ -325,3 +325,7 @@
 * *1 hours* Ethics Form
 * *4 hours* Design user study 
 * *1 hours* Supervisor meeting agenda 
+
+* ## 1 Feb 2023
+
+* *1 hours* Supervisor meeting + prep + notes
