@@ -78,8 +78,8 @@ public class Dijkstra {
 			throw new IllegalArgumentException("Illegal vertex input.");
 		}
 		
-		int n = vertices-2;
-		if (relaxations <= (n * (n + 1))/2) {
+		int possibleRelaxations = getRelaxations(vertices);
+		if (relaxations <= possibleRelaxations) {
 			this.relaxations = relaxations;
 		}
 		else {
@@ -132,6 +132,11 @@ public class Dijkstra {
 		return result;
 	}
 	
+	public int getRelaxations(int v) {
+		int n = v-2;
+		return (n * (n + 1))/2;
+	}
+	
 	public WeightedGraph.Graph generateGraph(){
 		WeightedGraph.Graph result = new WeightedGraph.Graph(this.vertices);
 		LinkedList<Integer> verticesInGraph = new LinkedList<Integer>();
@@ -139,6 +144,7 @@ public class Dijkstra {
 		HashMap<Integer, Integer> relaxedWeight = new HashMap<Integer, Integer>();
 		Integer[] verticesInOrder = this.shortestDistance.keySet().toArray(new Integer[this.shortestDistance.keySet().size()]);
 		
+		int possibleRelaxations = getRelaxations(this.vertices);
 		int firstWeight = 0;
 		//connect vertices
 		boolean first = true;
