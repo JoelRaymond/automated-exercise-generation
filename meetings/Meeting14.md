@@ -17,6 +17,19 @@ Questions
 Next Week
   - Finalise product
   - Finish user study (send out)
+  - Prepare outline documents
 
 Meeting Notes
-  - 
+  - Same weight (from start as well)
+  - Limit edge relaxations
+  - Other characteristics
+  - Send ethics form and surveys
+  - 1 exercise each (8 vertices)
+  - Give examples for lecturers 5 exercises, solution for 1
+  - More specific open-ended questions (ask about constraints, features)
+  - Less leading questions
+  - More ethics question
+  - Ask students about learning and instructors 
+  - Do you think that receiving different questions but with the same difficulty is fair?
+  - More detail in introduction
+  - More questions about solutions
