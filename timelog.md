@@ -334,3 +334,4 @@
 * ## 2 Feb 2023
 
 * *2 hours* Dijkstra algorithm redesign 
+* *2 hours* Further work on Dijkstra algorithm 
