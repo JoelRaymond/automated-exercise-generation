@@ -330,3 +330,7 @@
 
 * *1 hours* Supervisor meeting + prep + notes
 * *1 hours* Dijkstra algorithm redesign
+
+* ## 2 Feb 2023
+
+* *2 hours* Dijkstra algorithm redesign 
