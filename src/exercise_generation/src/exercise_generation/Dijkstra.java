@@ -189,10 +189,17 @@ public class Dijkstra {
 				if (randomStart == deepestVertex) vertexEdgeRelaxation++;
 			}
 		}
-			
+		for (Integer v : vertexToPath.keySet()) {
+			int list_size = vertexToPath.get(v).size();
+			if (list_size > 2) {
+				relaxedTo.put(v, vertexToPath.get(v).get(list_size-3));
+			}
+		}
 		//add more edges to get to no more edge relaxations
 		while (this.relaxations > 0) {
-			int start = verticesInOrder[ThreadLocalRandom.current().nextInt(2, verticesInOrder.length)];
+			Object[] vertices = relaxedTo.keySet().toArray();
+			Object randVert = vertices[ThreadLocalRandom.current().nextInt(vertices.length)];
+			int start = (int) randVert;
 			int relax = relaxedTo.get(start);
 				
 			if (relax != 0) {
