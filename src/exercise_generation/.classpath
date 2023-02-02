@@ -6,12 +6,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/zoltan/Desktop/L4 Project/automated-exercise-generation/src/exercise_generation/dependencies/aspose-tex-22.12.jar">
+	<classpathentry kind="lib" path="D:/Individual Project/automated-exercise-generation/src/exercise_generation/dependencies/aspose-tex-22.12.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/zoltan/Desktop/L4 Project/automated-exercise-generation/src/exercise_generation/dependencies/commons-io-2.11.0.jar">
+	<classpathentry kind="lib" path="D:/Individual Project/automated-exercise-generation/src/exercise_generation/dependencies/commons-io-2.11.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
