@@ -43,7 +43,7 @@ public class Visualiser {
         	String v = "";
         	for (int i=0; i<d.getVertices(); i++) {
         		c += "|c";
-        		v += " & \\textit{$v_" + Integer.toString(i+1) + "$}";
+        		v += " & \\textit{$v_{" + Integer.toString(i+1) + "}$}";
         	}
         	c += "|";
         	v += "\\\\";
@@ -52,7 +52,7 @@ public class Visualiser {
            	f.write(v + "\n");
            	f.write("\\hline\\hline\n");
         	for (int i=0; i<d.getVertices(); i++) {
-        		String line = "\\textit{$v_" + Integer.toString(i+1) + "$} & ";
+        		String line = "\\textit{$v_{" + Integer.toString(i+1) + "}$} & ";
         		int[] weights = new int[d.getVertices()];
         		for (Edge edge : d.getGraph().adjacencylist[i]) {
         			weights[edge.end] = edge.weight;
@@ -93,7 +93,7 @@ public class Visualiser {
 	    	f.write("\\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]\n");
 	    	f.write("\\tikzstyle{edge} = [draw,thick,-]\n");
 	    	f.write("\\tikzstyle{weight} = [font=\\small]\n");
-	    	f.write("\\def \\radius {7cm}\n");
+	    	f.write("\\def \\radius {6.5cm}\n");
 	    	int n = d.getGraph().vertices;
 	    	for (int i=1; i<=n; i++) {
 	    		f.write("\\node[vertex] (" + Integer.toString(i) 
@@ -250,7 +250,7 @@ public class Visualiser {
 	        					calculations[e.end] = " = \\textbf{min\\{" + distances[e.end] +
 	        							", " + distances[e.start] + "+" + e.weight + "\\}}";
 	        					distances[e.end] = distances[e.start]+e.weight;
-	        					paths[e.end] = paths[e.start] + " \\rightarrow v_" + dest;
+	        					paths[e.end] = paths[e.start] + " \\rightarrow v_{" + dest + "}";
 	        				}
 	        				else if (distances[e.end] < distances[e.start]+e.weight) {
 	        					calculations[e.end] = " = min\\{" + distances[e.end] +
@@ -260,7 +260,7 @@ public class Visualiser {
 	        			else {
 	        				calculations[e.end] = " = min\\{$\\infty$, " + distances[e.start] + "+" + e.weight + "\\}";
 	        				distances[e.end] = distances[e.start]+e.weight;
-	        				paths[e.end] = paths[e.start] + " \\rightarrow v_" + dest;
+	        				paths[e.end] = paths[e.start] + " \\rightarrow v_{" + dest + "}";
 	        			}
 	        		}
 	        	}
@@ -573,15 +573,22 @@ public class Visualiser {
     	System.out.println("Generating...");
     	
     	if (algorithms.get("(1) Dijkstra")) {
-	    	for(int i = 0; i <dijkstraLimit; i++) {
-				Dijkstra test = new Dijkstra(v, e);
-				generateGraph(test, "exercises/tex/dijkstra"+Integer.toString(i+1)+".tex", pdf);
-				if (sol && !fullSol) {
-					generateGraphSolution(test, "solutions/tex/dijkstra_answer"+Integer.toString(i+1)+".tex", pdf);
-				}
-				if (fullSol) {
-					generateFullGraphSolution(test, "solutions/tex/dijkstra_answer"+Integer.toString(i+1)+".tex", pdf);
-				}
+    		int d = 0;
+	    	while (d < dijkstraLimit) {
+	    		try {
+	    			Dijkstra test = new Dijkstra(v, e);
+					generateGraph(test, "exercises/tex/dijkstra"+Integer.toString(d+1)+".tex", pdf);
+					if (sol && !fullSol) {
+						generateGraphSolution(test, "solutions/tex/dijkstra_answer"+Integer.toString(d+1)+".tex", pdf);
+					}
+					if (fullSol) {
+						generateFullGraphSolution(test, "solutions/tex/dijkstra_answer"+Integer.toString(d+1)+".tex", pdf);
+					}
+					d++;
+	    		}
+	    		catch (Exception ex) {
+	    			continue;
+	    		}
 			}
     	}
     	

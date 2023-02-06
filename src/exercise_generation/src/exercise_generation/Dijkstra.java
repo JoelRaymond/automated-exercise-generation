@@ -144,13 +144,14 @@ public class Dijkstra {
 		HashMap<Integer, Integer> relaxedWeight = new HashMap<Integer, Integer>();
 		Integer[] verticesInOrder = this.shortestDistance.keySet().toArray(new Integer[this.shortestDistance.keySet().size()]);
 		HashMap<Integer, List<Integer>> vertexToPath = new HashMap<>();
+		HashMap<Integer, Integer> prevDist = new HashMap<>();
 		
 		int possibleRelaxations = getRelaxations(this.vertices);
 		int relaxationsNeeded = this.relaxations;
 		//connect vertices
 		boolean first = true;
-		int vertexEdgeRelaxation = 1;
-		int deepestVertex = 0;
+		List<Integer> deepestVertices = new ArrayList<>();
+		int maxRelaxation = this.vertices-2;
 		for (Entry<Integer, Integer> entry : this.shortestDistance.entrySet()) {
 
 			if (entry.getValue() == 0) {
@@ -165,21 +166,28 @@ public class Dijkstra {
 						" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
 				verticesInGraph.add(entry.getKey());
 				first = false;
-				deepestVertex = entry.getKey();
+				deepestVertices.add(entry.getKey());
 				List<Integer> path = new ArrayList<>(vertexToPath.get(0));
 				path.add(entry.getKey());
 				vertexToPath.put(entry.getKey(), path);
 			}
 			else {
-				int min = (this.vertices-2) - (possibleRelaxations - relaxationsNeeded);
-				int randomStart = 0;
-				if (min < 0) min = 0;
-				
-				if (min >= verticesInGraph.size()) randomStart = verticesInGraph.size()-1;
-				else randomStart = ThreadLocalRandom.current().nextInt(min, verticesInGraph.size());
-				
-				int start = verticesInOrder[randomStart];
-				if (start == deepestVertex) deepestVertex = entry.getKey();
+				int disparity = possibleRelaxations - relaxationsNeeded;
+				int start = 0;
+				if (disparity <= maxRelaxation) {
+					start = deepestVertices.get(ThreadLocalRandom.current().nextInt(deepestVertices.size()));
+				}
+				else {
+					int num = (disparity-maxRelaxation)+1;
+					if (num >= verticesInGraph.size()) {
+						num = verticesInGraph.size();
+						start = verticesInGraph.get(ThreadLocalRandom.current().nextInt(num));
+					}
+					else {
+						start = verticesInGraph.get(ThreadLocalRandom.current().nextInt(num, verticesInGraph.size()));
+					}
+				}
+
 				result.addEdge(start, entry.getKey(), entry.getValue() - this.shortestDistance.get(start));
 				this.shortestPaths.put(entry.getKey(), this.shortestPaths.get(start) + 
 						" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
@@ -188,11 +196,19 @@ public class Dijkstra {
 				path.add(entry.getKey());
 				relaxationsNeeded -= (path.size() - 2);
 				vertexToPath.put(entry.getKey(), path);
-				possibleRelaxations -= vertexEdgeRelaxation;
-				if (randomStart == deepestVertex) vertexEdgeRelaxation++;
+				if (deepestVertices.contains(start)) {
+					deepestVertices.clear();
+					deepestVertices.add(entry.getKey());
+				}
+				else {
+					if (vertexToPath.get(start).size() == path.size()) {
+						deepestVertices.add(entry.getKey());
+					}
+					possibleRelaxations -= (maxRelaxation - (path.size()-2));
+					maxRelaxation--;
+				}
 			}
 		}
-		System.out.println(vertexToPath);
 		for (Integer v : vertexToPath.keySet()) {
 			int list_size = vertexToPath.get(v).size();
 			if (list_size > 2) {
@@ -200,9 +216,8 @@ public class Dijkstra {
 			}
 		}
 		//add more edges to get to no more edge relaxations
-		int prevDist = 0;
 		while (this.relaxations > 0) {
-			System.out.println(relaxedTo);
+
 			Object[] vertices = relaxedTo.keySet().toArray();
 			Object randVert = vertices[ThreadLocalRandom.current().nextInt(vertices.length)];
 			int start = (int) randVert;
@@ -212,16 +227,17 @@ public class Dijkstra {
 			
 			int weight;
 			if (relaxedWeight.containsKey(start)) {
-				weight = relaxedWeight.get(start) + (prevDist - this.shortestDistance.get(end)) + weightIncrease;
+				weight = relaxedWeight.get(start) + (prevDist.get(start) - this.shortestDistance.get(end)) + weightIncrease;
 			}
 			else {
 				weight = (this.shortestDistance.get(start) - this.shortestDistance.get(end)) + weightIncrease;
 			}
 			relaxedWeight.put(start, weight);
 			
+			prevDist.put(start, this.shortestDistance.get(end));
+			
 			result.addEdge(start, end, weight);
 			
-			prevDist = this.shortestDistance.get(end);
 			
 			List<Integer> path = vertexToPath.get(start);
 			int newRelax = 0;
@@ -241,7 +257,7 @@ public class Dijkstra {
 	
 	public static void main(String[] args) {
 		for(int i = 0; i <1; i++) {
-			Dijkstra test = new Dijkstra(5, 5);
+			Dijkstra test = new Dijkstra(10, 10);
 			System.out.println(test.maxDistance);
 			System.out.println(test.shortestDistance);
 			System.out.println(test.shortestPaths);
