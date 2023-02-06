@@ -339,3 +339,4 @@
 * ## 6 Feb 2023
 
 * *3 hours* Dijkstra algorithm redesign (edge relaxations now add properly, just need to create proper graph)
+* *5 hours* Finish Dijkstra algorithm (Some random errors still but works for purpose)
