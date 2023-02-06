@@ -171,9 +171,13 @@ public class Dijkstra {
 				vertexToPath.put(entry.getKey(), path);
 			}
 			else {
-				int min = vertexEdgeRelaxation - (possibleRelaxations - relaxationsNeeded);
+				int min = (this.vertices-2) - (possibleRelaxations - relaxationsNeeded);
+				int randomStart = 0;
 				if (min < 0) min = 0;
-				int randomStart = ThreadLocalRandom.current().nextInt(min, verticesInGraph.size());
+				
+				if (min >= verticesInGraph.size()) randomStart = verticesInGraph.size()-1;
+				else randomStart = ThreadLocalRandom.current().nextInt(min, verticesInGraph.size());
+				
 				int start = verticesInOrder[randomStart];
 				if (start == deepestVertex) deepestVertex = entry.getKey();
 				result.addEdge(start, entry.getKey(), entry.getValue() - this.shortestDistance.get(start));
@@ -184,11 +188,11 @@ public class Dijkstra {
 				path.add(entry.getKey());
 				relaxationsNeeded -= (path.size() - 2);
 				vertexToPath.put(entry.getKey(), path);
-				this.relaxations --;
 				possibleRelaxations -= vertexEdgeRelaxation;
 				if (randomStart == deepestVertex) vertexEdgeRelaxation++;
 			}
 		}
+		System.out.println(vertexToPath);
 		for (Integer v : vertexToPath.keySet()) {
 			int list_size = vertexToPath.get(v).size();
 			if (list_size > 2) {
@@ -196,25 +200,41 @@ public class Dijkstra {
 			}
 		}
 		//add more edges to get to no more edge relaxations
+		int prevDist = 0;
 		while (this.relaxations > 0) {
+			System.out.println(relaxedTo);
 			Object[] vertices = relaxedTo.keySet().toArray();
 			Object randVert = vertices[ThreadLocalRandom.current().nextInt(vertices.length)];
 			int start = (int) randVert;
-			int relax = relaxedTo.get(start);
+			int end = relaxedTo.get(start);
 				
-			if (relax != 0) {
-				int end = verticesInOrder[Arrays.asList(verticesInOrder).indexOf(relax)-1];
-				int weightIncrease = ThreadLocalRandom.current().nextInt(1, 4);
-				
-				int weight = relaxedWeight.get(start) + weightIncrease;
-				result.addEdge(start, end, weight);
-				relaxedTo.put(start, end);
-				relaxedWeight.put(start, weight);
-				this.relaxations--;
+			int weightIncrease = ThreadLocalRandom.current().nextInt(1, 4);
+			
+			int weight;
+			if (relaxedWeight.containsKey(start)) {
+				weight = relaxedWeight.get(start) + (prevDist - this.shortestDistance.get(end)) + weightIncrease;
 			}
 			else {
-				continue;
+				weight = (this.shortestDistance.get(start) - this.shortestDistance.get(end)) + weightIncrease;
 			}
+			relaxedWeight.put(start, weight);
+			
+			result.addEdge(start, end, weight);
+			
+			prevDist = this.shortestDistance.get(end);
+			
+			List<Integer> path = vertexToPath.get(start);
+			int newRelax = 0;
+			boolean success = true;
+			try {
+				newRelax = path.get(path.indexOf(end)-1);
+			}
+			catch (Exception e) {
+				relaxedTo.remove(start);
+				success = false;
+			}
+			if (success) relaxedTo.put(start, newRelax);
+			this.relaxations--;
 		}
 		return result;
 	}
