@@ -340,3 +340,8 @@
 
 * *3 hours* Dijkstra algorithm redesign (edge relaxations now add properly, just need to create proper graph)
 * *5 hours* Finish Dijkstra algorithm (Some random errors still but works for purpose)
+
+* ## 7 Feb 2023
+
+* *1 hours* Agenda for supervisor meeting
+* *2 hours* User study final design
