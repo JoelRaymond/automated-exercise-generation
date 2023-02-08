@@ -7,8 +7,12 @@ Questions
   - Include student questions for lecturers?
 
 Next Week
-  - Send out user surverys
+  - Send out user surveys
   - Proofs
+  - Start writing diss
 
 Meeting Notes
   - Fix edge relaxation boundary (input boundaries in general)
+  - Student  / Lecturer instruction introduction
+  - 5 - 10 students
+  - OneDrive folder for distribution
