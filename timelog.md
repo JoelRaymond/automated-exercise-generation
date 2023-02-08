@@ -345,3 +345,7 @@
 
 * *1 hours* Agenda for supervisor meeting
 * *2 hours* User study final design
+
+* ## 8 Feb 2023
+
+* *1 hours* Supervisor meeting + notes
