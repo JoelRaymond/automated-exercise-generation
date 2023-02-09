@@ -576,6 +576,11 @@ public class Visualiser {
     		int d = 0;
 	    	while (d < dijkstraLimit) {
 	    		try {
+	    			int possibleRelaxations = Dijkstra.getRelaxations(v);
+	    			if (e > possibleRelaxations) {
+	    				System.out.println("Too many relaxations.");
+	    				break;
+	    			}
 	    			Dijkstra test = new Dijkstra(v, e);
 					generateGraph(test, "exercises/tex/dijkstra"+Integer.toString(d+1)+".tex", pdf);
 					if (sol && !fullSol) {

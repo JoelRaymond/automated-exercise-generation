@@ -132,7 +132,7 @@ public class Dijkstra {
 		return result;
 	}
 	
-	public int getRelaxations(int v) {
+	public static int getRelaxations(int v) {
 		int n = v-2;
 		return (n * (n + 1))/2;
 	}
@@ -142,7 +142,6 @@ public class Dijkstra {
 		LinkedList<Integer> verticesInGraph = new LinkedList<Integer>();
 		HashMap<Integer, Integer> relaxedTo = new HashMap<Integer, Integer>();
 		HashMap<Integer, Integer> relaxedWeight = new HashMap<Integer, Integer>();
-		Integer[] verticesInOrder = this.shortestDistance.keySet().toArray(new Integer[this.shortestDistance.keySet().size()]);
 		HashMap<Integer, List<Integer>> vertexToPath = new HashMap<>();
 		HashMap<Integer, Integer> prevDist = new HashMap<>();
 		
