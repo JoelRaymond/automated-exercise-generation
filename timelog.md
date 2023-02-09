@@ -349,3 +349,7 @@
 * ## 8 Feb 2023
 
 * *1 hours* Supervisor meeting + notes
+
+* ## 9 Feb 2023
+
+* *2 hours* Finished final documents/files to be sent out for lecturer user study
