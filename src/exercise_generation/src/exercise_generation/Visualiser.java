@@ -93,7 +93,7 @@ public class Visualiser {
 	    	f.write("\\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]\n");
 	    	f.write("\\tikzstyle{edge} = [draw,thick,-]\n");
 	    	f.write("\\tikzstyle{weight} = [font=\\small]\n");
-	    	f.write("\\def \\radius {6.5cm}\n");
+	    	f.write("\\def \\radius {6cm}\n");
 	    	int n = d.getGraph().vertices;
 	    	for (int i=1; i<=n; i++) {
 	    		f.write("\\node[vertex] (" + Integer.toString(i) 
