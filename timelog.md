@@ -353,3 +353,7 @@
 * ## 9 Feb 2023
 
 * *2 hours* Finished final documents/files to be sent out for lecturer user study
+
+* ## 10 Feb 2023
+
+* *1 hours* Work on student user study
