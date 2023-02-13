@@ -357,3 +357,8 @@
 * ## 10 Feb 2023
 
 * *1 hours* Work on student user study
+
+
+* ## 13 Feb 2023
+
+* *1 hours* Finish user study setup and start sending them out to students.
