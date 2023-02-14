@@ -474,6 +474,7 @@ public class Visualiser {
                 		fullSol = false;
                 		break;
                 	}
+                	else System.out.println("Incorrect input, try again.");
             	}
         		break;
         	}
@@ -481,6 +482,7 @@ public class Visualiser {
         		sol = false;
         		break;
         	}
+        	else System.out.println("Incorrect input, try again.");
     	}
     	
     	boolean pdf = false;
@@ -495,6 +497,7 @@ public class Visualiser {
         		pdf = false;
         		break;
         	}
+        	else System.out.println("Incorrect input, try again.");
     	}
     	
     	HashMap<String, Boolean> algorithms = new HashMap<String, Boolean>();
@@ -506,18 +509,43 @@ public class Visualiser {
     	System.out.println("Available algorithms: " + algorithms.keySet().toString());
     	while (true) {
         	String algString = sc.nextLine().toLowerCase();
+        	StringBuilder sb = new StringBuilder();
         	switch (algString) {
         		case "1":
         		case "dijkstra":
         			algorithms.put("(1) Dijkstra", true);
+        			for (String a : algorithms.keySet()) {
+        				if (algorithms.get(a)) {
+        					sb.append(a);
+        					sb.append(", ");
+        				}
+        			}
+        			System.out.println("Currently selected algorithms:" + sb);
+        			if (algorithms.get("(2) KMP") == true) break;
         			continue;
         		case "2":
         		case "kmp":
         			algorithms.put("(2) KMP", true);
-        			continue;
+        			for (String a : algorithms.keySet()) {
+        				if (algorithms.get(a)) {
+        					sb.append(a);
+        					sb.append(", ");
+        				}
+        			}
+        			System.out.println("Currently selected algorithms:" + sb);
+        			if (algorithms.get("(1) Dijkstra") == true) break;
+          			continue;
         		case "":
         			break;
         		default:
+        			System.out.println("Illegal input, please try again.");
+        			for (String a : algorithms.keySet()) {
+        				if (algorithms.get(a)) {
+        					sb.append(a);
+        					sb.append(", ");
+        				}
+        			}
+        			System.out.println("Currently selected algorithms:" + sb);
         			continue;
         	}
         	break;

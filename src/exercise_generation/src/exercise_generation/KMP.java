@@ -53,14 +53,14 @@ public class KMP {
 	}
 
 	public KMP(int length, int largestBorder, Boolean overlapping) {
-		if (length > 0) {
+		if (length > 1) {
 			this.length = length;
 		}
 		else {
 			throw new IllegalArgumentException("Invalid string length.");
 		}
 		
-		if (largestBorder > length-1) {
+		if (largestBorder > length) {
 			throw new IllegalArgumentException("Largest border too long.");
 		}
 		else if ((largestBorder > (length-1)/2) && !overlapping) {
