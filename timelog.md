@@ -362,3 +362,7 @@
 * ## 13 Feb 2023
 
 * *1 hours* Finish user study setup and start sending them out to students.
+
+* ## 14 Feb 2023
+
+* *1 hours* Final touches on user study.
