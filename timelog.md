@@ -366,4 +366,9 @@
 * ## 14 Feb 2023
 
 * *1 hours* Final touches on user study.
-* *1 hours* Program bug fixes. 2030
+* *1 hours* Program bug fixes.
+
+* ## 16 Feb 2023
+
+* *1 hours* Sent out user study.
+* *2 hours* Dissertation writing.
