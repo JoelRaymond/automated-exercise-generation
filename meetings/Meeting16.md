@@ -5,6 +5,7 @@ Pre-meeting plan (progress)
 Questions
   - Diss date?
   - Talk about agile development or final product?
+  - Which section to define terms in?
 
 Next Week
   - Send out user surveys
