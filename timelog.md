@@ -372,3 +372,7 @@
 
 * *1 hours* Sent out user study.
 * *2 hours* Dissertation writing.
+
+* ## 18 Feb 2023
+
+* *3 hours* Dissertation writing.
