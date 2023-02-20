@@ -254,7 +254,15 @@ These requirements encapsulate the minimum viable product, thus the program beco
 	\item
 	\emph{Produce exercises for the two chosen algorithms (\textbf{Dijkstra} and \textbf{KMP})}: The program must be able fulfil its main goal, which is to generate examples of exercises for each 		selected algorithm, which are output in some format. Without this feature, the application would have no real use-case. 
 	\item
-	\emph{Ensure uniform difficulty between generated examples}: There must be algorithms in place to address the trade-off between collusion and uniformity in difficulty, as highlighted in \autoref{sec:aim}.
+	\emph{Ensure uniform difficulty between generated examples}: There must be algorithms in place to address the trade-off between collusion and uniformity in difficulty, as highlighted in \autoref{sec:aim}. One way of achieving this is through the template based approach as seen being successfully used by \cite{Sad12}, to organise each type of exercise by their unique characteristics, which can in turn be controlled to manipulate difficulty. If this issue is not addressed (random generation), the generated exercise would not uphold academic integrity.
+	\item
+	\emph{Generate at least 50 separate examples of exercises in one execution}: The program must be able to generate exercises for an entire cohort of students, which may be around 50 to 300 or more students. Therefore, at the bare minimum 50 samples of exercises need to be able to be produced from a given set of input constraints. 
+	\item
+	\emph{Generate unique exercises}: Generated exercises must all be unique, in order to avoid collusion between students. Fortunately due to the high number of input variables involved in this study which can be manipulated, identical exercises are highly unlikely because of entropy. Thus, this requirement does not need to be enforced explicitly.
+	\item
+	\emph{Generate solvable exercises}: The exercises which are generated must have a unique solution, otherwise they would cause a lot of ambiguity if they were to be used in an examination setting. For example, a graph generated for a Dijkstra exercise must be undirected, weighted and connected. Furthermore, there cannot exist any errors such as duplicate edges or weights between two vertices.
+	\item
+	\emph{Generate exercises in a reasonable time frame}: If the generation process takes hours to complete, the main purpose of not hand-designing each unique exercise is lost. Therefore, process of exercise generation must be relatively time efficient. 
 \end{itemize}
 
 \subsubsection{Should Have}
