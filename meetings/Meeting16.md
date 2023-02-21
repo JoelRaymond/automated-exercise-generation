@@ -1,6 +1,6 @@
 Pre-meeting plan (progress)
-  - Dijkstra algorithm finished (slightly buggy)
-  - User study
+  - User study sent out
+  - Dissertation progress
 
 Questions
   - Diss date?
@@ -11,12 +11,6 @@ Questions
   - Reference for Dijkstra's algorithm etc.?
 
 Next Week
-  - Send out user surveys
-  - Proofs
-  - Start writing diss
+  - More writing
 
 Meeting Notes
-  - Fix edge relaxation boundary (input boundaries in general)
-  - Student  / Lecturer instruction introduction
-  - 5 - 10 students
-  - OneDrive folder for distribution
