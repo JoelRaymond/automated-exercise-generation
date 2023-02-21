@@ -73,13 +73,14 @@ Should Have
  - Basic user interface (command line)
  - Automatic answer key
  - Allow users to adjust certain settings before generation (number of exercises, difficulty, etc.)
- - Generated PDFs for each exercise (LaTeX generation)
+ - Generated LaTeX
 
 Could Have
  - Simple user interface (JavaFX)
  - Automatic exercise generation for at least three different assessment tasks
  - Step by step solutions for each generated exercise
  - Proper exam formatting for questions
+ - Generate PDF
 
 Will Not Have
  - Refined user interface
