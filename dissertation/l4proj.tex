@@ -254,9 +254,9 @@ These requirements encapsulate the minimum viable product, thus the program beco
 	\item
 	\emph{Produce exercises for the two chosen algorithms (\textbf{Dijkstra} and \textbf{KMP})}: The program must be able fulfil its main goal, which is to generate examples of exercises for each 		selected algorithm, which are output in some format. Without this feature, the application would have no real use-case. 
 	\item
-	\emph{Ensure uniform difficulty between generated examples}: There must be algorithms in place to address the trade-off between collusion and uniformity in difficulty, as highlighted in \autoref{sec:aim}. One way of achieving this is through the template based approach as seen being successfully used by \cite{Sad12}, to organise each type of exercise by their unique characteristics, which can in turn be controlled to manipulate difficulty. If this issue is not addressed (random generation), the generated exercise would not uphold academic integrity.
+	\emph{Ensure uniform difficulty between generated examples}: There must be algorithms in place to address the trade-off between collusion and uniformity in difficulty, as highlighted in \autoref{sec:aim}. One way of achieving this is through the template based approach as seen being successfully used by \cite{Sad12}, to organise each type of exercise by their unique characteristics, which can in turn be controlled to manipulate difficulty. If this issue is not addressed (random generation), the generated exercise would not uphold academic integrity. Each exercise's characteristics should be able to be controlled by the user.
 	\item
-	\emph{Generate at least 50 separate examples of exercises in one execution}: The program must be able to generate exercises for an entire cohort of students, which may be around 50 to 300 or more students. Therefore, at the bare minimum 50 samples of exercises need to be able to be produced from a given set of input constraints. 
+	\emph{Generate at least 50 separate examples of exercises in one execution}: The program must be able to generate exercises for an entire cohort of students, which may be around 50 to 300 or more students. Therefore, at the bare minimum 50 samples of exercises need to be able to be produced from a given set of input constraints. This number should be able to be controlled by the user.
 	\item
 	\emph{Generate unique exercises}: Generated exercises must all be unique, in order to avoid collusion between students. Fortunately due to the high number of input variables involved in this study which can be manipulated, identical exercises are highly unlikely because of entropy. Thus, this requirement does not need to be enforced explicitly.
 	\item
@@ -266,8 +266,35 @@ These requirements encapsulate the minimum viable product, thus the program beco
 \end{itemize}
 
 \subsubsection{Should Have}
+The features in this section increase the usability of the program significantly but are not strictly required for a functional product.
+\begin{itemize}
+	\item
+	\emph{Basic user interface}: The application should at least have a command line based user interface, where teachers can choose various inputs for their desired generations (number of exercises, difficulty, etc.). Without this feature, users would be required to edit the source code or use command line arguments, both of which cannot be expected from people with limited technical experience. 
+	\item
+	\emph{Automatic answer key}: Even though the minimum viable product handles generating the exercises themselves,  it does not provide the corresponding solutions to these problems, causing the marking process to be drastically prolonged. Having the program generating these solutions would therefore save a lot of time for teachers. Additionally, users should be able to choose whether or not they require these answer keys to speed up execution times in the cases that they do not.
+	\item
+	\emph{Generate LaTeX files}: The program should output each generating exercise and solution as its own LaTeX, so that these can be easily distributed to students as a compiled PDF file. Having the exercises only within the program itself would make the distribution process very long as they would have to be screenshot individually.
+\end{itemize}
 \subsubsection{Could Have}
+The requirements in this section are in no way essential to the functionality of the program, however they do improve user experience.
+\begin{itemize}
+	\item
+	\emph{Simple visual user interface}: While command line interfaces offer unmatched simplicity, they can often be difficult to use, slow and confusing. To solve this, a simple \emph{JavaFX}   user interface could be implemented, allowing users to give inputs in a more straightforward manner.
+	\item
+	\emph{Step by step solutions}: Building on the requirement about solution generation in the previous section, the program could also generate step by step instructions on how to solve a given exercise. These would provide students the tools to self-mark their own solutions, while clarifying any confusions that may occur without having to consult a teacher. Similarly to automatic answer key generation, users should be given the option to opt out, speeding up the runtime.
+	\item
+	\emph{Generate PDF files}: The generated LaTeX files cannot be viewed directly as they must first be compiled to PDF, PNG or other formats. This process of compiling to a PDF file could be done by the program itself through an API, further automating generation and distribution.
+\end{itemize}
 \subsubsection{Will Not Have}
+Since this project has a strict time limit, some requirements which \emph{Could Have} been implemented but are prioritised lower can be found in this section. Note that these features could be seen as a suitable starting point for future work in this field.
+\begin{itemize}
+	\item
+	\emph{Automatic exercise generation for more than two algorithms}: The obvious way to further develop the program would be by implementing new generation algorithms. This process is made streamlined by the fact that the application was made with scalability in mind, so newly designed algorithms can easily be added in the future.
+	\item
+	\emph{Refined user interface}: As the program evolves with more generation algorithms being added, there comes a point where a simple user interface no longer suffices. At this stage, a system-wide visual overhaul may be considered, perhaps including switching to a web based platform, in order to be more accessible to teachers worldwide. 
+	\item
+	\emph{Automatic feedback generation}: The third major area of automated exercise generation is automatic \emph{feedback} generation as highlighted by \cite{}. This process involves an entirely different approach to anything tackled in this project, as the inputs change to students' answers, which are automatically reviewed and given feedback. Therefore, this area could be the subject of an entirely new study.
+\end{itemize}
 \section{Generated exercise and solution requirements}
 \subsection{Dijkstra}
 \subsubsection{Must Have}
