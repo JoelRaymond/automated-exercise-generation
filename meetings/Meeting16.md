@@ -5,10 +5,8 @@ Pre-meeting plan (progress)
 Questions
   - Diss date?
   - Talk about agile development or final product?
-  - Which section to define terms in? (Design?)
   - Title? (Graph and string?)
-  - User study in diss?
-  - Reference for Dijkstra's algorithm etc.?
+  - User story in diss?
 
 Next Week
   - More writing
