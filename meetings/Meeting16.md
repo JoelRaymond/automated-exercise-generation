@@ -12,3 +12,11 @@ Next Week
   - More writing
 
 Meeting Notes
+  - submission date
+  - changes to requirement
+  - user stories before requirements
+  - moscow citation
+  - draft deadline: 6th of march
+  - From 8th of march, chane in meeting time
+  - \booktab package
+  - Figures at top of the page and reference them
