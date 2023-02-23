@@ -304,6 +304,8 @@ Since this project has a strict time limit, some requirements which \emph{Could 
 	\item
 	\emph{Automatic feedback generation}: The third major area of automated exercise generation is automatic \emph{feedback} generation as highlighted by \cite{}. This process involves an entirely different approach to anything tackled in this project, as the inputs change to students' answers, which are automatically reviewed and given feedback. Therefore, this area could be the subject of an entirely new study.
 \end{itemize}
+
+%Perhaps something about accessibility
 \section{Generated exercise and solution requirements}
 
 In this section, requirements for the generated exercises and solutions can be found, once again categorised by the MoSCoW method. Many characteristics are shared between Dijkstra and KMP which comprise the \emph{Shared Requirements} section, however they both have unique features as well, which are listed separately.
@@ -315,19 +317,72 @@ In this section, requirements for the generated exercises and solutions can be f
 	\emph{Solvable exercises}: The exercises which are generated must have a unique solution, otherwise they would cause a lot of ambiguity if they were to be used in an examination setting. For example, a graph generated for a Dijkstra exercise must be undirected, weighted and connected. Furthermore, there cannot exist any errors such as duplicate edges or weights between two vertices.
 \end{itemize}
 \subsubsection{Should Have}
+\begin{itemize}
+	\item
+	\emph{Correct Solutions}: For both standard and step-by-step solutions, they should give correct answers to their corresponding exercises. Without this, solutions become redundant.
+	\item
+	\emph{Clear instructions}: Exercises should have clear instructions for what they are asking of the students, using language based on existing examples of exercises. This is done to ensure that there is no added confusion as a result of automatic generation.
+	\item
+	\emph{Step description}: In step-by-step solutions, it is often not enough to show the intermediate output of the algorithm, as these can sometimes be confusing. To address this, the solutions should include a short description of what is being done at each step, making it easier for students to follow along. 
+	\item
+	\emph{Familiar visuals}: The visuals of all exercises and solutions should look similar past exams or in-class examples. This is a necessity for ensuring that no extra burden is being put on students compared to traditional examinations. 
+\end{itemize}
 \subsubsection{Could Have}
 \subsubsection{Will Not Have}
 \subsection{Dijkstra Requirements}
 \subsubsection{Must Have}
+\begin{itemize}
+	\item
+	\emph{Labelled vertices}: Vertices in the generated graph must labelled, as these will be used as reference in the answer key as well as in students' solutions. 
+	\item
+	\emph{Edges with weight labels}: As Dijkstra's algorithm requires a weighted graph, the edges must have weight labels in order for the shortest paths to be calculated.
+\end{itemize}
 \subsubsection{Should Have}
+\begin{itemize}
+	\item
+	\emph{Answers provided in a table}: As the exercise is asking for the shortest path and length from a chosen vertex to all other vertices, these can be well displayed and tracked in a table where each row corresponds to vertex and the three columns are: vertex label, shortest path and length of path. This also works well in step-by-step solutions, as the table can be updated with each round of the algorithm.
+\end{itemize}
 \subsubsection{Could Have}
+\begin{itemize}
+	\item
+	\emph{Edge and vertex highlights}: In step-by-step solutions, references could be made to the original graph through highlighting certain edges and/or vertices based on what Dijkstra's algorithm is working on in each pass. This would help students visualise how the algorithm works, without having to back to the graph and figuring out for themselves.
+	\item
+	\emph{Adjacency matrix}: Examples of graphs with a larger number of vertices and edges, edge weights can sometimes be difficult to read. To solve this issue, the graph's adjacency matrix could be provided with each exercise, offering another points of reference for students. This is a great accessibility feature, as it supports people who visualise matrices easier than graphs.
+	\item
+	\emph{Highlight edge relaxations}: Since students often struggle with finding and handling edge relaxations \cite{} when using Dijkstra's algorithm, they could be highlighted in the solution table in step-by-step answer keys. This can be done by showing which two paths (with distances) are being compared and whether or not this comparison results in an edge relaxation.
+\end{itemize}
 \subsubsection{Will Not Have}
+\begin{itemize}
+	\item
+	\emph{Custom edge weight placement}: As mentioned earlier, bigger graphs tend to be harder to read due to overlapping edge weights. This may be solved using a custom algorithm which ensures that they are always visible, however this proved to be slightly too time consuming for the purpose of this project.
+\end{itemize}
 \subsection{KMP Requirements}
 \subsubsection{Must Have}
+\begin{itemize}
+	\item
+	\emph{String with borders}: The one feature that is truly essential for building a border table in KMP is the string itself, which must be built up in a way that it corresponds to the teacher's inputs and has borders which can be found. 
+\end{itemize}
 \subsubsection{Should Have}
+\begin{itemize}
+	\item
+	\emph{Border table in solutions}: In the case of solution generation, the border table can be updated as the algorithm traverses each character in the string, updating the values as borders are found. This helps students visualise how to arrive at the final border table, which is found at the last step.
+\end{itemize}
 \subsubsection{Could Have}
+\begin{itemize}
+	\item
+	\emph{Border table highlights}: To further aid with the visualisation of results, the string itself and the border table can be highlighted to represent the progression of the algorithm. This is especially useful when trying to find a specific step of the algorithm, which can now be done in a glance.
+	\item
+	\emph{Border found highlight}: If a border is ever found, it could also be highlighted (with different visuals to the previous requirement), to show which exact substrings the algorithm is referring to when updating the values of border length. This feature is most useful when dealing with overlapping borders \autoref{}, as these can often be harder to find.
+ \end{itemize}
 \subsubsection{Will Not Have}
+\begin{itemize}
+	\item
+	\emph{String search}: Since KMP is a string search algorithm, it may be odd to see that the exercises generated do not involve searching for a string. This in fact would require a separate generation algorithm, as it deals with an entirely new type of exercise.
+\end{itemize}
 \section{Changes to Requirements}
+
+
+
 \section{Guidance}
 Make it clear how you derived the constrained form of your problem via a clear and logical process. 
 
