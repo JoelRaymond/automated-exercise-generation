@@ -12,9 +12,9 @@
 
 %==============================================================================
 %% METADATA
-\title{Automated Exercise and Solution Generation for Algorithmics Courses}
+\title{Automated Exercise and Solution Generation for an Algorithmics Course}
 \author{Zoltan Sojtory}
-\date{September 14, 2022}
+\date{March 24, 2023}
 
 \maketitle
 
@@ -115,7 +115,7 @@ This dissertation is comprised of the following six chapters:
 	\item
 	\textbf{\autoref{chap:back}} provides background information about automated exercise generation, including previous contexts in which it was used as well as different past implementations. Additionally, it introduces the Dijkstra and KMP algorithms which will be generated for.
 	\item
-	\textbf{\autoref{chap:req}} discusses the requirements for both the product itself and the generated exercises and solutions. Information is also provided about why certain requirements were chosen and how they evolved over the lifespan of the project.
+	\textbf{\autoref{chap:req}} discusses the requirements for both the product itself and the generated exercises and solutions. Information is also provided about why certain requirements were chosen and how they evolved over the lifespan of the project. This chapter also includes user personas to help differentiate between the varying use cases of the product.
 	\item
 	\textbf{\autoref{chap:des}} discusses the way in which each generation algorithm was designed, as well as any other design decisions that were made during the project.
 	\item
@@ -238,10 +238,21 @@ Since automated exercise generation only became an area of focus for researchers
 \end{itemize}
 
 %==================================================================================================================================
-\chapter{Requirements}
+\chapter{Analysis/Requirements}
 \label{chap:req}
 
-This chapter introduces the requirements which ought to be fulfilled in order to satisfy the aims set for the project in \autoref{chap:intro}. These requirements are formulated using the research on prior works as well as the terms and concepts defined in \autoref{chap:back}. As the project essentially has two different products (the program which teachers use to generate and the exercises/solutions themselves given to students), separate requirements must be designed accordingly. 
+This chapter introduces the requirements which ought to be fulfilled in order to satisfy the aims set for the project in \autoref{chap:intro}. These requirements are formulated using the research on prior works as well as the terms and concepts defined in \autoref{chap:back}. As the project essentially has two different products (the program which teachers use to generate and the exercises/solutions themselves given to students), separate requirements must be designed accordingly.
+\section{User Personas}
+
+The two distinct users are clearly highlighted by the following user personas.
+
+\subsection{Teacher}
+
+Lisa is a lecturer of computing science at the University of Glasgow. She is teaching a third year undergraduate algorithmics course, which prominently features graph and string search algorithms (such as Dijkstra and KMP). From years of experience having taught this course, Lisa has noticed an increased amount of student collusion during class tests which have been held online since the start of the COVID-19 pandemic. In order to address this, she is seeking a feasible solution which lets her provide each student with a class test comprised of unique examples of exercises. As upholding academic integrity is her main priority, these exercises must be uniform in difficulty but also different enough so that collusion is avoided. From a practicality standpoint, she cannot design this many papers by hand, as the course has over 150 students, therefore exercises must be automatically generated in a format that is easily distributable. To save even more time, Lisa would prefer to have automatically generated step-by-step solutions as well, aiding not only the marking process but also helping students recognise mistakes they have made. In terms of the generation process, she wants a simple user interface which allows her to have some level of input not only to choose which exercises to generate for and how many examples but also to control the difficulty of each exercise as she desires.
+
+\subsection{Student}
+
+John is a third year computing science students at the University of Glasgow, and is attending Lisa's algorithmics course. He is informed that the course is looking to experiment with automatically generated exercises and solutions. While he is open to the idea, he feels strongly about certain features that the system needs to have in order to be feasible. First of all, he believes that that the generated exercise must be visually clear, so that they are not unnecessarily more difficult to solve than hand written ones. In a similar vein, John feels that the exercises should be similar both visually and in content to in-class exercises he has experience with, so that they apply well to the course and do not cause any added confusion. Furthermore, he requires clear instructions to further ensure a good experience. In terms of the generated solutions, John thinks that if each step is explained in detail, he would be very interested in using them for revision purposes.
 
 \section{Program requirements}
 
@@ -254,13 +265,11 @@ These requirements encapsulate the minimum viable product, thus the program beco
 	\item
 	\emph{Produce exercises for the two chosen algorithms (\textbf{Dijkstra} and \textbf{KMP})}: The program must be able fulfil its main goal, which is to generate examples of exercises for each 		selected algorithm, which are output in some format. Without this feature, the application would have no real use-case. 
 	\item
-	\emph{Ensure uniform difficulty between generated examples}: There must be algorithms in place to address the trade-off between collusion and uniformity in difficulty, as highlighted in \autoref{sec:aim}. One way of achieving this is through the template based approach as seen being successfully used by \cite{Sad12}, to organise each type of exercise by their unique characteristics, which can in turn be controlled to manipulate difficulty. If this issue is not addressed (random generation), the generated exercise would not uphold academic integrity. Each exercise's characteristics should be able to be controlled by the user.
+	\emph{Ensure uniform difficulty between generated examples}: There must be algorithms in place to address the trade-off between collusion and uniformity in difficulty, as highlighted in \autoref{sec:aim}. One way of achieving this is through the template based approach as seen being successfully used by \cite{Sad12}, to organise each type of exercise by their unique characteristics, which can in turn be controlled to manipulate difficulty. If this issue is not addressed (random generation), the generated exercise would not uphold academic integrity. Each exercise's characteristics should be controllable by the user.
 	\item
 	\emph{Generate at least 50 separate examples of exercises in one execution}: The program must be able to generate exercises for an entire cohort of students, which may be around 50 to 300 or more students. Therefore, at the bare minimum 50 samples of exercises need to be able to be produced from a given set of input constraints. This number should be able to be controlled by the user.
 	\item
-	\emph{Generate unique exercises}: Generated exercises must all be unique, in order to avoid collusion between students. Fortunately due to the high number of input variables involved in this study which can be manipulated, identical exercises are highly unlikely because of entropy. Thus, this requirement does not need to be enforced explicitly.
-	\item
-	\emph{Generate solvable exercises}: The exercises which are generated must have a unique solution, otherwise they would cause a lot of ambiguity if they were to be used in an examination setting. For example, a graph generated for a Dijkstra exercise must be undirected, weighted and connected. Furthermore, there cannot exist any errors such as duplicate edges or weights between two vertices.
+	\emph{Generate unique exercises}: Generated exercises must all be unique, in order to avoid collusion between students. Fortunately due to the high number of input variables involved in this study which can be manipulated, identical exercises are highly unlikely because of entropy \cite{}. Thus, this requirement does not need to be enforced explicitly.
 	\item
 	\emph{Generate exercises in a reasonable time frame}: If the generation process takes hours to complete, the main purpose of not hand-designing each unique exercise is lost. Therefore, process of exercise generation must be relatively time efficient. 
 \end{itemize}
@@ -296,16 +305,29 @@ Since this project has a strict time limit, some requirements which \emph{Could 
 	\emph{Automatic feedback generation}: The third major area of automated exercise generation is automatic \emph{feedback} generation as highlighted by \cite{}. This process involves an entirely different approach to anything tackled in this project, as the inputs change to students' answers, which are automatically reviewed and given feedback. Therefore, this area could be the subject of an entirely new study.
 \end{itemize}
 \section{Generated exercise and solution requirements}
-\subsection{Dijkstra}
+
+In this section, requirements for the generated exercises and solutions can be found, once again categorised by the MoSCoW method. Many characteristics are shared between Dijkstra and KMP which comprise the \emph{Shared Requirements} section, however they both have unique features as well, which are listed separately.
+
+\subsection{Shared requirements}
+\subsubsection{Must Have}
+\begin{itemize}
+	\item
+	\emph{Solvable exercises}: The exercises which are generated must have a unique solution, otherwise they would cause a lot of ambiguity if they were to be used in an examination setting. For example, a graph generated for a Dijkstra exercise must be undirected, weighted and connected. Furthermore, there cannot exist any errors such as duplicate edges or weights between two vertices.
+\end{itemize}
+\subsubsection{Should Have}
+\subsubsection{Could Have}
+\subsubsection{Will Not Have}
+\subsection{Dijkstra Requirements}
 \subsubsection{Must Have}
 \subsubsection{Should Have}
 \subsubsection{Could Have}
 \subsubsection{Will Not Have}
-\subsection{KMP}
+\subsection{KMP Requirements}
 \subsubsection{Must Have}
 \subsubsection{Should Have}
 \subsubsection{Could Have}
 \subsubsection{Will Not Have}
+\section{Changes to Requirements}
 \section{Guidance}
 Make it clear how you derived the constrained form of your problem via a clear and logical process. 
 
