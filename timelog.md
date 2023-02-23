@@ -392,4 +392,7 @@
 * ## 22 Feb 2023
 
 * *1 hours* Supervisor meeting.
-* *1 hours* Supervisor meeting agenda.
+
+* ## 23 Feb 2023
+
+* *4 hours* Dissertation writing.
