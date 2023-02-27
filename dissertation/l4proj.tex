@@ -539,7 +539,7 @@ As previously described, the number of edges is directly controlled by the numbe
 
 \subsubsection{Edge weights}
 
-This leaves the challenge of what values to assign to each edge weight. While this could also be a user input (maximum weight, distribution, etc.), we want to keep the generated exercises as simple arithmetically as possible (keep the student's efforts focused on Dijkstra's algorithm) and want to minimise the number of input variables, therefore this can also be handled internally. In essence, there is no hard limit to the values of the weights but they are weakly correlated to the number of vertices, as larger graphs require higher weight values to avoid overlapping when it comes to generating edge relaxations. This process is further explained when exploring the Dijkstra exercise generation algorithm in \autoref{sec:dgen}.
+This leaves the challenge of what values to assign to each edge weight. While this could also be a user input (maximum weight, distribution, etc.), we want to keep the generated exercises as simple arithmetically as possible (keep the student's efforts focused on Dijkstra's algorithm) and want to minimise the number of input variables, therefore this can also be handled internally. In essence, there is no hard limit to the values of the weights but they are weakly correlated to the number of vertices, as larger graphs require higher weight values to avoid overlapping when it comes to generating edge relaxations. Furthermore, edges weights have certain limitations to satisfy the number of edge relaxations required, therefore they must be assigned by the algorithm. This process is further explained when exploring the Dijkstra exercise generation algorithm in \autoref{sec:dgen}.
 
 \subsection{KMP}
 
