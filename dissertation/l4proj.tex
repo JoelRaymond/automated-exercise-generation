@@ -7,6 +7,7 @@
 % put any additional packages here
 %
 \usepackage{hyperref}
+\usepackage{booktabs}
 
 \begin{document}
 
@@ -237,6 +238,16 @@ During the algorithm's execution, each vertex in the graph is assigned a tentati
 
 Edge relaxation involves comparing the tentative distance of the destination vertex with the distance of the current vertex plus the weight of the edge that connects them. If the tentative distance of the destination vertex can be improved by following the edge, the tentative distance is updated to the new, shorter distance, and thus an edge relaxation is completed. 
 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/edge_relaxation.png}    
+
+    \caption{Simple weighted, directed graph, used as a demonstration for edge relaxations. https://towardsdatascience.com/algorithm-shortest-paths-1d8fa3f50769}
+    \label{fig:edge_r} 
+\end{figure}
+
+As an example, consider the graph in \autoref{fig:edge_r}. If we run Dijkstra's algorithm on this graph with starting vertex \emph{S}, we get distances \emph{A=1} and \emph{B=3} after the first pass. After the second pass however (exploring from vertex \emph{A}), we find an alternate path to \emph{B} (\emph{S->A->B}), the length of which is lower than our tentative distance for \emph{B} (1+1 < 3). Therefore, an \textbf{edge relaxation} is completed as the distance is updated to \emph{B=2} and the graph is fully explored.
+
 \subsection{KMP}
 \cite{a}
 The \textbf{Knuth-Morris-Pratt (KMP)} algorithm is a string searching algorithm that efficiently finds all occurrences of a pattern string \emph{P} in a text string \emph{T}. It was developed by Donald Knuth, James H. Morris, and Vaughan Pratt in 1977. The KMP algorithm is widely used in various applications such as text editors, word processors, and compilers.
@@ -245,7 +256,7 @@ The basic idea behind the KMP algorithm is to use the information of previous ma
 
 The generated questions will ask students to use build a border table, which is required for string pattern matching in KMP.
 
-The following definitions describe important characteristics for this process of the building a border table:
+The following definitions describe important characteristics for this process of building a border table:
 \subsubsection{Border}
 
 A border is a non-empty proper prefix of a string that is also a suffix of that string. More formally, let \emph{s} be a string. A border of \emph{s} is a string\emph{b} that satisfies the following two conditions:
@@ -263,6 +274,7 @@ For example, the string "abab" has two borders: "a" and "ab". Both "a" and "ab" 
 
 For example, consider the string "ababaca". The border table for this string would be:
 
+\begin{table}[!h]
 \begin{center}
 \begin{tabular}{|c||c|c|c|c|c|c|c|}
 	\hline
@@ -273,9 +285,17 @@ For example, consider the string "ababaca". The border table for this string wou
 	B[i] & 0 & 0 & 1 & 2 & 3 & 0 & 1 \\ 
 	\hline
 \end{tabular}
+\caption{\label{tab:b-table}Border table example}
 \end{center}
+\end{table}
 
-The entry B[2] = 1 corresponds to the length of the longest border of the prefix "ab" of the string "ababaca". This border is "a", which has a length of 1. Similarly, the entry B[4] = 3 corresponds to the length of the longest border of the prefix "ababa" of the string "ababaca". This border is "aba", which has a length of 3.
+
+In \autoref{tab:b-table}, the entry B[2] = 1 corresponds to the length of the longest border of the prefix "ab" of the string "ababaca". This border is "a", which has a length of 1. Similarly, the entry B[4] = 3 corresponds to the length of the longest border of the prefix "ababa" of the string "ababaca". This border is "aba", which has a length of 3.
+
+\subsubsection{Overlapping border}
+An overlapping border is an informal term for referring to a border of a string where the end of the prefix border and the beginning of the suffix border overlap.
+
+For example, the string "ababa" has a border "aba", where the last \emph{a} in the prefix border and the first \emph{a} in the suffix border refer to the same character in the string. This border would therefore be considered an overlapping border. Note that the overlapping element can be a single character or a longer substring.
 
 \section{Guidance}
 \begin{itemize}    
@@ -447,7 +467,100 @@ Make it clear how you derived the constrained form of your problem via a clear a
 %==================================================================================================================================
 \chapter{Design}
 \label{chap:des}
-How is this problem to be approached, without reference to specific implementation details? 
+
+This chapter discusses the key design decisions made throughout the project, which aim to create a product that satisfies the requirements drawn up in \autoref{chap:req}. As part of these decisions, the final design will be highlighted along with certain alternatives and why they were rejected.
+
+\section{Template Design}
+
+It became apparent quite early on in the project that ensuring uniform difficulty across exercises is one of the greatest challenges of automated exercise generation. This issue can be handled via the \emph{template-based approach} as used successfully in the past. \citet{Hoz21} suggests that for examples with pre-existing exam questions, these should be searched for syntactical characteristics, which must be kept constant to ensure uniform workloads for students (some of these characteristics would be altered to adjust difficulty based on whichever level is required). This is quite helpful for my own project, as there are quite a few past-paper questions to analyse for Algorithmics 1. \citet{Sad12} sports a similar idea, where specific exercises are given templates which highlight their common features while referencing their variables as parameters or "holes". What both of these papers have in common is that it is essential that exercises are deconstructed into fixed and varying parts to ensure uniform difficulty.
+
+In accordance with the aforementioned ideas, the template-based approach was used to design parameters (which will act as user inputs) for both selected exercises as follows.
+
+\subsection{Dijkstra}
+
+When designing a weighted graph, the three main components we must consider are the number of \emph{vertices}, the number of \emph{edges} and the values of edge \emph{weights}. While we could just take these three as our template parameters, this would result in very little variation between samples, as the only randomisation possible would be to change up the order of the vertices and edges. To go a step further, we must consider the unique characteristic of Dijkstra's algorithm, being the number of \emph{edge relaxations}. Since we wish to control the difficulty of each exercise, this number must be kept uniform for all samples. From here follows that the number of \emph{edges} does not need to be a parameter because it can be derived from the number of \emph{edge relaxations}. In a similar vein, the values of edge \emph{weights} are also redundant as they can be derived from the number of \emph{vertices} (the more \emph{vertices} the higher \emph{weight} values are needed to avoid collisions). This is desirable, as we want to have as few user inputs as possible, to eliminate illegal values and general confusion. Therefore, the template parameters (user inputs) for Dijkstra are as follows:
+
+\subsubsection{Number of vertices}
+
+This is the most straightforward way of manipulating exercise difficulty, since the more \emph{vertices} a graph has, the more time it will take to compute its shortest distances using Dijkstra's algorithm. Therefore, this value must be kept constant for all exercises. 
+
+In terms of the accepted range, it is technically possible to generate for any positive integer, however visualising graphs with more than 20 vertices becomes challenging.
+
+\subsubsection{Number of edge relaxations}
+
+In order to control the exercise difficulty for Dijkstra's algorithm specifically, the number of \emph{edge relaxations} must also be kept uniform. This is because graphs with the same number of \emph{vertices} may require significantly different amounts of efforts to solve for Dijkstra depending on their \emph{edge relaxations}. 
+
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{images/0relax.png}
+        \caption{Graph with 5 vertices and 0 edge relaxations from \emph{v1}.}
+        \label{fig:0rel}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{images/4relax.png}
+        \caption{Graph with 5 vertices and 4 edge relaxations from \emph{v1}.}
+        \label{fig:4rel}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)    
+    \caption{Two random weighted graphs with the same number of vertices (5) but different numbers of edge relaxations (0, 4) from \emph{v1}. Shown side by side to demonstrate how edge relaxations control the number of edges. }\label{fig:relax_compare}
+\end{figure}
+
+As shown by \autoref{fig:relax_compare}, the number of \emph{edges} of a graph (4 and 8) is directly correlated to the number of \emph{edge relaxations} (0 and 4 starting from \emph{v1}) when looking at two weighted graphs with the same number of \emph{vertices}. This is because a single \emph{edge relaxation} requires three edges, shown by taking the example of \emph{v1}, \emph{v2}, \emph{v3} from \autoref{fig:4rel}, with \emph{v1} being the starting vertex:
+\begin{enumerate}
+	\item
+	Edge \emph{a} from \emph{v1} to \emph{v2}.
+	\item
+	Edge \emph{b} from \emph{v1} to \emph{v3}.
+	\item
+	Edge \emph{c} connecting \emph{v2} to \emph{v3}, where \emph{len(a+c) < len(b)}, causing an edge relaxation.
+\end{enumerate}
+
+Thus, adding more \emph{edge relaxations} results in having more \emph{edges}. This means that exercises with more \emph{edge relaxations} are inherently more difficult to solve, as more comparisons are required to be made due to the higher number of \emph{edges}, let alone considering the effort needed to keep updating the shortest distances. 
+
+The minimum number of edge relaxations is 0, while the maximum \emph{r} for a graph with number of vertices \emph{v} and \emph{n=v-2} is:
+
+\begin{equation}
+	\label{eq:relax}
+	r = \frac{n (n + 1)}{2}
+\end{equation}
+
+This follows from the fact that after the second vertex (graphs with 0, 1 and 2 vertices cannot have any edge relaxations, hence the \emph{n=v-2}), each additional vertex provides the possibility of one more edge relaxation than its predecessor (third vertex can have one by connecting it to the first, fourth vertex can have two by connecting to the first and second, etc.). This corresponds the series of the sum of natural numbers \cite{a}, with \autoref{eq:relax}.
+
+From these two parameters, other characteristics of Dijkstra's algorithm can be acquired in the following way:
+
+\subsubsection{Number of edges}
+
+As previously described, the number of edges is directly controlled by the number of edge relaxations parameter, therefore it gets adjusted automatically by the generation algorithm, thus it cannot be an input variable. Furthermore, having the number of edges as user input along with the number of edge relaxations would cause many input errors, as graphs with many edge relaxations require more edges by design. 
+
+\subsubsection{Edge weights}
+
+This leaves the challenge of what values to assign to each edge weight. While this could also be a user input (maximum weight, distribution, etc.), we want to keep the generated exercises as simple arithmetically as possible (keep the student's efforts focused on Dijkstra's algorithm) and want to minimise the number of input variables, therefore this can also be handled internally. In essence, there is no hard limit to the values of the weights but they are weakly correlated to the number of vertices, as larger graphs require higher weight values to avoid overlapping when it comes to generating edge relaxations. This process is further explained when exploring the Dijkstra exercise generation algorithm in \autoref{sec:dgen}.
+
+\subsection{KMP}
+
+\section{Generation Algorithm Design}
+
+\subsection{Dijkstra}
+\label{sec:dgen}
+\subsection{KMP}
+
+\section{User Interface Design}
+
+\section{Exercise and Solution Design}
+
+\subsection{Dijkstra}
+\subsection{KMP}
+
+\section{Technologies}
+
+\subsection{Java}
+\subsection{LaTeX}
+
 \section{Guidance}
 Design should cover the abstract design in such a way that someone else might be able to do what you did, but with a different language or library or tool.
 
