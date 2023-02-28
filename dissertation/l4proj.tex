@@ -529,7 +529,7 @@ The minimum number of edge relaxations is 0, while the maximum \emph{r} for a gr
 	r = \frac{n (n + 1)}{2}
 \end{equation}
 
-This follows from the fact that after the second vertex (graphs with 0, 1 and 2 vertices cannot have any edge relaxations, hence the \emph{n=v-2}), each additional vertex provides the possibility of one more edge relaxation than its predecessor (third vertex can have one by connecting it to the first, fourth vertex can have two by connecting to the first and second, etc.). This corresponds the series of the sum of natural numbers \cite{a}, with \autoref{eq:relax}.
+This follows from the fact that (if inserting in order) after the second vertex (graphs with 0, 1 and 2 vertices cannot have any edge relaxations, hence the \emph{n=v-2}), each additional vertex provides the possibility of one more edge relaxation than its predecessor (third vertex can have one by connecting it to the first, fourth vertex can have two by connecting to the first and second, etc.). This corresponds the series of the sum of natural numbers \cite{a}, with \autoref{eq:relax}.
 
 From these two parameters, other characteristics of Dijkstra's algorithm can be acquired in the following way:
 
@@ -539,9 +539,28 @@ As previously described, the number of edges is directly controlled by the numbe
 
 \subsubsection{Edge weights}
 
-This leaves the challenge of what values to assign to each edge weight. While this could also be a user input (maximum weight, distribution, etc.), we want to keep the generated exercises as simple arithmetically as possible (keep the student's efforts focused on Dijkstra's algorithm) and want to minimise the number of input variables, therefore this can also be handled internally. In essence, there is no hard limit to the values of the weights but they are weakly correlated to the number of vertices, as larger graphs require higher weight values to avoid overlapping when it comes to generating edge relaxations. Furthermore, edges weights have certain limitations to satisfy the number of edge relaxations required, therefore they must be assigned by the algorithm. This process is further explained when exploring the Dijkstra exercise generation algorithm in \autoref{sec:dgen}.
+This leaves the challenge of what values to assign to each edge weight. While this could also be a user input (maximum weight, distribution, etc.), we want to keep the generated exercises as simple arithmetically as possible (keep the student's efforts focused on Dijkstra's algorithm) and want to minimise the number of input variables, therefore this can also be handled internally. In essence, there is no hard limit to the values of the weights but they are weakly correlated to the number of vertices, as larger graphs require higher weight values to avoid overlapping when it comes to generating edge relaxations. Furthermore, edges weights have certain limitations to satisfy the number of edge relaxations required, therefore they must be assigned by the algorithm. This process is further explained when exploring the Dijkstra exercise generation algorithm in \autoref{sec:dgen}. 
 
 \subsection{KMP}
+
+To arrive at a string from which a border table can be constructed, there are countless user inputs (template parameters) which may be considered. However, we want to optimise this number to minimise the moving parts accessible by users (avoid input errors) while still providing teachers with ample control over the difficulties of the generated exercises. Keeping this in mind, the following parameters were chosen as user input from reviewing existing KMP exercises.
+
+\subsubsection{String size}
+
+The most straightforward characteristics of a string in KMP is its length. This must be controlled, as the longer the input string, the more effort it will take students to construct its border table. Having this be a fixed input does not cause any issues, as the content of the string can still be randomised to give ample variation between generated samples.
+
+This input must be a natural number, however larger number may be more difficult to visualise.
+
+\subsubsection{Largest border size}
+
+Since it is very complex to control the entire distribution of borders which make up a string, the next best thing is focus on border which causes the most trouble for students, being the largest one. 
+
+\subsubsection{Overlapping or Non-overlapping largest border}
+
+The following characteristics could have been considered as user inputs, however were omitted due to reasons explained below.
+
+\subsubsection{Alphabet}
+
 
 \section{Generation Algorithm Design}
 
