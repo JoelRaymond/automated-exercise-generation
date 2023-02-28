@@ -553,14 +553,23 @@ This input must be a natural number, however larger number may be more difficult
 
 \subsubsection{Largest border size}
 
-Since it is very complex to control the entire distribution of borders which make up a string, the next best thing is focus on border which causes the most trouble for students, being the largest one. 
+Since it is very complex to control the entire distribution of borders which make up a string, the next best thing is focus on the border which takes the most effort for students to find, being the largest one. This is because tracking down longer borders mean more chances of error. Taking the longest border as a user input lets teachers manipulate the overall difficulty, as the algorithm will ensure that all other borders are shorter than it.
+
+The range for the largest border is at the minimum \emph{1} and for a non-overlapping border at the maximum $floor(\frac{l-1}{2})$ where \emph{l} is the length of the string. This follows from the fact that the border cannot overlap itself, this it must be short than half of the string. In the case of an overlapping border, it can be as long as $l-1$, since it can overlap most of itself but by definition cannot make up the entire string. More on overlapping borders is discussed in the upcoming section.
 
 \subsubsection{Overlapping or Non-overlapping largest border}
+
+Tracking the largest border size as well as whether or not the largest border is overlapping becomes quite difficult as it can lead to input errors (ie. inputs of largest border size $b > floor(\frac{l-1}{2})$ along with non-overlapping border). These errors must be handled by the generation algorithm. It is necessary to have this overlapping boolean as a user input however, as it significantly alters exercise difficulty. Even though there is no functional difference between overlapping and non-overlapping borders for the KMP algorithm, the way in which humans search for borders (usually separately traversing from the beginning and end of a given substring) makes handling overlapping borders much more challenging. The root cause of this issue deals with complex human psychology, which is outside the scope of this project. \cite{a}
+
+As previously mentioned, the input variable for overlapping border is a boolean.
 
 The following characteristics could have been considered as user inputs, however were omitted due to reasons explained below.
 
 \subsubsection{Alphabet}
 
+The last aspect of a KMP border problem which has not yet been addressed is the alphabet (selection of characters) from which characters are pulled in order to build the final string. It is desirable to have a limited alphabet (instead of just generating from all Latin letters or characters), in order to ensure that random selection of characters forms borders instead of getting lost in entropy \cite{a}.
+ 
+The alphabet is not required to be included in the list of user inputs, since there exists a standard alphabet for border table problems in algorithmics. This alphabet usually consists of a random choice of three characters from the characters \{A,C,G,U,T\}, which originally refer to nucleotides in RNA and DNA composition (adenine, cytosine, guanine, uracil and thymine) \cite{a}.
 
 \section{Generation Algorithm Design}
 
