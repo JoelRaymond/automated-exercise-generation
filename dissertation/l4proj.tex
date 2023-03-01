@@ -8,6 +8,7 @@
 %
 \usepackage{hyperref}
 \usepackage{booktabs}
+\usepackage{textcomp}
 
 \begin{document}
 
@@ -404,6 +405,7 @@ In this section, requirements for the generated exercises and solutions can be f
 \subsubsection{Could Have}
 \subsubsection{Will Not Have}
 \subsection{Dijkstra Requirements}
+\label{sec:dijkr}
 \subsubsection{Must Have}
 \begin{itemize}
 	\item
@@ -471,6 +473,7 @@ Make it clear how you derived the constrained form of your problem via a clear a
 This chapter discusses the key design decisions made throughout the project, which aim to create a product that satisfies the requirements drawn up in \autoref{chap:req}. As part of these decisions, the final design will be highlighted along with certain alternatives and why they were rejected.
 
 \section{Template Design}
+\label{sec:td}
 
 It became apparent quite early on in the project that ensuring uniform difficulty across exercises is one of the greatest challenges of automated exercise generation. This issue can be handled via the \emph{template-based approach} as used successfully in the past. \citet{Hoz21} suggests that for examples with pre-existing exam questions, these should be searched for syntactical characteristics, which must be kept constant to ensure uniform workloads for students (some of these characteristics would be altered to adjust difficulty based on whichever level is required). This is quite helpful for my own project, as there are quite a few past-paper questions to analyse for Algorithmics 1. \citet{Sad12} sports a similar idea, where specific exercises are given templates which highlight their common features while referencing their variables as parameters or "holes". What both of these papers have in common is that it is essential that exercises are deconstructed into fixed and varying parts to ensure uniform difficulty.
 
@@ -579,15 +582,83 @@ The alphabet is not required to be included in the list of user inputs, since th
 
 \section{User Interface Design}
 
+Initially, a simple command line user interface was developed, as it was a quick and easy way of testing the functionality of the generation algorithms. Later on in the development cycle, it was decided that the entire process of designing and implementing a more sophisticated UI would not be the most efficient use of time, as it may even hurt the usability of the program if poorly designed. Therefore, the command line interface was improved to be more user friendly instead.
+
+The advantages of a command line UI lie in its simplicity, meaning that it is easy to use regardless of experience and relatively fast. However, this simplicity comes at the price of functionality. This is because command lines only deal with strings as inputs and outputs, sometimes causing confusion when it comes to what users are expected to input. Therefore, the main aim of a successful command line interface design is to minimise this confusion as much as possible by formulating questions/prompts with straightforward answers, as well as providing ample error checking.
+
+The following section introduces the prompts in the order of which they appear in the program's user interface, along with reasons for their specific wording and how corresponding user inputs are error checked.
+\begin{itemize}
+	\item
+	\emph{Would you like to generate solutions? (y/n)}: This is an overarching question about solution generation, such that if the answer is \emph{n}, no solutions will be generated whatsoever. A guide to the expected input is included at the end of the prompt \emph{(y/n)}, to clarify to users that the input the program is looking for is either the character \emph{y} (for yes) or \emph{n} (for no). This is reinforced by the code, as the interface keeps prompting the user to try again until one of the two desired characters is entered.
+	\item
+	\emph{Would you like to generate step-by-step solutions? (y/n)}: This question only appears if \emph{y} was answered to the previous question, and is more focused, meaning that if the answer to it is \emph{y}, it will generate step-by-step solutions, and if it is \emph{n}, it will generate the final solutions only. Once again an answer guide is included, along with input error checking.
+	\item
+	\emph{Would you like to render to PDF? (y/n)}: This question is quite straightforward, with the input if \emph{y} resulting in both .tex and .pdf generations, while \emph{n} will limit the output to .tex only. Same guide and error checking is present as the first two questions.
+	\item
+	\emph{Which algorithm/s would you like to generate for? (Can choose multiple, enter to confirm) \\ Available algorithms: [(2) KMP, (1) Dijkstra]}: This is the most complex question, as it provides the option for multiple inputs. Users can either answer the name of their desired algorithm or the corresponding number as shown in the guide, to select the algorithms for which they want to generate for. An additional tip is included to prompt users that they can enter multiple algorithms and that they must press enter again in order to submit their choices. To aid with keeping tracking of which algorithms have already been selected (increasingly important as more algorithms are implemented), the following prompt appears after each input is submitted: \emph{Currently selected algorithms:(2) KMP, (1) Dijkstra}. 
+\end{itemize}
+
+After these general questions, the UI displays specific questions belonging to each selected algorithm. These questions correspond to the user inputs highlighted in \autoref{sec:td} and all include guides and error checking.
+
 \section{Exercise and Solution Design}
 
+\cite{a}
+
+Similarly to how templates are designed for the chosen exercises in \autoref{sec:td}, templates for the visualisation of exercises and their corresponding solutions must also be formulated as per the requirements in \autoref{sec:dijkr}. Many ideas for the execution of this task are inspired by existing examples of exercises and solutions, while ensuring that the visuals are mostly scalable (readable for small and large inputs). Note that only step-by-step solutions are analysed when it comes to solution design, as "simple" solutions always match the outcome at which the last step arrives.
+
 \subsection{Dijkstra}
+\subsubsection{Exercise}
+
+The Dijkstra exercise task description comes from \cite{a}, as it perfectly outlines what students are expected to do, and has been tested in real world examinations. A clarifying clause is included afterwards, informing students that the values of edge weights appear just off the centre points of each edge. This is to help with visualisations of larger graphs, where identifying which weight belongs to which edge can sometimes be difficult.
+
+Another feature which helps with the scalability of generated graphs is the included adjacency matrix. The adjacency matrix acts as a last resort (since it is always readable) for when some edge weights are completely obscured due to having a very large graph with many edges. 
+
+The greatest challenge with displaying a graph comes from deciding on where to place each vertex. This is a unique issue to automatic generation, since custom vertex placement (as done by hand) is not a viable option, especially as graphs get larger. The approach taken for handling vertex placement is inspired by the example exercise \cite{a}, which places each vertex in a circle, with equal space between them. This is generalised by starting with \emph{v1} at \emph{0 \textdegree} (right of the circle) and adding each consecutive vertex at $p+\frac{360 }{v}$\textdegree where $v$ is the number of vertices in the graph and $p$ is the angle of the previous vertex until all the vertices are displayed. The result is a placement of vertices where they all sit on the circumference of a circle while evenly spaced, making the graph highly scalable (at least until vertex markers physically start overlapping).
+
+\subsubsection{Solution}
+
+An instance of a Dijkstra exercise solution consists of the following three parts, which update at each step of the algorithm:
+
+\begin{enumerate}
+	\item
+	Table showing the current shortest path to each vertex and their lengths.
+	\item
+	Graph from exercise highlighted to show the progression of the algorithm.
+	\item
+	Short description about what happened in the current step and what is going happen in the following step.
+\end{enumerate}
+
+The solution table is very similar to the example solution \cite{a}, however it does have some unique features. Since it represents the state of Dijkstra's algorithm as it explores each vertex, early on during execution there will vertices which have not yet been found, which are represented as a path of $null$ and length $\infty$. These values are then updated continuously, displaying each comparison and its result (ie. $11 = min(\infty, 2+9)$). This also applies to edge relaxations, which are specifically in bold to highlight them (this is indicated to students at the end of each step).
+
+The main graph is also altered at each step. Vertices are highlighted to showcase which one of them have been visited and highlighted edges show which new edges are considered in the current pass of the algorithm. These make it easy to visualise how Dijkstra's algorithm explores the entire graph.
+
+The short description at the end of each step highlights the current and the next vertices to be explored. This may be helpful for colour blind or visually impaired students, who find it easier to follow text rather than the colours on the graph.
+
 \subsection{KMP}
+
+\subsubsection{Exercise}
+
+The design for KMP exercises is less complex than Dijkstra, since a string is inherently less visual than a graph, thus needs less adjustments. The task description comes from a combination of example exercises \cite{a}, which importantly specify that students need not to use the KMP algorithm, they must simply construct the border table required for KMP. 
+
+The alphabet of the generated string is also displayed, to provide context.
+
+\subsubsection{Solution}
+
+The step-by-step solutions are similar to the exercises in their simplicity, as they merely show how the border table gets updated as the generated string is being traversed.
+
+However there are some additional features which help students with understanding how border tables are built. Firstly, the substring which is currently being checked is highlighted in both the string itself (red) and border table (bold). This aids with the ease of following the progress the algorithm is making. Additionally, whenever a border is found, it is pointed out in two different ways. It is displayed in bold in the string for one, and it is also mentioned in words (along with the length of the border) at the end of the step for two. This text says "No border found." in any other case.
 
 \section{Technologies}
 
+In order to make implementation as trouble free as possible, the correct development tools had to be chosen, ensuring that they can facilitate the program as designed. This section discusses how and why certain technologies were chosen.
+
 \subsection{Java}
+
+Since this project is dealing with generating for different \empg{types} of exercises, it is natural to consider an object-oriented programming language for its implementation. This way, each selected exercise can be represented as its own object, allowing specific examples of exercises to be instances of their corresponding exercise object. Out of the object-oriented languages, I have most experience with Java, therefore this will be choice for the purpose of this project. Java also has excellent frameworks for user interfaces (ie. JavaFX), in case a more sophisticated user experience is required in the future.
+
 \subsection{LaTeX}
+
+In terms of the actual exercises and solutions generated, there is really no alternative to LaTeX which provides the same amount of flexibility. Writing .tex files of the generated exercises gives teachers the freedom to choose which format they wish to distribute them in, as well as the option to modify or combine them freely.
 
 \section{Guidance}
 Design should cover the abstract design in such a way that someone else might be able to do what you did, but with a different language or library or tool.
