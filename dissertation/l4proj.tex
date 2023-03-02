@@ -576,8 +576,44 @@ The alphabet is not required to be included in the list of user inputs, since th
 
 \section{Generation Algorithm Design}
 
+This section discusses the design process of the custom generation algorithms for Dijkstra and KMP.
+
 \subsection{Dijkstra}
 \label{sec:dgen}
+
+The Dijkstra exercise generation algorithm consists of the following three main steps and essentially works by reversing Dijkstra's algorithm (starting with the shortest lengths/paths and building the graph from there):
+
+\begin{enumerate}
+	\item
+	Generate the lengths of the shortest paths to each vertex from the starting vertex.
+	\item
+	Insert vertices into the graph by connecting them based on their shortest distances.
+	\item
+	Insert additional edges for edge relaxations, creating the final graph.
+\end{enumerate}
+
+The upcoming sections describe each step in detail, including their how they work and why certain design decisions were made. 
+
+\subsubsection{Shortest path length generation}
+The first task for generating the lengths of the shortest paths to each vertex is to set an upper bound for these values. It is necessary to choose an appropriate value, since if too low, the number of shortest length variations decreases drastically, and if too high, generated exercises may become arithmetically difficult, which should be avoided. While it could have been included as a user input, the maximum distance for the purpose of this project is $v*3$, where $v$ is the number of vertices in the graph. Since path lengths are randomly chosen unique natural numbers below this limit, it translates to an average difference of $3$ between each shortest path, which is scalable and arithmetically feasible.
+
+Next, the actual shortest lengths to each vertex are generated. As mentioned before, these are randomly chosen (apart from the starting vertex \emph{v1}, which always has a distance of $0$) unique natural numbers below the specified limit. It is most important to note that these values are unique. This limitation is required, since graphs containing some vertices with matching shortest lengths are significantly more difficult to solve than ones without (confusion about which edge to explore next). If the generated values were non-unique, some graphs would display this quality while others would not, breaking the principal aim of the project. Furthermore, later parts of the generation algorithm would have to be redesigned to handle these cases (further explored in \autoref{a}), thus including the unique limitation is much more convenient, while maintaining academic integrity in the generated exercises.
+
+At the end of this process, we are left with randomly generated shortest lengths for each vertex, which are then used to start building the graph.
+
+\subsubsection{Vertex insertion}
+
+Throughout the vertex insertion process, vertices are considered one-by-one in increasing order of shortest distance. Therefore, the starting vertex is first, so it is simply added to an empty graph. Then the following vertex is inserted by an edge to the starting vertex with the weight of its shortest distance, since there does not exist any other vertex to connect to.
+
+Inserting the remaining vertices becomes much more complex. This is because the generated graph must be able to satisfy the required number of edge relaxations, which may not be possible with random insertion. As an example, if every vertex is by chance directly connected to the starting vertex via their shortest distances, no matter how many edge relaxations are needed, none will be achieved as all the shortest paths are found during the first pass of Dijkstra's algorithm. Therefore vertices must be inserted dynamically, keeping track of edge relaxations during the process, and this is done in the following way.
+
+First, some terms which are used must be defined.
+
+\begin{enumerate}
+	\item
+	
+\end{enumerate}
+
 \subsection{KMP}
 
 \section{User Interface Design}
@@ -654,7 +690,7 @@ In order to make implementation as trouble free as possible, the correct develop
 
 \subsection{Java}
 
-Since this project is dealing with generating for different \empg{types} of exercises, it is natural to consider an object-oriented programming language for its implementation. This way, each selected exercise can be represented as its own object, allowing specific examples of exercises to be instances of their corresponding exercise object. Out of the object-oriented languages, I have most experience with Java, therefore this will be choice for the purpose of this project. Java also has excellent frameworks for user interfaces (ie. JavaFX), in case a more sophisticated user experience is required in the future.
+Since this project is dealing with generating for different \emph{types} of exercises, it is natural to consider an object-oriented programming language for its implementation. This way, each selected exercise can be represented as its own object, allowing specific examples of exercises to be instances of their corresponding exercise object. Out of the object-oriented languages, I have most experience with Java, therefore this will be choice for the purpose of this project. Java also has excellent frameworks for user interfaces (ie. JavaFX), in case a more sophisticated user experience is required in the future.
 
 \subsection{LaTeX}
 

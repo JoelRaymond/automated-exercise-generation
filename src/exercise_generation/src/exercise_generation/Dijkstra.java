@@ -149,8 +149,10 @@ public class Dijkstra {
 		int relaxationsNeeded = this.relaxations;
 		//connect vertices
 		boolean first = true;
-		List<Integer> deepestVertices = new ArrayList<>();
 		int maxRelaxation = this.vertices-2;
+		NaryTreeNode root = new NaryTreeNode(0, 0);
+		int maxLevel = 0;
+		int count = 0;
 		for (Entry<Integer, Integer> entry : this.shortestDistance.entrySet()) {
 
 			if (entry.getValue() == 0) {
@@ -165,48 +167,65 @@ public class Dijkstra {
 						" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
 				verticesInGraph.add(entry.getKey());
 				first = false;
-				deepestVertices.add(entry.getKey());
+				root.addChild(entry.getKey());
+				maxLevel = 1;
 				List<Integer> path = new ArrayList<>(vertexToPath.get(0));
 				path.add(entry.getKey());
 				vertexToPath.put(entry.getKey(), path);
 			}
 			else {
+				int chosenLevel = 0;
+				System.out.println("possible");
+				System.out.println(possibleRelaxations);
+				System.out.println("needed");
+				System.out.println(relaxationsNeeded);
+				System.out.println("maxrelax");
+				System.out.println(maxRelaxation);
 				int disparity = possibleRelaxations - relaxationsNeeded;
-				int start = 0;
 				if (disparity <= maxRelaxation) {
-					start = deepestVertices.get(ThreadLocalRandom.current().nextInt(deepestVertices.size()));
+					chosenLevel = maxLevel;
 				}
 				else {
-					int num = (disparity-maxRelaxation)+1;
-					if (num >= verticesInGraph.size()) {
-						num = verticesInGraph.size();
-						start = verticesInGraph.get(ThreadLocalRandom.current().nextInt(num));
+					System.out.println("maxLevel");
+					System.out.println(maxLevel);
+					int minLevel = 0;
+					System.out.println("Count");
+					System.out.println(count);
+					if (count == this.vertices-2) {
+						minLevel = relaxationsNeeded;
 					}
 					else {
-						start = verticesInGraph.get(ThreadLocalRandom.current().nextInt(num, verticesInGraph.size()));
+						minLevel = maxLevel - disparity;
+						if (minLevel < 0) minLevel = 0;
 					}
+					chosenLevel = ThreadLocalRandom.current().nextInt(minLevel, maxLevel+1);
+					System.out.println("chosen level");
+					System.out.println(chosenLevel);
 				}
+				List<NaryTreeNode> valuesAtLevel = root.getNodesAtLevel(root, chosenLevel);
+				NaryTreeNode startNode = valuesAtLevel.get(ThreadLocalRandom.current().nextInt(valuesAtLevel.size()));
+				int start = startNode.val;
 
 				result.addEdge(start, entry.getKey(), entry.getValue() - this.shortestDistance.get(start));
+				startNode.addChild(entry.getKey());
+				if (chosenLevel == maxLevel) {
+					maxLevel++;
+				}
+				else {
+					possibleRelaxations -= maxRelaxation;
+					maxRelaxation--;
+				}
+				relaxationsNeeded -= chosenLevel;
+				if (relaxationsNeeded < 0) relaxationsNeeded = 0;
 				this.shortestPaths.put(entry.getKey(), this.shortestPaths.get(start) + 
 						" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
 				verticesInGraph.add(entry.getKey());
 				List<Integer> path = new ArrayList<>(vertexToPath.get(start));
 				path.add(entry.getKey());
-				relaxationsNeeded -= (path.size() - 2);
 				vertexToPath.put(entry.getKey(), path);
-				if (deepestVertices.contains(start)) {
-					deepestVertices.clear();
-					deepestVertices.add(entry.getKey());
-				}
-				else {
-					if (vertexToPath.get(start).size() == path.size()) {
-						deepestVertices.add(entry.getKey());
-					}
-					possibleRelaxations -= (maxRelaxation - (path.size()-2));
-					maxRelaxation--;
-				}
+				
 			}
+			count++;
 		}
 		for (Integer v : vertexToPath.keySet()) {
 			int list_size = vertexToPath.get(v).size();
@@ -214,6 +233,7 @@ public class Dijkstra {
 				relaxedTo.put(v, vertexToPath.get(v).get(list_size-3));
 			}
 		}
+		System.out.println(vertexToPath);
 		//add more edges to get to no more edge relaxations
 		while (this.relaxations > 0) {
 
@@ -256,7 +276,7 @@ public class Dijkstra {
 	
 	public static void main(String[] args) {
 		for(int i = 0; i <1; i++) {
-			Dijkstra test = new Dijkstra(10, 10);
+			Dijkstra test = new Dijkstra(5, 0);
 			System.out.println(test.maxDistance);
 			System.out.println(test.shortestDistance);
 			System.out.println(test.shortestPaths);
