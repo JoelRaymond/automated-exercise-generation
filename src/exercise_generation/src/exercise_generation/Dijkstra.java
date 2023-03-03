@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -139,7 +138,6 @@ public class Dijkstra {
 	
 	public WeightedGraph.Graph generateGraph(){
 		WeightedGraph.Graph result = new WeightedGraph.Graph(this.vertices);
-		LinkedList<Integer> verticesInGraph = new LinkedList<Integer>();
 		HashMap<Integer, Integer> relaxedTo = new HashMap<Integer, Integer>();
 		HashMap<Integer, Integer> relaxedWeight = new HashMap<Integer, Integer>();
 		HashMap<Integer, List<Integer>> vertexToPath = new HashMap<>();
@@ -157,7 +155,6 @@ public class Dijkstra {
 
 			if (entry.getValue() == 0) {
 				this.shortestPaths.put(entry.getKey(), "v_{1}");
-				verticesInGraph.add(entry.getKey());
 				vertexToPath.put(entry.getKey(), Arrays.asList(entry.getKey()));
 				continue;
 			}
@@ -165,7 +162,6 @@ public class Dijkstra {
 				result.addEdge(0, entry.getKey(), entry.getValue());
 				this.shortestPaths.put(entry.getKey(), this.shortestPaths.get(0) + 
 						" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
-				verticesInGraph.add(entry.getKey());
 				first = false;
 				root.addChild(entry.getKey());
 				maxLevel = 1;
@@ -181,27 +177,25 @@ public class Dijkstra {
 				System.out.println(relaxationsNeeded);
 				System.out.println("maxrelax");
 				System.out.println(maxRelaxation);
-				int disparity = possibleRelaxations - relaxationsNeeded;
+				int disparity = possibleRelaxations - this.relaxations;
 				if (disparity <= maxRelaxation) {
 					chosenLevel = maxLevel;
 				}
 				else {
-					System.out.println("maxLevel");
-					System.out.println(maxLevel);
 					int minLevel = 0;
-					System.out.println("Count");
+					System.out.println("count");
 					System.out.println(count);
 					if (count == this.vertices-2) {
 						minLevel = relaxationsNeeded;
 					}
 					else {
-						minLevel = maxLevel - disparity;
+						minLevel = maxLevel - maxRelaxation;
 						if (minLevel < 0) minLevel = 0;
 					}
 					chosenLevel = ThreadLocalRandom.current().nextInt(minLevel, maxLevel+1);
-					System.out.println("chosen level");
-					System.out.println(chosenLevel);
 				}
+				System.out.println("chosen");
+				System.out.println(chosenLevel);
 				List<NaryTreeNode> valuesAtLevel = root.getNodesAtLevel(root, chosenLevel);
 				NaryTreeNode startNode = valuesAtLevel.get(ThreadLocalRandom.current().nextInt(valuesAtLevel.size()));
 				int start = startNode.val;
@@ -219,7 +213,6 @@ public class Dijkstra {
 				if (relaxationsNeeded < 0) relaxationsNeeded = 0;
 				this.shortestPaths.put(entry.getKey(), this.shortestPaths.get(start) + 
 						" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
-				verticesInGraph.add(entry.getKey());
 				List<Integer> path = new ArrayList<>(vertexToPath.get(start));
 				path.add(entry.getKey());
 				vertexToPath.put(entry.getKey(), path);
@@ -276,7 +269,7 @@ public class Dijkstra {
 	
 	public static void main(String[] args) {
 		for(int i = 0; i <1; i++) {
-			Dijkstra test = new Dijkstra(5, 0);
+			Dijkstra test = new Dijkstra(5, 2);
 			System.out.println(test.maxDistance);
 			System.out.println(test.shortestDistance);
 			System.out.println(test.shortestPaths);

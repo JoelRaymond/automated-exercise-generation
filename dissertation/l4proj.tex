@@ -490,6 +490,7 @@ This is the most straightforward way of manipulating exercise difficulty, since 
 In terms of the accepted range, it is technically possible to generate for any positive integer, however visualising graphs with more than 20 vertices becomes challenging.
 
 \subsubsection{Number of edge relaxations}
+\label{sec:ernum}
 
 In order to control the exercise difficulty for Dijkstra's algorithm specifically, the number of \emph{edge relaxations} must also be kept uniform. This is because graphs with the same number of \emph{vertices} may require significantly different amounts of efforts to solve for Dijkstra depending on their \emph{edge relaxations}. 
 
@@ -603,16 +604,30 @@ At the end of this process, we are left with randomly generated shortest lengths
 
 \subsubsection{Vertex insertion}
 
-Throughout the vertex insertion process, vertices are considered one-by-one in increasing order of shortest distance. Therefore, the starting vertex is first, so it is simply added to an empty graph. Then the following vertex is inserted by an edge to the starting vertex with the weight of its shortest distance, since there does not exist any other vertex to connect to.
+Throughout the vertex insertion process, vertices are considered one-by-one in increasing order of shortest distance. Therefore, the starting vertex is first, so it is simply added to an empty graph. Then the following vertex is inserted by an edge to the starting vertex with the weight of its shortest distance, since there does not exist any other vertex to connect to. These two vertices are also added to an empty n-ary tree (with the starting vertex as the root), as this will help with the insertion of the remaining vertices. This is possible because we are currently building a graph of shortest paths only, so the graph is acyclic and can be represented as an n-ary tree.
 
-Inserting the remaining vertices becomes much more complex. This is because the generated graph must be able to satisfy the required number of edge relaxations, which may not be possible with random insertion. As an example, if every vertex is by chance directly connected to the starting vertex via their shortest distances, no matter how many edge relaxations are needed, none will be achieved as all the shortest paths are found during the first pass of Dijkstra's algorithm. Therefore vertices must be inserted dynamically, keeping track of edge relaxations during the process, and this is done in the following way.
+Inserting the remaining vertices becomes much more complex. This is because the generated graph must be able to satisfy the required number of edge relaxations, which may not be possible with random insertion. As an example, if every vertex is by chance directly connected to the starting vertex via their shortest distances, no matter how many edge relaxations are needed, none will be achieved as all the shortest paths are found during the first pass of Dijkstra's algorithm. Therefore vertices must be inserted dynamically, keeping track of edge relaxations during the process.
 
-First, some terms which are used must be defined.
+The number of edge relaxations a single inserted vertex can provide is directly correlated to the number of edges which make up its shortest path to the starting vertex. This is equivalent to the level at which it exists in the n-ary tree representation of graph. More specifically, the number of edge relaxations from a single inserted vertex $er = L-1$, where $L$ is its level in the tree (starting vertex is at level $0$). This follows from the definition in \autoref{sec:ernum}, claiming that each vertex can have an additional edge with its grandparent and up (in the tree), which form edge relaxations. For example, a vertex inserted at $L=4$ can provide $3$ edge relaxations by having edges of certain weights to its ancestors in levels $2$, $1$ and $0$. The reason for using an n-ary tree instead of just the number of edges in vertices' shortest paths, is because there might be separate paths to each level in the tree, each of which can be used to satisfy a certain number of desired edge relaxations, thus there must exist a variable which groups them together, being the tree node level.
 
-\begin{enumerate}
+The naive approach would be to simply insert each vertex at deepest level in tree, resulting in a graph which allows for the maximum number of edge relaxations possible, meaning that the desired number of edge relaxations can be satisfied no matter what. The issue with this is that the graphs created end up having very uniform answers for Dijkstra's algorithm, as all the shortest paths being able to be found just by following the edges with the lowest weights.
+
+Instead, vertices are to be inserted dynamically ensuring that the graph being built can facilitate the number of edge relaxations required. In order to achieve this, some characteristics of the graph must be tracked, as defined below.
+
+\begin{itemize}
 	\item
-	
-\end{enumerate}
+	The number of possible relaxations ($pr$) refers to the maximum number of edge relaxations which is achievable for the current graph, given that the remaining vertices are inserted in a way which facilitates this (at the maximum level each time). This variable is instantiated to the maximum number of edge relaxations for a graph with the corresponding number of vertices (\autoref{sec:ernum}) and decreases if a vertex is inserted in a way that does not maximise the number of edge relaxations. 
+	\item
+	The number of relaxations still needed ($rn$) represents the remaining number of edge relaxations which have not yet been handled. The starting value for this the given user input and it decreases as the vertices added satisfy the conditions for edge relaxations.
+	\item
+	$pr-rn$ is referred to as the disparity ($d$), and can be interpreted as the number of possible relaxations the graph can afford to lose. This variable is used to check whether or not the algorithm can afford to not maximise the number of edge relaxations in the current vertex, by checking the worst case scenario for the upcoming vertex.
+	\item
+	The maximum number of relaxations from one vertex ($mr$) refers to the number of edge relaxations which the last vertex will provide if all vertices from this point are inserted in a way in which the number of edge relaxations in maximised (deepest level in tree). Initially, this variable is $v-2$, where $v$ is the number of vertices in the graph, in accordance with \autoref{sec:ernum}.
+\end{itemize}
+
+The algorithm for inserting vertices must first choose an appropriate level at which the vertex can be added in a way that the desired number of edge relaxations is achievable. The main limitation that the algorithm has to consider is the fact that $pr$ is decreased by $mr$ each time a vertex is not inserted at the deepest possible level. This follows from the definition of $pr$. Thus, if $d <= mr$ the chosen level must be the deepest in the tree, as otherwise the graph would lose $mr$ possible relaxations, which it cannot afford according to its $d$. 
+
+In the case where $d > mr$ the algorithm has a lot more freedom to choose which level to insert the vertex.
 
 \subsection{KMP}
 
