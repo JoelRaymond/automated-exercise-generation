@@ -150,7 +150,6 @@ public class Dijkstra {
 		int maxRelaxation = this.vertices-2;
 		NaryTreeNode root = new NaryTreeNode(0, 0);
 		int maxLevel = 0;
-		int count = 0;
 		for (Entry<Integer, Integer> entry : this.shortestDistance.entrySet()) {
 
 			if (entry.getValue() == 0) {
@@ -182,16 +181,9 @@ public class Dijkstra {
 					chosenLevel = maxLevel;
 				}
 				else {
-					int minLevel = 0;
 					//System.out.println("count");
 					//System.out.println(count);
-					if (count == this.vertices-2) {
-						minLevel = relaxationsNeeded;
-					}
-					else {
-						minLevel = 0;
-					}
-					chosenLevel = ThreadLocalRandom.current().nextInt(minLevel, maxLevel+1);
+					chosenLevel = ThreadLocalRandom.current().nextInt(maxLevel+1);
 				}
 				//System.out.println("chosen");
 				//System.out.println(chosenLevel);
@@ -217,7 +209,6 @@ public class Dijkstra {
 				vertexToPath.put(entry.getKey(), path);
 				
 			}
-			count++;
 		}
 		for (Integer v : vertexToPath.keySet()) {
 			int list_size = vertexToPath.get(v).size();
