@@ -620,7 +620,7 @@ Instead, vertices are to be inserted dynamically ensuring that the graph being b
 	\item
 	The number of relaxations still needed ($rn$) represents the remaining number of edge relaxations which have not yet been handled. The starting value for this the given user input and it decreases as the vertices added satisfy the conditions for edge relaxations.
 	\item
-	$pr-rn$ is referred to as the disparity ($d$), and can be interpreted as the number of possible relaxations the graph can afford to lose. This variable is used to check whether or not the algorithm can afford to not maximise the number of edge relaxations in the current vertex, by checking the worst case scenario for the upcoming vertex.
+	$pr-r$ (where $r$ is the number of relaxations required) is referred to as the disparity ($d$), and can be interpreted as the number of possible relaxations the graph can afford to lose. This variable is used to check whether or not the algorithm can afford to not maximise the number of edge relaxations in the current vertex, by checking the worst case scenario for the upcoming vertex.
 	\item
 	The maximum number of relaxations from one vertex ($mr$) refers to the number of edge relaxations which the last vertex will provide if all vertices from this point are inserted in a way in which the number of edge relaxations in maximised (deepest level in tree). Initially, this variable is $v-2$, where $v$ is the number of vertices in the graph, in accordance with \autoref{sec:ernum}.
 \end{itemize}

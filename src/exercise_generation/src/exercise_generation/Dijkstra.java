@@ -171,31 +171,30 @@ public class Dijkstra {
 			}
 			else {
 				int chosenLevel = 0;
-				System.out.println("possible");
-				System.out.println(possibleRelaxations);
-				System.out.println("needed");
-				System.out.println(relaxationsNeeded);
-				System.out.println("maxrelax");
-				System.out.println(maxRelaxation);
+				//System.out.println("possible");
+				//System.out.println(possibleRelaxations);
+				//System.out.println("needed");
+				//System.out.println(relaxationsNeeded);
+				//System.out.println("maxrelax");
+				//System.out.println(maxRelaxation);
 				int disparity = possibleRelaxations - this.relaxations;
-				if (disparity <= maxRelaxation) {
+				if (disparity < maxRelaxation) {
 					chosenLevel = maxLevel;
 				}
 				else {
 					int minLevel = 0;
-					System.out.println("count");
-					System.out.println(count);
+					//System.out.println("count");
+					//System.out.println(count);
 					if (count == this.vertices-2) {
 						minLevel = relaxationsNeeded;
 					}
 					else {
-						minLevel = maxLevel - maxRelaxation;
-						if (minLevel < 0) minLevel = 0;
+						minLevel = 0;
 					}
 					chosenLevel = ThreadLocalRandom.current().nextInt(minLevel, maxLevel+1);
 				}
-				System.out.println("chosen");
-				System.out.println(chosenLevel);
+				//System.out.println("chosen");
+				//System.out.println(chosenLevel);
 				List<NaryTreeNode> valuesAtLevel = root.getNodesAtLevel(root, chosenLevel);
 				NaryTreeNode startNode = valuesAtLevel.get(ThreadLocalRandom.current().nextInt(valuesAtLevel.size()));
 				int start = startNode.val;
@@ -226,7 +225,7 @@ public class Dijkstra {
 				relaxedTo.put(v, vertexToPath.get(v).get(list_size-3));
 			}
 		}
-		System.out.println(vertexToPath);
+		//System.out.println(vertexToPath);
 		//add more edges to get to no more edge relaxations
 		while (this.relaxations > 0) {
 
@@ -269,7 +268,7 @@ public class Dijkstra {
 	
 	public static void main(String[] args) {
 		for(int i = 0; i <1; i++) {
-			Dijkstra test = new Dijkstra(5, 2);
+			Dijkstra test = new Dijkstra(10, 10);
 			System.out.println(test.maxDistance);
 			System.out.println(test.shortestDistance);
 			System.out.println(test.shortestPaths);
