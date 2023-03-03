@@ -144,7 +144,6 @@ public class Dijkstra {
 		HashMap<Integer, Integer> prevDist = new HashMap<>();
 		
 		int possibleRelaxations = getRelaxations(this.vertices);
-		int relaxationsNeeded = this.relaxations;
 		//connect vertices
 		boolean first = true;
 		int maxRelaxation = this.vertices-2;
@@ -200,8 +199,6 @@ public class Dijkstra {
 					possibleRelaxations -= maxRelaxation;
 					maxRelaxation--;
 				}
-				relaxationsNeeded -= chosenLevel;
-				if (relaxationsNeeded < 0) relaxationsNeeded = 0;
 				this.shortestPaths.put(entry.getKey(), this.shortestPaths.get(start) + 
 						" \\rightarrow v_{" + Integer.toString(entry.getKey()+1) + "}");
 				List<Integer> path = new ArrayList<>(vertexToPath.get(start));

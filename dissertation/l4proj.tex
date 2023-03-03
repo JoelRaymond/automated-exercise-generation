@@ -215,12 +215,6 @@ The main inspiration for this project was a research paper by \citet{Hoz21}, whi
 \subsection{Automatic exercise generation in data science}
 \citet{Kot19} approaches automatic exercise generation from the point of view of data science with a web based implementation, mostly focusing on exercise solving. The site facilitates three options for each type of exercise: Exercise creation from scratch, Random exercise creation and Exercise creation based on existing ones. The one most relevant is Random exercise creation, as this involves generating a random problem of a certain type, with the reduced difficulty of not having to generate multiple examples with similar difficulties. This means that their approach for exercise generation is quite naive, however implementations for the supported algorithms may be of use. Unfortunately, there is not a great amount detail mentioned about the specific implementation and the website is non-operational currently.
 
-\section{Change a bit and move to introduction}
-
-It became apparent quite early on in the project that ensuring uniform difficulty across exercises would be one of the greatest challenges of automated exercise generation. This issue can be handled via a number of methods based on the type exercise as shown by the following. \citet{Hoz21} suggests that for examples with pre-existing exam questions, these should be searched for syntactical characteristics, which must be kept constant to ensure uniform workloads for students (some of these characteristics would be altered to adjust difficulty based on whichever level is required. This is quite helpful for my own project, as there are quite a few past-paper questions to analyse for Algorithmics 1. \citet{Sad12} sports a similar idea called  "\emph{template-based approach}", where specific exercises are given templates which highlight their common features while referencing their variables are parameters or "holes". What all of these methods have in common is that it is essential that exercises are deconstructed into fixed and varying parts to ensure uniform difficulty.
-
-Since automated exercise generation only became an area of focus for researchers with the rise of the COVID-19 pandemic, there does not yet exist a universally standard technology for implementation. For instance, \citet{Hoz21} used mostly Haskell and some Python, while \citet {Esh22} used Java entirely, with \citet{Kot19} implementing a web based approach with php and javascript. This gave me a lot of freedom to choose how I was going to implement my own solution. I eventually settled on Java, due to its object oriented nature (different exercises can be well represented with all their parameters), ease of creating simple UI and my overall experience with it.
-
 \section{Definitions}
 \subsection{Dijkstra}
 \cite{a}
@@ -538,6 +532,7 @@ This follows from the fact that (if inserting in order) after the second vertex 
 From these two parameters, other characteristics of Dijkstra's algorithm can be acquired in the following way:
 
 \subsubsection{Number of edges}
+\label{sec:noe}
 
 As previously described, the number of edges is directly controlled by the number of edge relaxations parameter, therefore it gets adjusted automatically by the generation algorithm, thus it cannot be an input variable. Furthermore, having the number of edges as user input along with the number of edge relaxations would cause many input errors, as graphs with many edge relaxations require more edges by design. 
 
@@ -603,6 +598,7 @@ Next, the actual shortest lengths to each vertex are generated. As mentioned bef
 At the end of this process, we are left with randomly generated shortest lengths for each vertex, which are then used to start building the graph.
 
 \subsubsection{Vertex insertion}
+\label{sec:vi}
 
 Throughout the vertex insertion process, vertices are considered one-by-one in increasing order of shortest distance. Therefore, the starting vertex is first, so it is simply added to an empty graph. Then the following vertex is inserted by an edge to the starting vertex with the weight of its shortest distance, since there does not exist any other vertex to connect to. These two vertices are also added to an empty n-ary tree (with the starting vertex as the root), as this will help with the insertion of the remaining vertices. This is possible because we are currently building a graph of shortest paths only, so the graph is acyclic and can be represented as an n-ary tree.
 
@@ -618,18 +614,49 @@ Instead, vertices are to be inserted dynamically ensuring that the graph being b
 	\item
 	The number of possible relaxations ($pr$) refers to the maximum number of edge relaxations which is achievable for the current graph, given that the remaining vertices are inserted in a way which facilitates this (at the maximum level each time). This variable is instantiated to the maximum number of edge relaxations for a graph with the corresponding number of vertices (\autoref{sec:ernum}) and decreases if a vertex is inserted in a way that does not maximise the number of edge relaxations. 
 	\item
-	The number of relaxations still needed ($rn$) represents the remaining number of edge relaxations which have not yet been handled. The starting value for this the given user input and it decreases as the vertices added satisfy the conditions for edge relaxations.
-	\item
 	$pr-r$ (where $r$ is the number of relaxations required) is referred to as the disparity ($d$), and can be interpreted as the number of possible relaxations the graph can afford to lose. This variable is used to check whether or not the algorithm can afford to not maximise the number of edge relaxations in the current vertex, by checking the worst case scenario for the upcoming vertex.
 	\item
 	The maximum number of relaxations from one vertex ($mr$) refers to the number of edge relaxations which the last vertex will provide if all vertices from this point are inserted in a way in which the number of edge relaxations in maximised (deepest level in tree). Initially, this variable is $v-2$, where $v$ is the number of vertices in the graph, in accordance with \autoref{sec:ernum}.
 \end{itemize}
 
-The algorithm for inserting vertices must first choose an appropriate level at which the vertex can be added in a way that the desired number of edge relaxations is achievable. The main limitation that the algorithm has to consider is the fact that $pr$ is decreased by $mr$ each time a vertex is not inserted at the deepest possible level. This follows from the definition of $pr$. Thus, if $d <= mr$ the chosen level must be the deepest in the tree, as otherwise the graph would lose $mr$ possible relaxations, which it cannot afford according to its $d$. 
+The algorithm for inserting vertices must first choose an appropriate level at which the vertex can be added in a way that the desired number of edge relaxations is achievable. The main limitation that the algorithm has to consider is the fact that $pr$ is decreased by $mr$ each time a vertex is not inserted at the deepest possible level. This follows from the definition of $pr$. Thus, if $d < mr$ the chosen level must be the deepest in the tree, as otherwise the graph would lose $mr$ possible relaxations, which it cannot afford according to its $d$. 
 
-In the case where $d > mr$ the algorithm has a lot more freedom to choose which level to insert the vertex.
+In the case where $d >= mr$, the algorithm has a lot more freedom to choose which level to insert the vertex. This is because the graph can afford to lose $mr$ possible relaxations, thus the current vertex vertex can inserted at any existing level (or one higher if inserted at the deepest level), which is handled via a random choice. 
+
+Once a level is selected (through one of the two cases above), an existing vertex is randomly chosen from the group of vertices at the given level, which will be referred to as the \emph{start} vertex. The new vertex is then joined to the graph via an edge to the \emph{start} vertex, setting the weight to be (shortest distance to new vertex - shortest distance to start vertex), which will always be positive as vertices are inserted in order of increasing \emph{shortest distance}.  Additionally, the new vertex is also added to the tree as a child of the start vertex, to match the tree to the graph. At the same time, vertices which can be relaxed are stored in a separate data structure, along with the closest vertex they can be relaxed to (two generations above them).
+
+As a final step, all the variables defined before are updated. If the insertion happened at the deepest level of the tree, a new deepest level is formed but there are otherwise no changes to the variables. In any other case, $pr$ is decreased by $mr$ (since the graph is losing out on $mr$ relaxations by not inserting at the deepest point) followed by $mr$ being decreased by one (since the deepest possible level is also being decreased by one). 
+
+At the end of the entire process of vertex insertion, we are left with an acyclic graph containing all the vertices. Running Dijkstra's algorithm on this current graph would give the correct answers, however the edges which facilitate edge relaxations are still yet to be added, which is the final part of the generation algorithm.
+
+\subsubsection{Edge relaxations}
+
+In order to have Dijkstra's algorithm perform the required number of edge relaxations, the same number of additional edges as desired relaxations are to be inserted into the graph, therefore the following process is executed this many times. There exist certain constraints that apply to these edges, which are explored in this section.
+
+First, the vertex to be relaxed must be selected, referred to as \emph{start}. This is done through a random selection from the list of vertices which can be relaxed (as built in \autoref{sec:vi}), while also retrieving the vertex to which we are relaxing, referred to as \emph{end}. \emph{End} is a vertex that exists along the shortest path to \emph{start}, where adding a new edge between them (of weight larger than the path between them) creates a new edge relaxation. It is important to note that \emph{end} is initially the vertex two levels above \emph{start}, since the relaxed edge weights must increase as \emph{end} gets moved up until reaching the root.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/relaxWeight.png}    
+
+    \caption{Weighted graph with 5 vertices and 3 edge relaxations.}
+    \label{fig:relaxWeight} 
+\end{figure}
+
+Once \emph{start} and \emph{end} are selected, they weight of the new relaxed edge between them must be calculated. As previously mentioned, this weight must increase as \emph{end} moves up the tree, so we must first retrieve the weight which was assigned the previous time the vertex was relaxed. If this does not exist (first relaxation), the new weight must simply be larger than the length of the path between \emph{start} and \emph{end}. If it does exist, the new weight must be greater than the sum of the distance between the current \emph{end} and the previous \emph{end} and the previous weight. This is because these two values represent the length of the following path which will be explored to \emph{start}, which would not count as an edge relaxation if larger than the new relaxed edge. In either case, the increase in weight is constituted by a random integer between 1 and 3, optimising arithmetic difficulty and exercise variance.
+
+As an example, consider \autoref{fig:relaxWeight}, where $v3$ is first relaxed to $v2$ (two before it) and then to $v1$ (root). During the first relaxation, the new edge weight ($11$) must be greater than the length of the path between \emph{start} ($v3$) and \emph{end} ($v2$), which it is, since $11 > (12 - 2 = 10)$ ($12$ being the shortest distance to $v3$ (2+5+5) and $2$ being the shortest distance to $v2$. For the second relaxation, the new edge weight ($14$) must now be greater than $(11 + (2-0)) = 13$ (shortest distance to $v1$ is $0$), which is also satisfied.
+
+Now that the \emph{start}, \emph{end} and \emph{weight} are chosen, this information can be used to insert a new edge, facilitating a new relaxation. Additionally, data structures storing previous weights and distances are updated. As a final step, the \emph{end} vertex belonging to the current \emph{start} must be moved one step closer to the root. The only complexity here is checking if \emph{end} already is the root, in which case \emph{start} has not more relaxations and can be ignored in subsequent passes. Otherwise, the vertex to which it is to be relaxed to is updated.
+
+In the end, the algorithm outputs a graph which has the required number of vertices ($v$) and edge relaxations ($r$) for Dijkstra's algorithm. The graph also has $(v-1) + r$ ($v-1$ for initial connection of vertices and $r$ for relaxed edges) edges, reinforcing the claim that the number of edges is directly correlated to the user inputs in \autoref{sec:noe}.
 
 \subsection{KMP}
+
+\subsubsection{Input error checking}
+\subsubsection{Overlapping}
+\subsubsection{Non-overlapping}
+\subsubsection{Remainder of string}
 
 \section{User Interface Design}
 
@@ -702,6 +729,8 @@ However there are some additional features which help students with understandin
 \section{Technologies}
 
 In order to make implementation as trouble free as possible, the correct development tools had to be chosen, ensuring that they can facilitate the program as designed. This section discusses how and why certain technologies were chosen.
+
+Since automated exercise generation only became an area of focus for researchers with the rise of the COVID-19 pandemic, there does not yet exist a universally standard technology for implementation. For instance, \citet{Hoz21} used mostly Haskell and some Python, while \citet {Esh22} used Java entirely, with \citet{Kot19} implementing a web based approach with php and javascript. This gave me a lot of freedom to choose how I was going to implement my own solution. 
 
 \subsection{Java}
 
