@@ -554,7 +554,7 @@ This input must be a natural number, however larger number may be more difficult
 
 Since it is very complex to control the entire distribution of borders which make up a string, the next best thing is focus on the border which takes the most effort for students to find, being the largest one. This is because tracking down longer borders mean more chances of error. Taking the longest border as a user input lets teachers manipulate the overall difficulty, as the algorithm will ensure that all other borders are shorter than it.
 
-The range for the largest border is at the minimum \emph{1} and for a non-overlapping border at the maximum $floor(\frac{l-1}{2})$ where \emph{l} is the length of the string. This follows from the fact that the border cannot overlap itself, this it must be short than half of the string. In the case of an overlapping border, it can be as long as $l-1$, since it can overlap most of itself but by definition cannot make up the entire string. More on overlapping borders is discussed in the upcoming section.
+The range for the largest border is at the minimum \emph{1} and for a non-overlapping border at the maximum $floor(\frac{l-1}{2})$ where \emph{l} is the length of the string. This follows from the fact that the border cannot overlap itself, this it must be short than half of the string. In the case of an overlapping border, its maximum is more complex, so it is explained in \autoref{sec:ob} in detail. More on overlapping borders is discussed in the upcoming section.
 
 \subsubsection{Overlapping or Non-overlapping largest border}
 
@@ -653,10 +653,28 @@ In the end, the algorithm outputs a graph which has the required number of verti
 
 \subsection{KMP}
 
-\subsubsection{Input error checking}
-\subsubsection{Overlapping}
-\subsubsection{Non-overlapping}
+The KMP exercise generation algorithm consists of two main steps, first the largest border is generated and inserted, and then the rest of the string is filled out. The process of largest border generation differs drastically depending on if it is overlapping or not, so these are addressed in separate sections.
+
+\subsubsection{Overlapping border generation}
+\label{sec:ob}
+
+In order to generate an overlapping border, it must be deconstructed into smaller parts which are more manageable. Every overlapping border must consist of the same beginning and end substring, since the end of the prefix border has to match the beginning of the suffix border, forming the overlap (thus this substring is referred to as the \emph{overlap} or $o$). The remaining of the border (substring between the two \emph{overlaps}) can be randomised from the alphabet, as it does not affect the overlapping process, and is called the \emph{middle} (or $m$). Considering these two substrings, the structure of an overlapping border is $o+m+o$. As an example, the overlapping border "aba" from the string "ababa" has \emph{overlap} "a" (at the beginning and end) and \emph{middle} "b" (could be any other string). Considering both prefix and suffix borders joined, the structure becomes $o+m+o+m+o$ ("$a+b+a+b+a$").
+
+Following from the above definitions, the border generation algorithm must first calculate the length of the \emph{overlap}. If the length of the largest border is longer than half of the entire string, the the length of the \emph{overlap} must be a random integer between . The reason this distinction must be made is because borders longer than half of the output string must have a minimum amount of overlap in order to fit in the given string length.
+
+\subsubsection{Non-overlapping border generation}
+
+Generating and inserting a non-overlapping border is much more straightforward. First, the starting position for the suffix string must be defined (prefix is always at the beginning), which is to be after the prefix border (so they do not overlap) and 'largest border length' spaces before the end of the string (so it fits). This position is chosen randomly. Once this is done, a random border can be generated from the selected alphabet and trivially inserted at the beginning of the string (prefix) and chosen starting position (prefix). 
+
 \subsubsection{Remainder of string}
+
+Before the rest of the string is filled in with random characters, a certain edge case must be handled. Namely, the off-chance that the "random" character following the prefix border matches the "random" character following the suffix border, as this would form a border that is longer than required. To handle this, the algorithm first inserts a random character after the prefix and then inserts a character which is different after the suffix.
+
+Once this is resolved, the remaining unfilled spaces in the string are populated with random characters. However with this approach, there is a possibility that the longest border appears more than two times (prefix and suffix). This in itself would not be a problem, since the longest border found in the string would still be the required length. The issue comes from when the subsequent character from this new largest border matches the subsequent character from the prefix border, creating a longer than desired largest border.
+
+The way this issue is addressed, is by searching for the largest border in the temporary final string. Once an instance of the largest border is found, if it is not the original prefix or suffix border, the first character of it is changed, so that there is no longer a unintended match with the longest border.
+
+At the end of the process, the program outputs a string of required length, which contains a largest border of the desired length.
 
 \section{User Interface Design}
 

@@ -67,6 +67,9 @@ public class KMP {
 			this.largestBorder = largestBorder;
 			this.overlapping = true;
 		}
+		else if (((largestBorder-1)/2)*3 + (largestBorder - 2*((largestBorder-1)/2)) >= length) {
+			throw new IllegalArgumentException("Largest border too long.");
+		}
 		else {
 			this.largestBorder = largestBorder;
 			this.overlapping = overlapping;
@@ -102,12 +105,14 @@ public class KMP {
 		if (this.overlapping) {
 			int overlapLength;
 			if (this.largestBorder > (this.length-1)/2) {
-				overlapLength = ThreadLocalRandom.current().nextInt(this.largestBorder-(this.length-1)/2, (this.largestBorder-1)/2);
+				//System.out.println((this.largestBorder-1)/2);
+				overlapLength = ThreadLocalRandom.current().nextInt((this.largestBorder-(this.length-1)/2) + 1, ((this.largestBorder-1)/2)+1);
 			}
 			else {
 				int upper = (int) (Math.ceil((this.largestBorder-1)/2.0));
 				overlapLength = ThreadLocalRandom.current().nextInt(1, upper);
 			}
+			//System.out.println(overlapLength);
 			int count = 0;
 			String overlap = "";
 			for (int i=0; i < overlapLength; i++) {
@@ -125,25 +130,34 @@ public class KMP {
 				result[count] = Character.toString(random);
 				count++;
 			}
+			
+			borderStart = overlapLength*3 + middle.length()*2;
+			
+			//System.out.println(middle.length());
+			//System.out.println(count);
+			//System.out.println(middle);
+			//System.out.println(overlap);
 			longestBorder += middle;
-			longestBorder += overlap;
+			longestBorder += overlap; 
 			
 			for (int i = 0; i < overlapLength; i++) {
 				result[count] = Character.toString(overlap.charAt(i));
 				count++;
 			}
+			
+			//System.out.println(count);
 			
 			for (int i = 0; i < middle.length(); i++) {
 				result[count] = Character.toString(middle.charAt(i));
 				count++;
 			}
 			
+			//System.out.println(count);
+			
 			for (int i = 0; i < overlapLength; i++) {
 				result[count] = Character.toString(overlap.charAt(i));
 				count++;
 			}
-			
-			borderStart = overlapLength*3 + middle.length()*2;
 		}
 		else {
 			borderStart = ThreadLocalRandom.current().nextInt(this.largestBorder, this.length-this.largestBorder);
@@ -170,10 +184,16 @@ public class KMP {
 		while (true) {
 			String afterSecond = Character.toString(getRandomChar());
 			if (!afterSecond.equals(afterFirst)) {
-				result[borderStart] = afterSecond;
-				break;
+				try {
+					result[borderStart] = afterSecond;
+					break;
+				}
+				catch(Exception e) {
+					break;
+				}
 			}
 		}
+		
 		
 		for (int i=this.largestBorder; i < result.length; i++) {
 			if (result[i] == null) {
@@ -232,7 +252,7 @@ public class KMP {
 	
 	public static void main(String[] args) {
 		for(int i = 0; i <1; i++) {
-			KMP test = new KMP(13, 4, false);
+			KMP test = new KMP(14, 9, true);
 			System.out.println(test.alphabet);
 		}
 	}
