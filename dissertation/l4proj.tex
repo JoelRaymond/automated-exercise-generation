@@ -712,6 +712,7 @@ Similarly to how templates are designed for the chosen exercises in \autoref{sec
 
 \subsection{Dijkstra}
 \subsubsection{Exercise}
+\label{sec:dijkstraExerciseDesign}
 
 The Dijkstra exercise task description comes from \cite{a}, as it perfectly outlines what students are expected to do, and has been tested in real world examinations. A clarifying clause is included afterwards, informing students that the values of edge weights appear just off the centre points of each edge. This is to help with visualisations of larger graphs, where identifying which weight belongs to which edge can sometimes be difficult.
 
@@ -741,12 +742,14 @@ The short description at the end of each step highlights the current and the nex
 \subsection{KMP}
 
 \subsubsection{Exercise}
+\label{sec:KMPExerciseDesign}
 
 The design for KMP exercises is less complex than Dijkstra, since a string is inherently less visual than a graph, thus needs less adjustments. The task description comes from a combination of example exercises \cite{a}, which importantly specify that students need not to use the KMP algorithm, they must simply construct the border table required for KMP. 
 
 The alphabet of the generated string is also displayed, to provide context.
 
 \subsubsection{Solution}
+\label{sec:KMPSolutionDesign}
 
 The step-by-step solutions are similar to the exercises in their simplicity, as they merely show how the border table gets updated as the generated string is being traversed.
 
@@ -788,6 +791,7 @@ This method generates the shortest distances to each vertex in the graph, as per
 As with all future mentions of randomly selected integers, this is handled by \emph{ThreadLocalRandom.current().nextInt}.
 
 \subsubsection{generateGraph}
+\label{sec:generateGraph}
 
 This method constitutes the main chunk of the program (implementation of \autoref{sec:dgen}, building a weighted graph based on the user inputs and shortest distances generated in the previous method. The returned graph is a custom object of type \textbf{WeightedGraph.Graph}. Each instance of this class contains its number of vertices (int) and two LinkedLists of lists of edges, constituting the directed and undirected adjacency lists of a graph. It is useful to have both, as undirected is important for functionality, while directed is used for visualisations. \textbf{Edge} is also a custom class, which has \emph{start} (int), \emph{end} (int) and \emph{weight} (int) attributes.
 
@@ -884,7 +888,7 @@ This class acts as the main driver for the program, as it handles the user inter
 
 \subsubsection{main}
 
-The first thing the main method does is create new directories, in which file will be placed (separate for exercises, solution, tex and pdf) using \emph{File.mkdirs). Then, these directories are emptied (from previously generated exercises) by calling \emph{FileUtils.cleanDirectory}, \emph{FileUtils} being a class from the \emph{Java commons io} package.
+The first thing the main method does is create new directories, in which file will be placed (separate for exercises, solution, tex and pdf) using \emph{File.mkdirs}. Then, these directories are emptied (from previously generated exercises) by calling \emph{FileUtils.cleanDirectory}, \emph{FileUtils} being a class from the \emph{Java commons io} package.
 
 Then, a \emph{Scanner} object is used to handle user inputs. These inputs are error checked through infinite while loops (re-prompting users), which only terminate once inputs are given in the required format. Throughout this process, users are given guidance in the command line in the form of \emph{System.out.println} messages.
 
@@ -896,16 +900,32 @@ As a final step, the folders where the generated files are saved are opened usin
 
 \subsubsection{Visualisation methods}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.99\linewidth]{images/pdf.png}    
 
+    \caption{API calls for rendering a .tex for as a .pdf file.}
+    \label{fig:pdf} 
+\end{figure}
 
-\section{Guidance}
-You can't talk about everything. Cover the high level first, then cover important, relevant or impressive details.
+These methods work by writing properly formatted .tex files for the given exercise/solution through a Java \emph{FileWriter} object. This requires some heave string formatting in Java. Once a .tex file is generated, it may be rendered to a pdf. This is handled through an API called \emph{aspose.tex}, code for which is highlighted in \autoref{fig:pdf}.
 
+Each visualisation method has unique, important characteristics, as highlighted below.
 
-
-\section{General points}
-
-These points apply to the whole dissertation, not just this chapter.
+\begin{itemize}
+	\item
+	\emph{generateGraph} handles the visualisation of Dijkstra exercises. As with all other tables, the adjacency matrix is built as a \emph{tabular}. The major challenge with this is that the size of the matrix is variable, so the number of vertices must first be checked to create the correct size \emph{tabular}. The contents of the adjacency matrix are retrieved from the undirected adjacency lists defined in \autoref{sec:generateGraph}. The graph itself is drawn using a LaTeX package called \emph{Tikz}, which enables a great deal of customisations when it comes to graphs (size, shape, colour, etc.). The design of a graph is specified in \autoref{sec:dijkstraExerciseDesign}, and the actual values are retrieved from the specific exercise's directed adjacency list.
+	\item
+	\emph{generateGraphSolution} handles the visualisation of Dijkstra solutions. This method does not run Dijkstra's algorithm in order to find the solution to an exercise, as this would be time inefficient. Instead, as the shortest distances and paths of each exercise are already stored as class attributes (generation works backwards from solution), final solutions can simply be retrieved from there.
+	\item
+	\emph{generateFullGraphSolution}: handles the visualisation of step-by-step Dijkstra solutions. This method must use Dijkstra's algorithm, since we need to display intermediate results of the algorithm at work. This is done by taking the results from Dijkstra's algorithm after each pass, and displaying the corresponding table and graph on separate pages in the .tex file.  
+	\item
+	\emph{generateString} handles the visualisation of KMP exercises. Not much complexity here, as it simply displays the generated string along with the question.
+	\item
+	\emph{generateStringSolution} handles the visualisation of KMP solutions. In order to do this, a custom method called \emph{constructBorderTable} is used, which returns the borders for a given KMP exercise. This is necessary because the KMP generation algorithm does not start at the solution (as opposed to Dijkstra), so it must be computed whenever it is asked for.
+	\item
+	\emph{generateFullStringSolution} handles the visualisation of step-by-step KMP solutions. This works similarly to the previous method. Since already established values never change in a border table (only further ones are explored), the border table can be calculated once at the beginning of execution. Then, the length of the border table which is displayed is incremented by one each time (filling the rest out with zeroes), to represent each step of the solution. Coloured highlights are added using the \emph{xcolor} package, as required by \autoref{sec:KMPSolutionDesign}.
+\end{itemize}
 
 
 
