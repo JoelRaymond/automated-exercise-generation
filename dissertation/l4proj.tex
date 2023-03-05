@@ -474,6 +474,7 @@ It became apparent quite early on in the project that ensuring uniform difficult
 In accordance with the aforementioned ideas, the template-based approach was used to design parameters (which will act as user inputs) for both selected exercises as follows.
 
 \subsection{Dijkstra}
+\label{sec:tdd}
 
 When designing a weighted graph, the three main components we must consider are the number of \emph{vertices}, the number of \emph{edges} and the values of edge \emph{weights}. While we could just take these three as our template parameters, this would result in very little variation between samples, as the only randomisation possible would be to change up the order of the vertices and edges. To go a step further, we must consider the unique characteristic of Dijkstra's algorithm, being the number of \emph{edge relaxations}. Since we wish to control the difficulty of each exercise, this number must be kept uniform for all samples. From here follows that the number of \emph{edges} does not need to be a parameter because it can be derived from the number of \emph{edge relaxations}. In a similar vein, the values of edge \emph{weights} are also redundant as they can be derived from the number of \emph{vertices} (the more \emph{vertices} the higher \emph{weight} values are needed to avoid collisions). This is desirable, as we want to have as few user inputs as possible, to eliminate illegal values and general confusion. Therefore, the template parameters (user inputs) for Dijkstra are as follows:
 
@@ -591,6 +592,7 @@ The Dijkstra exercise generation algorithm consists of the following three main 
 The upcoming sections describe each step in detail, including their how they work and why certain design decisions were made. 
 
 \subsubsection{Shortest path length generation}
+\label{sec:shortestpathdesign}
 The first task for generating the lengths of the shortest paths to each vertex is to set an upper bound for these values. It is necessary to choose an appropriate value, since if too low, the number of shortest length variations decreases drastically, and if too high, generated exercises may become arithmetically difficult, which should be avoided. While it could have been included as a user input, the maximum distance for the purpose of this project is $v*3$, where $v$ is the number of vertices in the graph. Since path lengths are randomly chosen unique natural numbers below this limit, it translates to an average difference of $3$ between each shortest path, which is scalable and arithmetically feasible.
 
 Next, the actual shortest lengths to each vertex are generated. As mentioned before, these are randomly chosen (apart from the starting vertex \emph{v1}, which always has a distance of $0$) unique natural numbers below the specified limit. It is most important to note that these values are unique. This limitation is required, since graphs containing some vertices with matching shortest lengths are significantly more difficult to solve than ones without (confusion about which edge to explore next). If the generated values were non-unique, some graphs would display this quality while others would not, breaking the principal aim of the project. Furthermore, later parts of the generation algorithm would have to be redesigned to handle these cases (further explored in \autoref{a}), thus including the unique limitation is much more convenient, while maintaining academic integrity in the generated exercises.
@@ -660,7 +662,11 @@ The KMP exercise generation algorithm consists of two main steps, first the larg
 
 In order to generate an overlapping border, it must be deconstructed into smaller parts which are more manageable. Every overlapping border must consist of the same beginning and end substring, since the end of the prefix border has to match the beginning of the suffix border, forming the overlap (thus this substring is referred to as the \emph{overlap} or $o$). The remaining of the border (substring between the two \emph{overlaps}) can be randomised from the alphabet, as it does not affect the overlapping process, and is called the \emph{middle} (or $m$). Considering these two substrings, the structure of an overlapping border is $o+m+o$. As an example, the overlapping border "aba" from the string "ababa" has \emph{overlap} "a" (at the beginning and end) and \emph{middle} "b" (could be any other string). Considering both prefix and suffix borders joined, the structure becomes $o+m+o+m+o$ ("$a+b+a+b+a$").
 
-Following from the above definitions, the border generation algorithm must first calculate the length of the \emph{overlap}. If the length of the largest border is longer than half of the entire string, the the length of the \emph{overlap} must be a random integer between . The reason this distinction must be made is because borders longer than half of the output string must have a minimum amount of overlap in order to fit in the given string length.
+Following from the above definitions, the border generation algorithm must first calculate the length of the \emph{overlap}. If the length of the largest border is longer than half of the entire string, the length of the \emph{overlap} must be a random integer between the amount by which the border overhangs half of the string, and one less than half the size of the largest border. Otherwise, the minimum value is simply $1$. The reason this distinction must be made is because borders longer than half of the output string must have a minimum amount of overlap in order to physically fit in the given string length, while the maximum is dictated by the two \emph{overlaps} which make up the border not being bigger than the border itself.
+
+This information can be used to calculate the maximum length of an overlapping border. Taking the maximum overlap length (the shortest the prefix + suffix can be), if the length of $o+m+o+m+o$ is greater than the required length of the string, then the given border length is too long (cannot be fit into string). This hold true because if the border required is too long, the \emph{overlap} length must increase to try and fit the borders, however if the overlap gets too large, the generated borders will once again be too long as well (the prefix and suffix have three instances of \emph{overlap}).
+
+Once the length of the \emph{overlap} ($o_l$) is decided, the length of the \emph{middle} $m_l = b_l - 2 * o_l$ where $b_l$ is the length of the longest border (as follows from $b_l = 2 * o_l + m_l$). From here, $m$ and $o$ are randomly generated from the selected alphabet, and inserted at the beginning of the string in accordance with the pattern $o+m+o+m+o$, forming the largest overlapping border. Note that this border will always be at the beginning of the string, since the prefix and suffix must physically overlap.
 
 \subsubsection{Non-overlapping border generation}
 
@@ -764,7 +770,99 @@ Design should cover the abstract design in such a way that someone else might be
 %==================================================================================================================================
 \chapter{Implementation}
 \label{chap:imp}
-What did you do to implement this idea, and what technical achievements did you make?
+
+The Java implementation of the program utilises an object oriented design. Both chosen exercises (\textbf{Dijkstra} and \textbf{KMP}) have custom classes, which describe important characteristics of each exercise and handle generation. Additionally, the \textbf{Visualiser} class includes the implementation of the user interface along with the LaTeX and pdf generations.
+
+\subsection{Dijkstra}
+
+\subsubsection{Constructor}
+
+Every Dijkstra exercise is generated through the constructor. This method takes the designed user inputs (int \emph{vertices} and int \emph{relaxations} from \autoref{sec:tdd}) as arguments, and  starts by doing error checking on them. If any input is not within the legal range, Java throws an IllegalArgumentException with an error message, otherwise fields are instantiated as with any other constructor. The two most important methods called by the constructor are \emph{generateDistances} (computes the output for Dijkstra's algorithm) and \emph{generateGraph} (builds the graph itself), details of which are explained in the following sections.
+
+\subsubsection{generateDistances}
+
+This method generates the shortest distances to each vertex in the graph, as per the maximum distance defined in \autoref{sec:shortestpathdesign}. This result is stored in a LinkedHashMap, mapping from each vertex (represented as unique integers from $0$ to $v-1$) to their respective distance (unique integer). The reason a LinkedHashMap is used as opposed to a regular HashMap is because during graph generation we wish to traverse vertices based on increasing shortest distance, thus this data structure must be able to be sorted (regular HashMaps have no order so they cannot be used). This sort is done after the distances are generated, by calling the \emph{sortMap} method. This method sorts by converting the entries in the original map to a list of entries and then utilising the Java Collections package to call \emph{Collections.sort}. Since this function cannot handle sorting between entries by default, it is fed a custom comparator class (\emph{valueComparator}) is defined, which compares entries based on their values. Finally, the sorted list is converted to a new LinkedHashMap and returned.
+
+As with all future mentions of randomly selected integers, this is handled by \emph{ThreadLocalRandom.current().nextInt}.
+
+\subsubsection{generateGraph}
+
+This method constitutes the main chunk of the program (implementation of \autoref{sec:dgen}, building a weighted graph based on the user inputs and shortest distances generated in the previous method. The returned graph is a custom object of type \textbf{WeightedGraph.Graph}. Each instance of this class contains its number of vertices (int) and two LinkedLists of lists of edges, constituting the directed and undirected adjacency lists of a graph. It is useful to have both, as undirected is important for functionality, while directed is used for visualisations. \textbf{Edge} is also a custom class, which has \emph{start} (int), \emph{end} (int) and \emph{weight} (int) attributes.
+
+This method uses several data structures to handle the functionalities introduced in \autoref{sec:dgen}, as described below.
+\begin{itemize}
+	\item
+	\emph{HashMap<Integer, Integer> relaxedTo} has keys of vertices which can be relaxed, mapping to the next vertex to which they should be relaxed.
+	\item
+	\emph{HashMap<Integer, Integer> relaxedWeight} stores the weight that was used in the vertex's previous edge relaxations, so that it can be increased in the following relaxation.
+	\item
+	\emph{HashMap<Integer, List<Integer>> vertexToPath} maps each vertex to its shortest path to the root vertex. The path is represented as a list of vertices (integers), from the root to the given vertex.
+	\item
+	\emph{HashMap<Integer, Integer> prevDist} maps each vertex to the shortest distance of the vertex it was previously relaxed to, allowing further relaxations to be made.
+\end{itemize}
+
+Outside of these data structures, a custom implementation of an n-ary tree is used to during the process of inserting vertices into the graph. This is handled by the \textbf{NaryTreeNode} class, which has attributes \emph{val} (int referring to a vertex), \emph{level} (int referring to the level in the tree at which the node exists, with the root being $0$) and \emph{children} (List<NaryTreeNode> referring to all the children of the node). 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/levelTrav.png}    
+
+    \caption{Implementation of tree traversal, retrieving all the nodes at a chosen level.}
+    \label{fig:levelTrav} 
+\end{figure}
+
+Traversing through the LinkedHashMap of vertices, the closest two vertices (root and next) are first added to the graph and the tree. For any consequent vertex, once a level is chosen, the tree is traversed to find all the vertices at the chosen level (as seen in \autoref{fig:levelTrav}). This method uses a queue to keep track of all the nodes, adding the children of each nodes to the same queue until every node is explored. At this point the queue is empty and the function terminates, returning \emph{List<NaryTreeNode> nodesAtLevel}, which each node matching the level is added to.
+
+The list returned is randomly sampled, choosing a \emph{startNode} to attach the new vertex to, retrieving its vertex value with \emph{startNode.val}. It is important to retrieve the actual node instead of just value, since the new vertex must be added to the \emph{startNode} as a child to further build the tree.
+
+Once the new vertex is added to the graph and the tree, it must also be added to \emph{vertexToPath}. This is done by taking the path of its parent (\emph{vertexToPath.get(start)}), adding the new vertex (\emph{path.add(entry.getKey())}) and finally inserting the path (\emph{vertexToPath.put(entry.getKey(), path)}).
+
+After every vertex has been inserted into the graph, the \emph{vertexToPath} HashMap is traversed to build the \emph{relaxedTo} HashMap. The shortest path of each vertex is checked, and if they a greater than two, the vertex to which they are relaxed to is the one that is two before them in their path (as described in \autoref{sec:dgen}). This is done by setting \emph{listSize} to be \emph{vertexToPath.get(v).size()} and calling \emph{relaxedTo.put(v, vertexToPath.get(v).get(listSize-3))} if the condition holds.
+
+To add an edge relaxation, a random key-value pair is taken from \emph{relaxedTo}. Then a value for the weight is generated using the algorithm in \autoref{fig:weight} (referring to \autoref{sec:dgen}). Once the weight is chosen, the new edge (facilitating the relaxation) can be inserted, along with updating \emph{relaxedWeight} and \emph{prevDist}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.99\linewidth]{images/weight.png}    
+
+    \caption{Weight generation for edge relaxation.}
+    \label{fig:weight} 
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/relaxedToUpdate.png}    
+
+    \caption{Algorithm for updating \emph{relaxedTo}.}
+    \label{fig:relaxedToUpdate} 
+\end{figure}
+
+As a last step, \emph{relaxedTo} must be updated as seen in \autoref{fig:relaxedToUpdate}. The next vertex to which our selected vertex is to be relaxed to is retrieved by moving one up the shortest path (\emph{newRelax = path.get(path.indexOf(end)-1)}). This is done in a try statement, since it would be null if \emph{end} was the root. In this case, the current vertex is removed from \emph{relaxedTo}, as it cannot provide any more relaxations, so it should no longer be chosen. If \emph{newRelax} is successfully retrieved however, \emph{relaxedTo} is updated with it.
+
+\subsection{KMP}
+
+\subsubsection{Constructor}
+
+\subsubsection{generateAlphabet}
+
+\subsubsection{generateString}
+
+\subsection{Visualiser}
+
+\subsubsection{main}
+
+\subsubsection{generateGraph}
+
+\subsubsection{generateGraphSolution}
+
+\subsubsection{generateFullGraphSolution}
+
+\subsubsection{generateString}
+
+\subsubsection{generateStringSolution}
+
+\subsubsection{generateFullStringSolution}
+
 \section{Guidance}
 You can't talk about everything. Cover the high level first, then cover important, relevant or impressive details.
 

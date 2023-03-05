@@ -240,15 +240,13 @@ public class Dijkstra {
 			
 			List<Integer> path = vertexToPath.get(start);
 			int newRelax = 0;
-			boolean success = true;
 			try {
 				newRelax = path.get(path.indexOf(end)-1);
+				relaxedTo.put(start, newRelax);
 			}
 			catch (Exception e) {
 				relaxedTo.remove(start);
-				success = false;
 			}
-			if (success) relaxedTo.put(start, newRelax);
 			this.relaxations--;
 		}
 		return result;
