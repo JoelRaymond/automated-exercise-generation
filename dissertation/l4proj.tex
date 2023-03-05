@@ -566,6 +566,7 @@ As previously mentioned, the input variable for overlapping border is a boolean.
 The following characteristics could have been considered as user inputs, however were omitted due to reasons explained below.
 
 \subsubsection{Alphabet}
+\label{sec:alphabet}
 
 The last aspect of a KMP border problem which has not yet been addressed is the alphabet (selection of characters) from which characters are pulled in order to build the final string. It is desirable to have a limited alphabet (instead of just generating from all Latin letters or characters), in order to ensure that random selection of characters forms borders instead of getting lost in entropy \cite{a}.
  
@@ -654,6 +655,7 @@ Now that the \emph{start}, \emph{end} and \emph{weight} are chosen, this informa
 In the end, the algorithm outputs a graph which has the required number of vertices ($v$) and edge relaxations ($r$) for Dijkstra's algorithm. The graph also has $(v-1) + r$ ($v-1$ for initial connection of vertices and $r$ for relaxed edges) edges, reinforcing the claim that the number of edges is directly correlated to the user inputs in \autoref{sec:noe}.
 
 \subsection{KMP}
+\label{sec:kgen}
 
 The KMP exercise generation algorithm consists of two main steps, first the largest border is generated and inserted, and then the rest of the string is filled out. The process of largest border generation differs drastically depending on if it is overlapping or not, so these are addressed in separate sections.
 
@@ -843,25 +845,58 @@ As a last step, \emph{relaxedTo} must be updated as seen in \autoref{fig:relaxed
 
 \subsubsection{Constructor}
 
+The KMP constructor works much the same way as the one in Dijkstra. There is some added complexity when it comes to input error checking, in the case where the length of the largest border is greater than half the size of the string and is non-overlapping. When this is true, the largest border must be overlapping, as it would physically not fit otherwise, so attributes are defined accordingly. The two main methods which are called by the constructor are \emph{generateAlphabet} and \emph{generateString}, which are further explored in the following sections.
+
 \subsubsection{generateAlphabet}
 
+In order to generate a unique alphabet for a given exercise, the algorithm considers the base alphabet (A, C, G, U, T from \autoref{sec:alphabet}) as an array of characters (since it never changes. Then it builds the actual alphabet for the exercise by choosing three random characters from the base, while ensuring no duplicates. The result is stored in the class attribute \emph{alphabet}, since it is unique for each exercise.
+
 \subsubsection{generateString}
+
+This method handles the final string generation (returned as a string), as per \autoref{sec:kgen}. Throughout the process, the following variables are updated:
+
+\begin{itemize}
+	\item
+	\emph{String[] result} is an array storing the characters in the final generated string, instantiated to an empty array of required length.
+	\item
+	\emph{String longestBorder} is the generated longest border.
+	\item
+	\emph{int borderStart} keeps track of the index of where the suffix border is to be inserted.
+\end{itemize}
+
+Since overlapping prefix and suffix borders are connected and inserted at the beginning of the string, \emph{borderStart} (initialised to $0$) is used as the index for where to insert each consecutive part of the border ($o+m+o+m+o$). Once each part is inserted, \emph{borderStart} will have the index of the value following the last character in the suffix border, which will later be used to check for duplicate borders.
+
+The \emph{borderStart} variable is used similarly in non-overlapping borders, however the prefix and suffix may not be adjacent in this case, the prefix border is inserted at the beginning of the string and the \emph{borderStart} is set to a random index after it, as it is used to insert the suffix. Note, that \emph{borderStart} is once again pointing to the element after the end of the suffix border.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.99\linewidth]{images/borderSearch.png}    
+
+    \caption{Code searching for and removing duplicate longest borders.}
+    \label{fig:borderSearch} 
+\end{figure}
+
+Once the strings are completed, they must be checked for accidental generations of the longest border, which is handled by \autoref{fig:borderSearch}. First, \emph{String.join} is used to convert the array of characters \emph{result} to a string. Then \emph{index = string.indexOf(longestBorder, index+1)} searches for the first appearance of the border. The second argument of \emph{indexOf} specifies the start of the search and since this equates to $0+1$ in the first pass, the prefix border will never be found (it starts at index $0$). This means that the only two conditions we must check for is if \emph{index} is $-1$ (\emph{break} from while loop since no more borders are found) and if \emph{index != borderStart - this.largestBorder} (meaning that the border found is not the suffix, thus must be eliminated).
 
 \subsection{Visualiser}
 
+This class acts as the main driver for the program, as it handles the user interface and the final generated output files. Running the program jar file will launch the main method of this class, which calls several visualisation methods to handle the user's requests. 
+
 \subsubsection{main}
 
-\subsubsection{generateGraph}
+The first thing the main method does is create new directories, in which file will be placed (separate for exercises, solution, tex and pdf) using \emph{File.mkdirs). Then, these directories are emptied (from previously generated exercises) by calling \emph{FileUtils.cleanDirectory}, \emph{FileUtils} being a class from the \emph{Java commons io} package.
 
-\subsubsection{generateGraphSolution}
+Then, a \emph{Scanner} object is used to handle user inputs. These inputs are error checked through infinite while loops (re-prompting users), which only terminate once inputs are given in the required format. Throughout this process, users are given guidance in the command line in the form of \emph{System.out.println} messages.
 
-\subsubsection{generateFullGraphSolution}
+The most difficult user input to handle is the selection for which algorithm/s to generate for. The final implementation uses a \emph{HashMap<String, Boolean>} mapping each algorithm to whether or not the user had selected them. Then, the user input is fed into a switch-case (each algorithm is numbered as well, so both name and number lead to the same case), changing the value of the desired algorithm to true. At the same time, a \emph{StringBuilder} tracks all the algorithms which have been already chosen, used as a reminder for the user. The default case indicates an error, prompting a retry and the empty string is used to submit the current selections.
 
-\subsubsection{generateString}
+The actual exercises are generated by instantiating as many objects of the selected algorithm as specified by the user. Then, these objects are passed to visualisation methods (separate for exercise, solution and step-by-step solution), along with where to save them (incrementing file name) and to export to pdf or not (boolean).
 
-\subsubsection{generateStringSolution}
+As a final step, the folders where the generated files are saved are opened using \emph{Desktop.getDesktop().open}.
 
-\subsubsection{generateFullStringSolution}
+\subsubsection{Visualisation methods}
+
+
 
 \section{Guidance}
 You can't talk about everything. Cover the high level first, then cover important, relevant or impressive details.
