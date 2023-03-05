@@ -226,7 +226,8 @@ public class Dijkstra {
 			
 			int weight;
 			if (relaxedWeight.containsKey(start)) {
-				weight = relaxedWeight.get(start) + (prevDist.get(start) - this.shortestDistance.get(end)) + weightIncrease;
+				weight = relaxedWeight.get(start) + (prevDist.get(start) - this.shortestDistance.get(end)) 
+						+ weightIncrease;
 			}
 			else {
 				weight = (this.shortestDistance.get(start) - this.shortestDistance.get(end)) + weightIncrease;
