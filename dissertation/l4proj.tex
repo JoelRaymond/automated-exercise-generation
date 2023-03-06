@@ -128,73 +128,6 @@ This dissertation is comprised of the following six chapters:
 	Finally \textbf{\autoref{chap:conc}} concludes the paper, mentioning key ideas, results, findings and future work.
 \end{itemize}
 
-\section{Guidance}
-
-\textbf{Motivate} first, then state the general problem clearly. 
-
-\section{Writing guidance}
-\subsection{Who is the reader?}
-
-This is the key question for any writing. Your reader:
-
-\begin{itemize}
-    \item
-    is a trained computer scientist: \emph{don't explain basics}.
-    \item
-    has limited time: \emph{keep on topic}.
-    \item
-    has no idea why anyone would want to do this: \emph{motivate clearly}
-    \item
-    might not know \emph{anything} about your project in particular:
-    \emph{explain your project}.
-    \item
-    but might know precise details and check them: \emph{be precise and
-    strive for accuracy.}
-    \item
-    doesn't know or care about you: \emph{personal discussions are
-    irrelevant}.
-\end{itemize}
-
-Remember, you will be marked by your supervisor and one or more members
-of staff. You might also have your project read by a prize-awarding
-committee or possibly a future employer. Bear that in mind.
-
-\subsection{References and style guides}
-There are many style guides on good English writing. You don't need to
-read these, but they will improve how you write.
-
-\begin{itemize}
-    \item
-    \emph{How to write a great research paper} \cite{Pey17} (\textbf{recommended}, even though you aren't writing a research paper)
-    \item
-    \emph{How to Write with Style} \cite{Von80}. Short and easy to read. Available online.
-    \item
-    \emph{Style: The Basics of Clarity and Grace} \cite{Wil09} A very popular modern English style guide.
-    \item
-    \emph{Politics and the English Language} \cite{Orw68}  A famous essay on effective, clear writing in English.
-    \item
-    \emph{The Elements of Style} \cite{StrWhi07} Outdated, and American, but a classic.
-    \item
-    \emph{The Sense of Style} \cite{Pin15} Excellent, though quite in-depth.
-\end{itemize}
-
-\subsubsection{Citation styles}
-
-\begin{itemize}
-\item If you are referring to a reference as a noun, then cite it as: ``\citet{Orw68} discusses the role of language in political thought.''
-\item If you are referring implicitly to references, use: ``There are many good books on writing \citep{Orw68, Wil09, Pin15}.''
-\end{itemize}
-
-There is a complete guide on good citation practice by Peter Coxhead available here: \url{http://www.cs.bham.ac.uk/~pxc/refs/index.html}. 
-If you are unsure about how to cite online sources, please see this guide: \url{https://student.unsw.edu.au/how-do-i-cite-electronic-sources}.
-
-\subsection{Plagiarism warning}
-
-\begin{highlight_title}{WARNING}
-    
-    If you include material from other sources without full and correct attribution, you are committing plagiarism. The penalties for plagiarism are severe.
-    Quote any included text and cite it correctly. Cite all images, figures, etc. clearly in the caption of the figure.
-\end{highlight_title}
 
 
 %==================================================================================================================================
@@ -292,19 +225,6 @@ An overlapping border is an informal term for referring to a border of a string 
 
 For example, the string "ababa" has a border "aba", where the last \emph{a} in the prefix border and the first \emph{a} in the suffix border refer to the same character in the string. This border would therefore be considered an overlapping border. Note that the overlapping element can be a single character or a longer substring.
 
-\section{Guidance}
-\begin{itemize}    
-    \item
-      Don't give a laundry list of references.
-    \item
-      Tie everything you say to your problem.
-    \item
-      Present an argument.
-    \item Think critically; weigh up the contribution of the background and put it in context.    
-    \item
-      \textbf{Don't write a tutorial}; provide background and cite
-      references for further information.
-\end{itemize}
 
 %==================================================================================================================================
 \chapter{Analysis/Requirements}
@@ -457,8 +377,6 @@ Many of these changes can be found in the \textbf{Will Not Have} sections, as mo
 
 Towards the end of the development cycle, a decision had to be made between implementing a simple user interface for the program or developing step-by-step solution generation, as there was only enough time left for one of them. Following discussions with my supervisor, it was decided that the increased functionality of having step-by-step solutions outweighs the usability advantages of having a dedicated user interface. Furthermore, it was noted that the program does not have enough features to warrant a more sophisticated UI, therefore would only be required once more generation algorithms are implemented. Once the decisions was made, the requirements were updated accordingly.
 
-\section{Guidance}
-Make it clear how you derived the constrained form of your problem via a clear and logical process. 
 
 %==================================================================================================================================
 \chapter{Design}
@@ -705,6 +623,7 @@ The following section introduces the prompts in the order of which they appear i
 After these general questions, the UI displays specific questions belonging to each selected algorithm. These questions correspond to the user inputs highlighted in \autoref{sec:td} and all include guides and error checking.
 
 \section{Exercise and Solution Design}
+\label{sec:exerciseDesign}
 
 \cite{a}
 
@@ -768,9 +687,6 @@ Since this project is dealing with generating for different \emph{types} of exer
 \subsection{LaTeX}
 
 In terms of the actual exercises and solutions generated, there is really no alternative to LaTeX which provides the same amount of flexibility. Writing .tex files of the generated exercises gives teachers the freedom to choose which format they wish to distribute them in, as well as the option to modify or combine them freely.
-
-\section{Guidance}
-Design should cover the abstract design in such a way that someone else might be able to do what you did, but with a different language or library or tool.
 
 %==================================================================================================================================
 \chapter{Implementation}
@@ -927,249 +843,181 @@ Each visualisation method has unique, important characteristics, as highlighted 
 	\emph{generateFullStringSolution} handles the visualisation of step-by-step KMP solutions. This works similarly to the previous method. Since already established values never change in a border table (only further ones are explored), the border table can be calculated once at the beginning of execution. Then, the length of the border table which is displayed is incremented by one each time (filling the rest out with zeroes), to represent each step of the solution. Coloured highlights are added using the \emph{xcolor} package, as required by \autoref{sec:KMPSolutionDesign}.
 \end{itemize}
 
-
-
-\subsection{Figures}
-\emph{Always} refer to figures included, like Figure \ref{fig:relu}, in the body of the text. Include full, explanatory captions and make sure the figures look good on the page.
-You may include multiple figures in one float, as in Figure \ref{fig:synthetic}, using \texttt{subcaption}, which is enabled in the template.
-
-
-
-% Figures are important. Use them well.
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{images/relu.pdf}    
-
-    \caption{In figure captions, explain what the reader is looking at: ``A schematic of the rectifying linear unit, where $a$ is the output amplitude,
-    $d$ is a configurable dead-zone, and $Z_j$ is the input signal'', as well as why the reader is looking at this: 
-    ``It is notable that there is no activation \emph{at all} below 0, which explains our initial results.'' 
-    \textbf{Use vector image formats (.pdf) where possible}. Size figures appropriately, and do not make them over-large or too small to read.
-    }
-
-    % use the notation fig:name to cross reference a figure
-    \label{fig:relu} 
-\end{figure}
-
-
-\begin{figure}
-    \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{images/synthetic.png}
-        \caption{Synthetic image, black on white.}
-        \label{fig:syn1}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-      %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{images/synthetic_2.png}
-        \caption{Synthetic image, white on black.}
-        \label{fig:syn2}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-    %(or a blank line to force the subfigure onto a new line)    
-    \caption{Synthetic test images for edge detection algorithms. \subref{fig:syn1} shows various gray levels that require an adaptive algorithm. \subref{fig:syn2}
-    shows more challenging edge detection tests that have crossing lines. Fusing these into full segments typically requires algorithms like the Hough transform.
-    This is an example of using subfigures, with \texttt{subref}s in the caption.
-    }\label{fig:synthetic}
-\end{figure}
-
-\clearpage
-
-\subsection{Equations}
-
-Equations should be typeset correctly and precisely. Make sure you get parenthesis sizing correct, and punctuate equations correctly 
-(the comma is important and goes \textit{inside} the equation block). Explain any symbols used clearly if not defined earlier. 
-
-For example, we might define:
-\begin{equation}
-    \hat{f}(\xi) = \frac{1}{2}\left[ \int_{-\infty}^{\infty} f(x) e^{2\pi i x \xi} \right],
-\end{equation}    
-where $\hat{f}(\xi)$ is the Fourier transform of the time domain signal $f(x)$.
-
-\subsection{Algorithms}
-Algorithms can be set using \texttt{algorithm2e}, as in Algorithm \ref{alg:metropolis}.
-
-% NOTE: line ends are denoted by \; in algorithm2e
-\begin{algorithm}
-    \DontPrintSemicolon
-    \KwData{$f_X(x)$, a probability density function returing the density at $x$.\; $\sigma$ a standard deviation specifying the spread of the proposal distribution.\;
-    $x_0$, an initial starting condition.}
-    \KwResult{$s=[x_1, x_2, \dots, x_n]$, $n$ samples approximately drawn from a distribution with PDF $f_X(x)$.}
-    \Begin{
-        $s \longleftarrow []$\;
-        $p \longleftarrow f_X(x)$\;
-        $i \longleftarrow 0$\;
-        \While{$i < n$}
-        {
-            $x^\prime \longleftarrow \mathcal{N}(x, \sigma^2)$\;
-            $p^\prime \longleftarrow f_X(x^\prime)$\;
-            $a \longleftarrow \frac{p^\prime}{p}$\;
-            $r \longleftarrow U(0,1)$\;
-            \If{$r<a$}
-            {
-                $x \longleftarrow x^\prime$\;
-                $p \longleftarrow f_X(x)$\;
-                $i \longleftarrow i+1$\;
-                append $x$ to $s$\;
-            }
-        }
-    }
-    
-\caption{The Metropolis-Hastings MCMC algorithm for drawing samples from arbitrary probability distributions, 
-specialised for normal proposal distributions $q(x^\prime|x) = \mathcal{N}(x, \sigma^2)$. The symmetry of the normal distribution means the acceptance rule takes the simplified form.}\label{alg:metropolis}
-\end{algorithm}
-
-\subsection{Tables}
-
-If you need to include tables, like Table \ref{tab:operators}, use a tool like https://www.tablesgenerator.com/ to generate the table as it is
-extremely tedious otherwise. 
-
-\begin{table}[]
-    \caption{The standard table of operators in Python, along with their functional equivalents from the \texttt{operator} package. Note that table
-    captions go above the table, not below. Do not add additional rules/lines to tables. }\label{tab:operators}
-    %\tt 
-    \rowcolors{2}{}{gray!3}
-    \begin{tabular}{@{}lll@{}}
-    %\toprule
-    \textbf{Operation}    & \textbf{Syntax}                & \textbf{Function}                            \\ %\midrule % optional rule for header
-    Addition              & \texttt{a + b}                          & \texttt{add(a, b)}                                    \\
-    Concatenation         & \texttt{seq1 + seq2}                    & \texttt{concat(seq1, seq2)}                           \\
-    Containment Test      & \texttt{obj in seq}                     & \texttt{contains(seq, obj)}                           \\
-    Division              & \texttt{a / b}                          & \texttt{div(a, b) }  \\
-    Division              & \texttt{a / b}                          & \texttt{truediv(a, b) } \\
-    Division              & \texttt{a // b}                         & \texttt{floordiv(a, b)}                               \\
-    Bitwise And           & \texttt{a \& b}                         & \texttt{and\_(a, b)}                                  \\
-    Bitwise Exclusive Or  & \texttt{a \textasciicircum b}           & \texttt{xor(a, b)}                                    \\
-    Bitwise Inversion     & \texttt{$\sim$a}                        & \texttt{invert(a)}                                    \\
-    Bitwise Or            & \texttt{a | b}                          & \texttt{or\_(a, b)}                                   \\
-    Exponentiation        & \texttt{a ** b}                         & \texttt{pow(a, b)}                                    \\
-    Identity              & \texttt{a is b}                         & \texttt{is\_(a, b)}                                   \\
-    Identity              & \texttt{a is not b}                     & \texttt{is\_not(a, b)}                                \\
-    Indexed Assignment    & \texttt{obj{[}k{]} = v}                 & \texttt{setitem(obj, k, v)}                           \\
-    Indexed Deletion      & \texttt{del obj{[}k{]}}                 & \texttt{delitem(obj, k)}                              \\
-    Indexing              & \texttt{obj{[}k{]}}                     & \texttt{getitem(obj, k)}                              \\
-    Left Shift            & \texttt{a \textless{}\textless b}       & \texttt{lshift(a, b)}                                 \\
-    Modulo                & \texttt{a \% b}                         & \texttt{mod(a, b)}                                    \\
-    Multiplication        & \texttt{a * b}                          & \texttt{mul(a, b)}                                    \\
-    Negation (Arithmetic) & \texttt{- a}                            & \texttt{neg(a)}                                       \\
-    Negation (Logical)    & \texttt{not a}                          & \texttt{not\_(a)}                                     \\
-    Positive              & \texttt{+ a}                            & \texttt{pos(a)}                                       \\
-    Right Shift           & \texttt{a \textgreater{}\textgreater b} & \texttt{rshift(a, b)}                                 \\
-    Sequence Repetition   & \texttt{seq * i}                        & \texttt{repeat(seq, i)}                               \\
-    Slice Assignment      & \texttt{seq{[}i:j{]} = values}          & \texttt{setitem(seq, slice(i, j), values)}            \\
-    Slice Deletion        & \texttt{del seq{[}i:j{]}}               & \texttt{delitem(seq, slice(i, j))}                    \\
-    Slicing               & \texttt{seq{[}i:j{]}}                   & \texttt{getitem(seq, slice(i, j))}                    \\
-    String Formatting     & \texttt{s \% obj}                       & \texttt{mod(s, obj)}                                  \\
-    Subtraction           & \texttt{a - b}                          & \texttt{sub(a, b)}                                    \\
-    Truth Test            & \texttt{obj}                            & \texttt{truth(obj)}                                   \\
-    Ordering              & \texttt{a \textless b}                  & \texttt{lt(a, b)}                                     \\
-    Ordering              & \texttt{a \textless{}= b}               & \texttt{le(a, b)}                                     \\
-    % \bottomrule
-    \end{tabular}
-    \end{table}
-\subsection{Code}
-
-Avoid putting large blocks of code in the report (more than a page in one block, for example). Use syntax highlighting if possible, as in Listing \ref{lst:callahan}.
-
-\begin{lstlisting}[language=python, float, caption={The algorithm for packing the $3\times 3$ outer-totalistic binary CA successor rule into a 
-    $16\times 16\times 16\times 16$ 4 bit lookup table, running an equivalent, notionally 16-state $2\times 2$ CA.}, label=lst:callahan]
-    def create_callahan_table(rule="b3s23"):
-        """Generate the lookup table for the cells."""        
-        s_table = np.zeros((16, 16, 16, 16), dtype=np.uint8)
-        birth, survive = parse_rule(rule)
-
-        # generate all 16 bit strings
-        for iv in range(65536):
-            bv = [(iv >> z) & 1 for z in range(16)]
-            a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p = bv
-
-            # compute next state of the inner 2x2
-            nw = apply_rule(f, a, b, c, e, g, i, j, k)
-            ne = apply_rule(g, b, c, d, f, h, j, k, l)
-            sw = apply_rule(j, e, f, g, i, k, m, n, o)
-            se = apply_rule(k, f, g, h, j, l, n, o, p)
-
-            # compute the index of this 4x4
-            nw_code = a | (b << 1) | (e << 2) | (f << 3)
-            ne_code = c | (d << 1) | (g << 2) | (h << 3)
-            sw_code = i | (j << 1) | (m << 2) | (n << 3)
-            se_code = k | (l << 1) | (o << 2) | (p << 3)
-
-            # compute the state for the 2x2
-            next_code = nw | (ne << 1) | (sw << 2) | (se << 3)
-
-            # get the 4x4 index, and write into the table
-            s_table[nw_code, ne_code, sw_code, se_code] = next_code
-
-        return s_table
-
-\end{lstlisting}
-
 %==================================================================================================================================
 \chapter{Evaluation} 
 \label{chap:ev}
-How good is your solution? How well did you solve the general problem, and what evidence do you have to support that?
 
-\section{Guidance}
+In this chapter we discuss the methods used to evaluate the extent to which our proposed solution is successful at handling the problem proposed in \autoref{chap:intro}. The results collected from the experiments are then presented and 	analysed, to assess the performance of our program according to its target users.
+
+\section{Aims}
+\label{sec:evalAims}
+
+Even though the aims of the project are highlighted in \autoref{sec:aim} (generate exercises which are non-unique, but equal in difficulty), comparing the difficulties of two exercises is not only very difficult but also quite subjective (people perceive difficulty differently and approach exercises differently). Therefore, the evaluation conducted placed its focus on the following key areas, which were deemed integral to the main problem:
+
+\begin{enumerate}
+	\item
+	\emph{How similar are generated exercises/solutions to pre-existing example exercises/solutions of the same type?} This applies to both form and content, and helps with determining how useful automatic exercise generation can be.
+	\item
+	\emph{What are some of the ethical implications of automatic exercise generation?} We asked key parties involved about their personal opinions on automated exercise generation, to gather some ethical (or otherwise) concerns they may have.
+	\item
+	\emph{How usable is the program?} 
+	\item
+	\emph{To what extent are controlled and uncontrolled variables handled effectively?} This mostly refers to the template design from \autoref{sec:td} and how it could be improved.
+\end{enumerate}
+
+\section{Experimental Design}
+
+Since this project delivers products to two separate groups of users - namely students (receive exercises and solutions) and teachers (use program itself) - it is only appropriate to design and conduct two distinct user studies. This is important not only important because they interact with different outputs, they might also have drastically differing personal opinions about the impact of automated exercise generation on computer science education altogether. As they are both key stakeholders in this field, their ideas must be equally considered, hence the two experiments.
+
+\subsection{Student User Study}
+
+Students are given one example of each exercise type along with their corresponding step-by-step solutions. For Dijkstra, this is a graph with $5$ vertices and $3$ edge relaxations, and for KMP it is a string of length $13$ with \emph{non-overlapping} border of size $4$. These parameters were chosen to match the size of a typical in-class example. 
+
+To start, students are given a short introduction about what the aims of project and how the exercises they received were generated. Additionally students are provided detailed instructions on how to complete the user study:
+\begin{enumerate}
+	\item
+	Open the attached Dijkstra and KMP exercises and inspect their style and format.
+	\item
+	Use the included step-by-step solutions to arrive at the solutions for both problems.
+	\item
+	Complete the survey, based on your experiences with the included exercises.
+\end{enumerate}
+
+To reduce the amount of effort required to complete the user study, students are not asked to solve the exercises, they must simply inspect them and use the included answer key to logically arrive at the solution. To further help with this process, the algorithms used to get the solutions are also included.
+
+As the final step, participants should complete a short (4 minutes) survey, consisting of three parts:
+
+\subsubsection{Dijkstra}
+
+The first section includes questions pertaining to Dijkstra exercises and solutions. The questions asked are the following:
+
 \begin{itemize}
-    \item
-        Ask specific questions that address the general problem.
-    \item
-        Answer them with precise evidence (graphs, numbers, statistical
-        analysis, qualitative analysis).
-    \item
-        Be fair and be scientific.
-    \item
-        The key thing is to show that you know how to evaluate your work, not
-        that your work is the most amazing product ever.
+	\item
+	\emph{The Dijkstra exercises I received were similar in difficulty to exercises I have seen in class.}: Since comparing difficulty between two given exercises is very difficult, the next best approach is to compare the exercise to other examples encountered in the past. While this is not a very scientific solution (answer will highly depend on personal experiences rather than empirical data), it is still beneficial, as we cannot forget that students are not computers, so their perception of difficulty may be more important than objective difficulty (if such a thing even exists).
+	\item
+	\emph{The Dijkstra exercises I received were similar in format to exercises I have seen in class.} The question refers to the style of the exercise (as defined in \autoref{sec:exerciseDesign}), which can be sometimes be just as important as the content.
+	\item
+	\emph{The adjacency matrices helped make the exercises more understandable.} This question aims to find out how new additions (features existing exercises do not often have) influence student perception of the exercise.
+	\item
+	\emph{The model solutions I received for Dijkstra exercises were easy to understand.} Another style/structure question.
+	\item
+	\emph{Having step-by-step solutions for Dijkstra helped with tracing the solution to the exercise.} Another new addition.
+	\item
+	\emph{Highlights / colours helped make each solution step be more descriptive in Dijkstra.} Style once again.
+	\item
+	\emph{Elaborate further about any of the answers above.} Optional long response question for any other comments.
 \end{itemize}
 
-\section{Evidence}
-Make sure you present your evidence well. Use appropriate visualisations, reporting techniques and statistical analysis, as appropriate.
+\subsubsection{KMP}
 
-If you visualise, follow the basic rules, as illustrated in Figure \ref{fig:boxplot}:
+The second section is nearly identical to the first one (excluding the questions which do not apply to KMP), just for the included KMP exercise/solution.
+
+\subsubsection{General Questions}
+
+The third and final section asks more open-ended and personal questions, answers to which may highlight possible alternate use cases for the program.
+
 \begin{itemize}
-\item Label everything correctly (axis, title, units).
-\item Caption thoroughly.
-\item Reference in text.
-\item \textbf{Include appropriate display of uncertainty (e.g. error bars, Box plot)}
-\item Minimize clutter.
+	\item
+	\emph{Do you think receiving automatically generated exercises of the same difficulty is fair academically?}: Ethical question for examination settings.
+	\item
+	\emph{Do you think the use of automated exercise generation is more suitable for formative (tutorials) or summative (class test) assessments?}: Even if students may not be comfortable with receiving automatically generated exercises in examination settings, they might still be fine with using them in formative assessments.
+	\item
+	\emph{If you had a tool which could automatically generate exercises and step-by-step solutions, would you use it, and if so, how?} Students may have alternate use cases for the program (self-study, etc.).
+	\item
+	\emph{Overall thoughts and conclusions about exercises and solutions received.}: Long answer about any other comments.
 \end{itemize}
 
-See the file \texttt{guide\_to\_visualising.pdf} for further information and guidance.
+Overall, this user study gathers information relating to questions $1.$ and $2.$ from \autoref{sec:evalAims}.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=1.0\linewidth]{images/boxplot_finger_distance.pdf}    
+\subsection{Lecturer User Study}
 
-    \caption{Average number of fingers detected by the touch sensor at different heights above the surface, averaged over all gestures. Dashed lines indicate
-    the true number of fingers present. The Box plots include bootstrapped uncertainty notches for the median. It is clear that the device is biased toward 
-    undercounting fingers, particularly at higher $z$ distances.
-    }
+As lecturers directly interact with the program, they are given the .jar file to experiment with. Additionally, a more detailed description of the project is provided for context in a text document.
 
-    % use the notation fig:name to cross reference a figure
-    \label{fig:boxplot} 
-\end{figure}
+The first paragraph introduces the project by specifying the problem and the algorithms for which generation will be done. Next, the main functionality of the Java program is described, helping lecturers get a grasp for the user interface, as well as how inputs and outputs work. Lastly, brief reasons are given for the algorithmics decisions behind the chosen user inputs for each generation algorithm.
 
+For participants who do not wish to generate their own exercises, five exercises and their solutions (same parameters as students) for each algorithm are also included in the user study, so that these can be inspected as reference for the survey. Additionally, a screenshot of the user interface is presented so that the usability of the program can be evaluated as well.
+
+Once lecturers are introduced to the project, they are given simple instructions for completing the user study:
+\begin{enumerate}
+	\item
+	\textbf{Launch} the JAR file (\emph{java -jar AutomatedExerciseGenerator.jar}) and experiment with generating exercises and solutions (program will empty the destination directory with each execution). Alternatively, simply inspect the provided screenshots of the program.
+	\item
+	\textbf{Review} a few examples of exercises and solutions (either self-generated or the ones attached).
+	\item
+	\textbf{Complete} the survey.
+\end{enumerate}
+
+The survey contains the following two sections.
+
+\subsubsection{System Usability Scale}
+
+The first part is a usability evaluation for the program conducted according to the \emph{System Usability Scale} (SUS \cite{a}). The approach is ideal, since it is an industry standard for usability testing, especially for small sample sizes (while still delivering reliable and valid results). The results from this section can be used to deduct whether or not it would be worth it to implement a more complex user interface.
+
+\subsubsection{General Questions}
+
+To keep the user study as short as possible, lecturers are not asked about specific exercises, instead focusing on more general questions as follows:
+
+\begin{itemize}
+	\item
+	\emph{Do you think the use of automated exercise generation is more suitable for formative (tutorials) or summative (class test) assessments?} Question also found in student survey, thus student and teacher perspectives can be compared in \autoref{sec:analysis}. 
+	\item
+	\emph{Do you think the level of input you had over the exercises generated was appropriate, and if not, how could it be improved?} Question referring to template design (\autoref{sec:td}.
+	\item
+	\emph{Do you think the constraints chosen for each type of exercise were appropriate? If not, do you have any suggestions for what they should be?} Similar to previous question, asking details about specific algorithms instead of just user inputs.
+	\item
+	\emph{Overall thoughts and conclusions about the product.} Final comments or suggestions.
+\end{itemize}
+
+All in all, this user study addresses questions $2.$, $3.$ and $4.$ from \autoref{sec:evalAims}.
+
+\section{Results}
+
+To be completed.
+
+\section{Analysis and Discussion}
+
+To be comleted.
+
+\label{sec:analyis}
 
 %==================================================================================================================================
 \chapter{Conclusion}    
-\label{chap:conc}
-Summarise the whole project for a lazy reader who didn't read the rest (e.g. a prize-awarding committee).
-\section{Guidance}
+\section{Summary}
+
+As online examinations became the norm overnight due to the COVID-19 pandemic lock-downs, student collusions increased drastically, threatening the academic integrity of these examinations. With the solution of monitoring students at home introducing serious difficulties and ethical concerns, educators seek alternate approaches for eliminating the chance for collusion.
+
+\emph{Automated exercise generation} is an area of computing science education which aims to address this issue by providing each student with unique exam papers, so that answers cannot be shared easily between them. This process inherently has its own challenges, most importantly ensuring that each generated exercise has equal difficulty, while keeping them unique. A useful addition to this method is \emph{automated solution generation}, which deals with simultaneously producing answer keys to the aforementioned exercises.
+
+In order to test the effectiveness of \emph{automated exercise generation} in the field of algorithmics, we designed and implemented a program which automatically generates instances of predetermined exercises, while using certain controlled variables (parameters) to ensure uniform difficulty. The two algorithms for which this generation would be done are \emph{Dijkstra}'s algorithm and the \emph{Knuth–Morris–Pratt} algorithm, since they constitute two different areas of algorithmics (graphs and strings).
+
+The generation program was then evaluated through user studies involving both students and teachers to determine how effective our solution was at maintaining uniform difficulty. Due to uncertainties arising from comparing the difficulties of exercises, the focus of the evaluation was narrowed down to the following key questions:
+
 \begin{itemize}
-    \item
-        Summarise briefly and fairly.
-    \item
-        You should be addressing the general problem you introduced in the
-        Introduction.        
-    \item
-        Include summary of concrete results (``the new compiler ran 2x
-        faster'')
-    \item
-        Indicate what future work could be done, but remember: \textbf{you
-        won't get credit for things you haven't done}.
+	\item
+	How similar are generated exercises/solutions to pre-existing example exercises/solutions of the same type?
+	\item
+	What are some of the ethical implications of automatic exercise generation?
+	\item
+	How usable is the program?
+	\item
+	To what extent are controlled and uncontrolled variables handled effectively?
 \end{itemize}
+
+These questions were answered by getting participants to review examples of generated exercises and solutions as well the program itself, before having them complete separate surveys for students and teachers. 
+
+From the results of the surveys...
+
+To be continued
+
+\section{Future Work}
+
+From the results of our evaluation and personal observations during development, it is apparent that there is much more work to be done not only on automated exercise generation in general but on this project specifically as well.
+
+Since our study was limited by its scope, it would be beneficial to run a large scale user study to answer the main problem proposed in the paper (uniform difficulty of exercises). This could be done by giving participants examples of exercises generated with the same parameters and asking them to decide how close in difficulty they were to each other. This process would require a large number of participants, as exercise difficulty is very ambiguous, thus a big sample size is needed to arrive at a sound conclusion. This study would truly allow us to evaluate the effectiveness of our solution.
+
+As the motivation for this project was generating entire examination papers, it follows logically that generation algorithms for additional examples of exercises should be implemented. This is because examination papers usually consist of more than two types of exercises. Once this is achieved, an evaluation could be completed testing how entirely automated generated examinations would work. While examination boards are still far from approving automated exercise generation, conducting the aforementioned study would be the first step towards this future.
+
+To be continued..
 
 %==================================================================================================================================
 %
@@ -1181,25 +1029,7 @@ Summarise the whole project for a lazy reader who didn't read the rest (e.g. a p
 
 \chapter{Appendices}
 
-Typical inclusions in the appendices are:
-
-\begin{itemize}
-\item
-  Copies of ethics approvals (required if obtained)
-\item
-  Copies of questionnaires etc. used to gather data from subjects.
-\item
-  Extensive tables or figures that are too bulky to fit in the main body of
-  the report, particularly ones that are repetitive and summarised in the body.
-
-\item Outline of the source code (e.g. directory structure), or other architecture documentation like class diagrams.
-
-\item User manuals, and any guides to starting/running the software.
-
-\end{itemize}
-
-\textbf{Don't include your source code in the appendices}. It will be
-submitted separately.
+To be completed.
 
 \end{appendices}
 
