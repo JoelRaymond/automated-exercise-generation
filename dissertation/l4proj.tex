@@ -866,6 +866,7 @@ Even though the aims of the project are highlighted in \autoref{sec:aim} (genera
 \end{enumerate}
 
 \section{Experimental Design}
+\label{sec:exp_design}
 
 Since this project delivers products to two separate groups of users - namely students (receive exercises and solutions) and teachers (use program itself) - it is only appropriate to design and conduct two distinct user studies. This is important not only important because they interact with different outputs, they might also have drastically differing personal opinions about the impact of automated exercise generation on computer science education altogether. As they are both key stakeholders in this field, their ideas must be equally considered, hence the two experiments.
 
@@ -971,14 +972,138 @@ To keep the user study as short as possible, lecturers are not asked about speci
 All in all, this user study addresses questions $2.$, $3.$ and $4.$ from \autoref{sec:evalAims}.
 
 \section{Results}
+\label{sec:results}
 
-To be completed.
+This section shares the results of the surveys described in \autoref{sec:exp_design}. Note that the user studies conducted had a limited number of participants (7 students and 4 lecturers), so the results may not accurately represent the views of the entire user-base.
+
+The student participants were all third year computing science students to ensure that they have recent experience with the algorithms involved. The teacher participants were all lecturers of computing science possessing enough technical knowledge to use the program.
+
+To be able to more easily compare results, each response to a question is assigned a value from $0$ to $4$ (Strongly disagree = 0, Strongly Agree = 4) to form a Likert scale.
+
+Visuals of all the Likert results can be found in the \autoref{sec:survey_responses}.
+
+\subsection{Dijkstra}
+\label{sec:d_results}
+
+Participants felt that the generated Dijkstra exercises were very similar in difficulty to examples they had seen in class (mean = $3.714$, s = $0.452$, median = $4$). Full results can be found in \autoref{fig:d_similar_difficulty}.
+
+They felt the same way about how similar the format of each exercise was to examples they are used to (mean = $3.714$, s = $0.452$, median = $4$). Full results can be found in \autoref{fig:d_similar_format}.
+
+Including adjacency matrices turned out to be less desirable (mean = $3.286$, s = $0.700$, median = $3$). Full results can be found in \autoref{fig:adjacency_matrix}.
+
+Participants responded that the model solutions for Dijkstra were easy to understand (mean = $3.286$, s = $0.452$, median = $3$).  Full results can be found in \autoref{fig:d_model_solution}.
+
+Step-by-step solutions were found to be overwhelmingly useful (mean = $3.714$, s = $0.700$, median = $4$; taking yes=$4$, maybe=$2$, no=$0$).  Full results can be found in \autoref{fig:d_step_by_step}.
+
+Similar results were seen when it comes to highlights and other design decisions in Dijkstra's step-by-step solutions (mean = $3.714$, s = $0.452$, median = $4$).  Full results can be found in \autoref{fig:d_highlights}.
+
+\subsection{KMP}
+\label{sec:k_results}
+
+Participants felt the same way about KMP exercise difficulty as they did about Dijkstra  (mean = $3.714$, s = $0.452$, median = $4$). Full results can be found in \autoref{fig:k_similar_difficulty}.
+
+However, they were slightly less happy with formatting of KMP questions when compared to Dijkstra  (mean = $3.571$, s = $0.495$, median = $4$). Full results can be found in \autoref{fig:k_similar_format}.
+
+The KMP model solutions were significantly easier to understand on the other hand (mean = $3.857$, s = $0.345$, median = $4$). Full results can be found in \autoref{fig:k_model_solution}.
+
+A similar overwhelmingly positive response was seen for the usefulness of KMP step-by-step solutions, achieving a perfect score  (mean = $4$, s = $0$, median = $4$). Full results can be found in \autoref{fig:k_step_by_step}.
+
+Participants felt that the highlights / colours helped them significantly in making each solution step be more descriptive in KMP  (mean = $3.714$, s = $0.452$, median = $4$). Full results can be found in \autoref{fig:k_highlights}.
+
+\subsection{Usability}
+\cite{a}
+Since the usability of the system is evaluated using \emph{SUS}, a definite score can be calculated from responses through the following method. First, take the mean result (value from $0$ to $4$ from each question across all participants. Then, for questions \autoref{fig:usability1}, \autoref{fig:usability3}, \autoref{fig:usability5}, \autoref{fig:usability7}, and \autoref{fig:usability9}, the score is simply its mean result, while for questions \autoref{fig:usability2}, \autoref{fig:usability4}, \autoref{fig:usability6} and \autoref{fig:usability8}, the score is $4$ minus its mean result (since they are worded in a way that \emph{Strongly Disagree} is the best answer). Finally, the sum of the each question's scores is multiplied by $2.5$, giving the final \emph{SU} score out of $100$.
+
+The mean results and converted scores for our evaluation are shown in \autoref{tab:sus}. From these individual scores, the final \emph{SU} score can be be calculated: $(3 + 3.25 + 3.25 + 3.5 + 2.75 + 3.75 + 2.5 + 3.25 + 3.25 + 3.75) * 2.5 = 32.25 * 2.5 = 80.625$.
+
+\begin{table}[!h]
+\begin{center}
+\begin{tabular}{| c || c | c | c | c | c | c | c | c | c | c |}
+	\hline
+	Question & Q1 & Q2 & Q3 & Q4 & Q5 & Q6 & Q7 & Q8 & Q9 & Q10 \\
+	\hline
+	\hline
+	Mean & 3 & 0.75 & 3.25 & 0.5 & 2.75 & 0.25 & 2.5 & 0.75 & 3.25 & 0.25 \\
+	\hline
+	Score & 3 & 3.25 & 3.25 & 3.5 & 2.75 & 3.75 & 2.5 & 3.25 & 3.25 & 3.75 \\
+	\hline
+\end{tabular}
+\caption{\label{tab:sus}SUS means and final scores}
+\end{center}
+\end{table}
+
+\subsection{General Feedback}
+
+\subsubsection{Personal questions}
+\label{sec:personal_questions}
+
+The large majority of participants believed that the practice of automated exercise generation is academically fair (mean = $3.429$, s = $0.904$, median = $4$). Full results can be found in \autoref{fig:s_academic_fair}.
+
+Most students reported that they would only be comfortable with automated exercise generation in formative assessments ($6$ formative, $0$ summative,$1$ both).  Full results can be found in \autoref{fig:s_formative_summative}.
+
+On the other hand, lecturers generally thought that automated exercise generation is suitable for both formative or summative assessments ($2$ formative, $0$ summative, $2$ both).  Full results can be found in \autoref{fig:t_summative_formative}.
+
+\subsubsection{Long answer questions}
+
+As long answer responses were not \emph{required} in the surveys, not many participants provided answers. The answers that were provided however, shed a light on a lot of the future work that can be explored in the context of the project (\autoref{future_work}).
+
+One student brought up the idea of vertices having the same length shortest distance in Dijkstra, which could cause problems. In hindsight, it should have been communicated to the students that this will never happen, since the algorithm generates unique shortest distances for this exact reason. 
+
+Another student praised the similar format and difficulty of questions, along with the solutions, claiming that they would use the program for self-study.
+
+One lecturer gave some very detailed feedback on the program. They claimed that the interface was easy to use, however they did have some suggestions for improvement. For instance, some edge weights sometimes overlap for Dijkstra and the red highlights in the solutions do communicate anything useful. Additionally, they thought that the program should not clear the target directories before generation, as this could accidentally remove files that are still needed.
+
+On the opposite end of the spectrum, another lecturer claimed that "The text-based interface is not very easy to use.". They had further suggestions for KMP specifically, being that the number of \emph{shifts} could have been a constraint. They also commented on execution time being quite slow for generating step-by-step solutions.
 
 \section{Analysis and Discussion}
+\label{sec:analysis}
 
-To be comleted.
+In this section, we use the results of our user studies (\autoref{sec:results}) as well as personal findings to address the aims of our evaluation (\autoref{sec:evalAims}).
 
-\label{sec:analyis}
+\subsection{How similar are generated exercises/solutions to pre-existing example exercises/solutions of the same type?}
+
+From the results in \autoref{sec:d_results} and \autoref{sec:k_results}, we can quite confidently conclude that students found no discernible differences between exercises/solutions that were automatically generated, and hand-designed ones that they had seen previously in classes. This applies to both content and format, which is an important distinction, since it is easy to overlook visuals and focus on the seemingly more complex aspect, being the exercises themselves. Neglecting the format would not be a great idea however, as an exercise with confusing visuals is inherently more difficult to solve, which is something that we want to avoid.
+
+One area where the visuals are not up to par at the moment, is in the cases of large Dijkstra graphs. As highlighted by one of the lecturers, edge weights sometimes overlap, resulting in the situation mentioned above, so this must be addressed in the future (\autoref{sec:future_work}. 
+
+Adjacency matrices were included with each Dijkstra exercise as a temporary solution for overlapping weight labels, however students did not find it very helpful, as shown by the fact that it had the lowest mean score ($3.286$) out of all the questions. Since this score is above $2$, it means that while students did not find adjacency matrices to make exercises more cumbersome, they also did not find them very useful. We personally agree with this sentiment, since trying to solve a Dijkstra problem from an adjacency matrix only seems much more difficult (especially as the graph gets larger) than having the visual of the graph.
+
+The reason why students did not comment on the overlapping edge weight issue is because they had a limited number of exercises available to them, with none of them suffering from this issue. Therefore, while the results are very positive, we cannot assume that our product is perfect.
+
+For instance, even though students reported that the exercises they received are similar to something they would receive in class, there is currently not much guarantee that two examples of generated exercises (with the same parameters) are similar in difficulty, which is the main aim of the project. To address this, further user studies must be conducted (\autoref{sec:future_work}).
+
+\subsection{What are some of the ethical implications of automatic exercise generation?}
+
+ Even if we assume that the exercises generated are comparable in difficulty, there are still ethical issues surrounding the topic of automated exercises generation, which must be addressed.
+
+Quite surprisingly to us, students mostly seemed to be very comfortable with the idea of automatically generated exercises, as shown in \autoref{sec:personal_questions}. This is because we suspected that students would be more worried about their peers having unfair advantages in academics, which may be introduced as a result of having unique exercises. 
+
+The responses to the subsequent question shed some light on why students were so comfortable with automated generation. An overwhelming majority prefers to have automatically generated exercises for formative assessments only, so students are confident in giving the system in a try in low stake settings, such as tutorials or seminars. This makes sense, because we would not want students to risk sacrificing their academic results for the sake of this new technology.
+
+In contrast to students, teachers felt a lot more confident using automatic generation, even in summative assessments. This may be because lecturers are a lot more eager for finding efficient ways of designing new exercises (hand designing takes a lot of time), allowing them to put more energy into other aspects of their teaching.
+
+While we started this project with the goal of reducing collusion in online examinations, from both personal experiences and user feedback, it has become clear that the tool we have created is much more useful in less crucial settings (summative or formative assessments). This is further reinforced by the student who claimed that they would use it for self-studying. Furthermore, examination boards would have to approve the software before deployment, which is a very strenuous process. This shows that even though there are a lot of ethical implications involved, alternate use cases can always be found.
+
+Another such ethical issue deals with the fact that different people might approach the same exercise in different ways. Even though there are set algorithms students should follow when solving our exercises, since humans are not machines, they will often use their intuition and past experiences to find shortcuts (skip unnecessary passes of the algorithms). While some may argue that these students should deserve to have an advantage from their clever thinking, the generation algorithms still assume that all humans think like computers, which may be an issue.
+
+Even though the template based approach used in designing these generation algorithms works very well at increasing difficulty for computers (more difficult exercises will require more passes of the exercise algorithm), this does not necessarily mean that the same effect is achieved in the case of humans, as mentioned above. Solving this issue is very difficult, as it deals with complex human psychology (how people solve problems), which should be further investigated (\autoref{sec:future_work}).
+
+\subsection{How usable is the program?}
+
+SUS
+
+comments
+
+new UI
+
+execution time
+
+\subsection{To what extent are controlled and uncontrolled variables handled effectively?}
+
+KMP shift
+
+unique shortest distances
+
 
 %==================================================================================================================================
 \chapter{Conclusion}    
@@ -1010,6 +1135,7 @@ From the results of the surveys...
 To be continued
 
 \section{Future Work}
+\label{sec:future_work}
 
 From the results of our evaluation and personal observations during development, it is apparent that there is much more work to be done not only on automated exercise generation in general but on this project specifically as well.
 
@@ -1017,7 +1143,11 @@ Since our study was limited by its scope, it would be beneficial to run a large 
 
 As the motivation for this project was generating entire examination papers, it follows logically that generation algorithms for additional examples of exercises should be implemented. This is because examination papers usually consist of more than two types of exercises. Once this is achieved, an evaluation could be completed testing how entirely automated generated examinations would work. While examination boards are still far from approving automated exercise generation, conducting the aforementioned study would be the first step towards this future.
 
-To be continued..
+human psychology
+
+UI
+
+custom edge weight 
 
 %==================================================================================================================================
 %
@@ -1028,9 +1158,201 @@ To be continued..
 \begin{appendices}
 
 \chapter{Appendices}
+\label{chap:appendices}
 
-To be completed.
+\section{Survey responses}
+\label{sec:survey_responses}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/d_similar_difficulty.png}    
 
+    \caption{Survey responses to the question: "The Dijkstra exercises I received were similar in difficulty to exercises I have seen in class.".}
+    \label{fig:d_similar_difficulty} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/d_similar_format.png}    
+
+    \caption{Survey responses to the question: "The Dijkstra exercises I received were similar in format to exercises I have seen in class.".}
+    \label{fig:d_similar_format} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/adjacency_matrix.png}    
+
+    \caption{Survey responses to the question: "The adjacency matrices helped make the exercises more understandable.".}
+    \label{fig:adjacency_matrix} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/d_model_solution.png}    
+
+    \caption{Survey responses to the question: "The model solutions I received for Dijkstra exercises were easy to understand.".}
+    \label{fig:d_model_solution} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/d_step_by_step.png}    
+
+    \caption{Survey responses to the question: "Having step-by-step solutions for Dijkstra helped with tracing the solution to the exercise.".}
+    \label{fig:d_step_by_step} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/d_highlights.png}    
+
+    \caption{Survey responses to the question: "Highlights / colours helped make each solution step be more descriptive in Dijkstra.".}
+    \label{fig:d_highlights} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/k_similar_difficulty.png}    
+
+    \caption{Survey responses to the question: "The KMP exercises I received were similar in difficulty to exercises I have seen in class.".}
+    \label{fig:k_similar_difficulty} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/k_similar_format.png}    
+
+    \caption{Survey responses to the question: "The KMP exercises I received were similar in format to exercises I have seen in class.".}
+    \label{fig:k_similar_format} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/k_model_solution.png}    
+
+    \caption{Survey responses to the question: "The model solutions I received for KMP exercises were easy to understand.".}
+    \label{fig:k_model_solution} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/k_step_by_step.png}    
+
+    \caption{Survey responses to the question: "Having step-by-step solutions for KMP helped with tracing the solution to the exercise.".}
+    \label{fig:k_step_by_step} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/k_highlights.png}    
+
+    \caption{Survey responses to the question: "Highlights / colours helped make each solution step be more descriptive in KMP.".}
+    \label{fig:k_highlights} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/s_academic_fair.png}    
+
+    \caption{Survey responses to the question: "Do you think receiving automatically generated exercises of the same difficulty is fair academically?".}
+    \label{fig:s_academic_fair} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/s_formative_summative.png}    
+
+    \caption{Survey (student) responses to the question: "Do you think the use of automated exercise generation is more suitable for formative (tutorials) or summative (class test) assessments?".}
+    \label{fig:s_formative_summative} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/usability1.png}    
+
+    \caption{Survey responses to the question: "I think that I would like to use this system frequently.".}
+    \label{fig:usability1} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/usability2.png}    
+
+    \caption{Survey responses to the question: "I found the system unnecessarily complex.".}
+    \label{fig:usability2} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/usability3.png}    
+
+    \caption{Survey responses to the question: "I thought the system was easy to use.".}
+    \label{fig:usability3} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/usability4.png}    
+
+    \caption{Survey responses to the question: "I think that I would need the support of a technical person to be able to use this system.".}
+    \label{fig:usability4} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/usability5.png}    
+
+    \caption{Survey responses to the question: "I found the various functions in this system were well integrated.".}
+    \label{fig:usability5} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/usability6.png}    
+
+    \caption{Survey responses to the question: "I thought there was too much inconsistency in this system.".}
+    \label{fig:usability6} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/usability7.png}    
+
+    \caption{Survey responses to the question: "I would imagine that most people would learn to use this system very quickly.".}
+    \label{fig:usability7} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/usability8.png}    
+
+    \caption{Survey responses to the question: "I found the system very cumbersome to use.".}
+    \label{fig:usability8} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/usability9.png}    
+
+    \caption{Survey responses to the question: "I felt very confident using the system.".}
+    \label{fig:usability9} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/usability10.png}    
+
+    \caption{Survey responses to the question: "I needed to learn a lot of things before I could get going with this system.".}
+    \label{fig:usability10} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/t_summative_formative.png}    
+
+    \caption{Survey (teacher) responses to the question: "Do you think the use of automated exercise generation is more suitable for formative (tutorials) or summative (class test) assessments?".}
+    \label{fig:t_summative_formative} 
+\end{figure}
 \end{appendices}
 
 %==================================================================================================================================
