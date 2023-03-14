@@ -1045,7 +1045,7 @@ On the other hand, lecturers generally thought that automated exercise generatio
 
 \subsubsection{Long answer questions}
 
-As long answer responses were not \emph{required} in the surveys, not many participants provided answers. The answers that were provided however, shed a light on a lot of the future work that can be explored in the context of the project (\autoref{future_work}).
+As long answer responses were not \emph{required} in the surveys, not many participants provided answers. The answers that were provided however, shed a light on a lot of the future work that can be explored in the context of the project (\autoref{sec:future_work}).
 
 One student brought up the idea of vertices having the same length shortest distance in Dijkstra, which could cause problems. In hindsight, it should have been communicated to the students that this will never happen, since the algorithm generates unique shortest distances for this exact reason. 
 
@@ -1074,7 +1074,7 @@ For instance, even though students reported that the exercises they received are
 
 \subsection{What are some of the ethical implications of automatic exercise generation?}
 
- Even if we assume that the exercises generated are comparable in difficulty, there are still ethical issues surrounding the topic of automated exercises generation, which must be addressed.
+Even if we assume that the exercises generated are comparable in difficulty, there are still ethical issues surrounding the topic of automated exercises generation, which must be addressed.
 
 Quite surprisingly to us, students mostly seemed to be very comfortable with the idea of automatically generated exercises, as shown in \autoref{sec:personal_questions}. This is because we suspected that students would be more worried about their peers having unfair advantages in academics, which may be introduced as a result of having unique exercises. 
 
@@ -1090,20 +1090,21 @@ Even though the template based approach used in designing these generation algor
 
 \subsection{How usable is the program?}
 
-SUS
+According to the \emph{System Usability Scale}, a \emph{SUS} score of above $68$ is considered above average, so our score of $80.625$ indicates an interface that works well for its purpose.This should by no means suggest that the system is perfect, as a number of its flaws were highlighted by our user study and personal experiences with using it.
 
-comments
+The worst performing question (as per \autoref{tab:sus}) is \emph{Q7}, which is \emph{I would imagine that most people would learn to use this system very quickly.}. This is most likely because launching the program requires users to interact with the command line, which people with no technology background might struggle with. While the program is mostly meant for computing science lecturers (who know how to use command line), a quick and easy fix would be to write a script which launches the application in the command line.
 
-new UI
+While some participants thought that the interface was quite easy to use, others found it rather difficult. This along with the fact that usability will only get worse as further generation algorithms are implemented lead us to believe that a more robust user interface should be implemented, as further described in \autoref{sec:future_work}.
 
-execution time
+Another observation that was reported by a lecturer is the fact that execution time is quite slow when generating step-by-step solutions. This happens because the logic for creating these visualisations is done in Java, so a lot of repeated strings are written to the output .tex file, which is a computationally expensive process. Instead, the logic should be done in LaTeX, minimising the number of strings that must be written to the .tex file. Another benefit is that the file sizes would also be smaller.
 
 \subsection{To what extent are controlled and uncontrolled variables handled effectively?}
 
-KMP shift
+While our choices of constraints were mostly praised by participants, they did have a few suggestions about areas that we did not consider.
 
-unique shortest distances
+One lecturer proposed that the query string for KMP could have been generated taking the number of \emph{shifts} as a constraint. This parameter would consider how many counter-clockwise shifts it would take for the string to have same length longest border as before (essentially swapping the prefix and suffix borders), in turn controlling where the suffix border is placed within the string. This may be an important constraint to include, since strings where the longest border is found in the beginning may be easier to construct a border table for than strings with the longest border at the end.
 
+A student had a different suggestion for Dijkstra, where vertices with \emph{non-unique} shortest distances should be considered. Examples of exercises where this occurs drastically increases complexity, not only in terms of solving the exercise but also the generation process, since the algorithm relies on having unique shortest distances. Therefore, we believe that it is better to keep the current approach, as the implementation would require a lot of resources for a scenario that does not happen very frequently.
 
 %==================================================================================================================================
 \chapter{Conclusion}    
@@ -1130,9 +1131,9 @@ The generation program was then evaluated through user studies involving both st
 
 These questions were answered by getting participants to review examples of generated exercises and solutions as well the program itself, before having them complete separate surveys for students and teachers. 
 
-From the results of the surveys...
+From the results of our evaluation, we find that participants are in general happy with the format of the exercises, the user interface and the constraints chosen. On the other hand, they did report that most of them would only be comfortable with introducing automated exercise generation in formative assessments. Another implication that was considered is the idea that humans approach solving exercises differently to computers, so perhaps working backwards from the chosen algorithms is not the best approach for exercise generation.
 
-To be continued
+Overall, we believe that our current solution does a good job at automated exercise generation for select algorithmics courses, however more user testing is required to ensure that our main aim of delivering exercises of similar difficulty is met.
 
 \section{Future Work}
 \label{sec:future_work}
@@ -1143,11 +1144,11 @@ Since our study was limited by its scope, it would be beneficial to run a large 
 
 As the motivation for this project was generating entire examination papers, it follows logically that generation algorithms for additional examples of exercises should be implemented. This is because examination papers usually consist of more than two types of exercises. Once this is achieved, an evaluation could be completed testing how entirely automated generated examinations would work. While examination boards are still far from approving automated exercise generation, conducting the aforementioned study would be the first step towards this future.
 
-human psychology
+To explore the area of how humans solve exercises, a collaborative study could be done with an expert in human psychology. In the user study, participants would be asked to describe in detail how they approach solving a given a exercise. This would provide us additional information (along with existing exercises and the algorithms themselves) to help design our generation templates.
 
-UI
+Automated exercise generation relates closely to another area of research, being automated grading. This involves taking student answers as inputs, and calculating their marks by comparing the inputs to the actual solution. Automated grading comes with its own complexities, so it was not considered for this project, however it should be looked at in the future, as it is the last step for completing the automated generation pipeline (exercise $\rightarrow$ solution $\rightarrow$ grade).
 
-custom edge weight 
+In terms of short term improvements to our program, a more sophisticated UI (JavaFX perhaps) becomes more and more desirable as new generation algorithms are implemented. Additionally, the issue of overlapping edge weights must be solved through some sort of custom edge weight placing algorithm, which keeps track of the positions of existing weights, so that new labels are not placed on top. 
 
 %==================================================================================================================================
 %
