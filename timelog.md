@@ -440,3 +440,7 @@
 * ## 14 Mar 2023
 
 * *3 hours* Dissertation writing.
+
+* ## 15 Mar 2023
+
+* *1 hours* Supervisor meeting.
