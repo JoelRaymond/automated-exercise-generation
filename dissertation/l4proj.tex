@@ -9,6 +9,15 @@
 \usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage{textcomp}
+\usepackage{url}
+\usepackage{enumerate}
+
+%urldefs
+
+\urldef\dijkurl\url{https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm}
+\urldef\kmpurl\url{https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm}
+
+%hyperref defs
 
 \begin{document}
 
@@ -23,7 +32,7 @@
 %==============================================================================
 %% ABSTRACT
 \begin{abstract}
-	With the rise of the COVID-19 pandemic, distance learning became the default overnight across all levels of education. This caused numerous challenges for educators, with one of the greatest being the introduction of online written examinations. Due to very limited monitoring capabilities, student collusion became rampant, undermining the academic integrity of these examinations. Automated exercise generation is a teaching method that aims to solve this by providing each student unique exam sheets with uniform difficulties. For the purpose of this project, I created a program which generates exercises and solutions for two common algorithms taught in introductory algorithmics courses: \textit{Dijkstra's algorithm} and the \textit{Knuth–Morris–Pratt algorithm}. While it may take considerable time for exam boards to approve the use of automatically generated exercises, I believe my program serves as a great resource for exam preparation or formative assessments. This is especially true considering that it can be easily expanded with other algorithms in the future.
+	With the rise of the COVID-19 pandemic, distance learning became the default overnight across all levels of education. This caused numerous challenges for educators, with one of the greatest being the introduction of online written examinations. Due to very limited monitoring capabilities, student collusion became rampant, undermining the academic integrity of these examinations. Automated exercise generation is a teaching method that aims to address this issue by providing each student unique exam sheets with uniform difficulties. For the purpose of this project, we created a program which generates exercises and solutions for two common algorithms taught in introductory algorithmics courses: \textit{Dijkstra's algorithm} and the \textit{Knuth–Morris–Pratt algorithm}. We believe that our program serves as a great resource not only for exam preparation but formative or even summative assessments as well. This is especially true considering that it can be easily expanded with other algorithms in the future.
 \end{abstract}
 
 %==============================================================================
@@ -83,14 +92,14 @@
 
 Leading up the COVID-19 pandemic, online teaching platforms had already become quite popular in higher education institutions due to convenient features such as lecture recordings, quizes and online communication channels. As distance teaching had to be adopted overnight in accordance with government guidance, these services became essential for delivering course material and assessments. However, not only did these platforms become incredibly overloaded, fatal issues also began to emerge. Arguably the greatest challenge educaters started facing was how to conduct summative assessments (specifically written examinations). This is because traditional methods in an at-home examination setting would lead to increased student collusion, jeopardising academic integrity, while online monitoring during examinations is very difficult and also possibly ethically unsound. Automated exercise generation aims to address this issue by providing each student an examination paper with unique exercises of uniform difficulty, eliminating possible collusions without using only monitoring procedures. Although in person examinations are underway once again (in the United Kingdom at least), many faculties still prioritise online assessments due to scheduling constraints, venue scarcities and/or student preferences, thus the demand for automated exercise generation.
 
-Previous work in automated exercise generation has been done in contexts including satisfiability problems \cite{Hoz21}, embedded systems  \cite{Sad12}, and data science \cite{Kot19} (further explored in \autoref{chap:back}), however not much research exists on graph and string algorithms typically taught in algorithmics courses. Generating for these algorithms requires in-depth design (\autoref{chap:des}), as this process is non-trivial, meaning that completely random generation will result in exercises of varying difficulties, violating academic integrity in a different way. This is what separates automated exercise generation from existing solutions on online platforms, which mostly deal with trivial generations.
+Previous work in automated exercise generation has been done in contexts including satisfiability problems \cite{Hoz21}, embedded systems  \cite{Sad12}, and data science \cite{Kot19} (further explored in \autoref{chap:back}), however not much research exists on graph and string algorithms typically taught in algorithmics courses (CompSci4009  \footnote{\url{https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4009} [Accessed 18th March 2023]}, CompSci2026 \footnote{\url{https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI2026} [Accessed 18th March 2023]}) . Generating for these algorithms requires in-depth design (\autoref{chap:des}), as this process is non-trivial, meaning that completely random generation will result in exercises of varying difficulties, violating academic integrity in a different way. This is what separates automated exercise generation from existing solutions on online platforms, which mostly deal with trivial generations.
 
 For the purpose of this project, two algorithms were selected (one graph and one string to have an example of each) for which exercises and solutions would be generated. This was done to set a baseline for what is required in order to generate exercises of uniform difficulty, such that it can be replicated for other algorithms in this field of study. The following algorithms were chosen:
 \begin{itemize}
 	\item
-	\textbf{Dijkstra's algorithm} for finding the shortest path between two vertices in a weighted graph. The exercise generated asks students to identify the shortest paths from a given a vertex to all other vertices in a weighted graph. (ref)
+	\textbf{Dijkstra's algorithm} for finding the shortest path between two vertices in a weighted graph. The exercise generated asks students to identify the shortest paths from a given a vertex to all other vertices in a weighted graph.
 	\item
-	The \textbf{Knuth–Morris–Pratt (KMP) algorithm} for string seach. For this exercise, students are required to build the border table of a given string, so that the KMP algorithm can be applied to search for a string. (ref)
+	The \textbf{Knuth–Morris–Pratt (KMP) algorithm} for string search. For this exercise, students are required to build the border table of a given string, so that the KMP algorithm can be applied to search for a string.
 \end{itemize}
 The reason these specific algorithms were chosen is because they are popular amongst computing scientists (usually taught in undergraduate algorithmics courses), so that they have a familiar point of reference when they are analysing the generation algorithms. Even though the selected algorithms are not overly complex, this does not directly translate to the complexity of the generation algorithms (it is considerably more difficult to generate than to solve). 
 
@@ -106,29 +115,9 @@ Considering the aforementioned motivations, the aim of this project is to design
 	\item
 	The extent to which the generated exercises require the same workload to solve.
 \end{enumerate}
-There is a tradeoff between \emph{1.} and \emph{2.}, where one end of the spectrum is identical examination papers resulting in perfectly identical workloads but high collusion, whereas the other end is completely randomly generated exercises which eliminate collusion, but have drastically different difficulties. Therefore, the main goal of the project is to find a balance between \emph{1.} and \emph{2.} in a way that maximises academic integrity.
+There is a trade-off between \emph{1.} and \emph{2.}, where one end of the spectrum is identical examination papers resulting in perfectly identical workloads but high collusion, whereas the other end is completely randomly generated exercises which eliminate collusion, but have drastically different difficulties. Therefore, the main goal of the project is to find a balance between \emph{1.} and \emph{2.} in a way that maximises academic integrity.
 
 Once the program is operational, two separate evaluations will be conducted. One will focus on the usability of the program by surveying computing science lecturers, and the other will gain insight from third year computing science students on the generated exercises and solutions themselves. The combined results from these two user studies should highlight the extent to which the trade-off problem was successfully solved, as well as gather a general consensus about automated exercise and solution generation.
-
-\section {Dissertation Outline}
-
-This dissertation is comprised of the following six chapters:
-\begin{itemize}
-	\item
-	\textbf{\autoref{chap:back}} provides background information about automated exercise generation, including previous contexts in which it was used as well as different past implementations. Additionally, it introduces the Dijkstra and KMP algorithms which will be generated for.
-	\item
-	\textbf{\autoref{chap:req}} discusses the requirements for both the product itself and the generated exercises and solutions. Information is also provided about why certain requirements were chosen and how they evolved over the lifespan of the project. This chapter also includes user personas to help differentiate between the varying use cases of the product.
-	\item
-	\textbf{\autoref{chap:des}} discusses the way in which each generation algorithm was designed, as well as any other design decisions that were made during the project.
-	\item
-	\textbf{\autoref{chap:imp}} describes the way in which the aforementioned designs were implemented to form the final product. Contains discussions about why certain data structures and programming techniques were used to solve specific problems.
-	\item
-	\textbf{\autoref{chap:ev}} introduces the two user studies which were conducted. This includes how they were designed as well as analysis of the results.
-	\item
-	Finally \textbf{\autoref{chap:conc}} concludes the paper, mentioning key ideas, results, findings and future work.
-\end{itemize}
-
-
 
 %==================================================================================================================================
 \chapter{Background}
@@ -138,27 +127,53 @@ This chapter introduces prior research papers done on automatic exercise generat
 
 \section{Related works}
 \subsection{Automatic exercise generation for satisfiability questions}
-The main inspiration for this project was a research paper by \citet{Hoz21}, which explores the challenges introduced to examination in higher education by the COVID-19 pandemic and suggests  automated exercise generation as a solution for eliminating student collusion, specifically for logic and computation courses (e.g. \emph{COMPSCI2026 Algorithmics}). The paper has a similar premise to this project, as they are both focused on generating unique exercises for predetermined algorithms (namely SAT, SMT, and first-order theorem proving), with the main challenge being striking a balance between providing different exercises while keeping the difficulty uniform. Furthermore. approaches for how different algorithms should be generated are also explored, where quite a bit of variation can be observed for each exercise. For instance in SAT solving (Boolean Satisfiability), \citet{Hoz21} observes that generating truly random examples leads to either trivial questions (tautologies) or extremely challenging problems (boolean clauses which barely make sense). Thus, they formulate a more elaborate strategy. Some syntactical characteristics are identified based on existing SAT exercises and previous experience before constraints are applied on these characteristics. These constraints can be used to adjust the difficulties of the exercises generated. This approach may prove to be useful in my own project, as some algorithms in \emph{COMPSCI2026 Algorithmics} also deal with propositional formulae. However, some issues are also brought up regarding this process, namely that the sample space for the aforementioned constraints may be either too sparse or too uniform. Therefore, it is integral to optimise these constraints to avoid these pitfalls. For generating SMT reasoning and ground superposition proving, \citet{Hoz21} applies a template based approach, where quantifier-free first-order templates are designed and randomised in order to generate exercises. One of the main advantages of this approach is that the template can not only be used for exercise generation but also for marking solutions, addressing the problem that is inherently introduced by generating unique exam questions for each student. The only issue with this approach is that the number of problems generated is quite low due to the high precision of their templates. This, however, can be addressed by designing templates which are more general, while ensuring that difficulty is still uniform. The aforementioned methods should prove useful at providing relatively equal workloads when applied to the algorithms in this project. \citet{Hoz21} mostly uses Haskell and some Python for the implementation, however I am unsure if I have enough experience with Haskell to use it in this project.
+\subsubsection{Automated Generation of Exam Sheets for Automated Deduction.}
 
-\citet{Esh22} focuses on generating boolean clause exercises, similarly to \citet{Hoz21}, thus many of the core concepts are repeated. What is unique, however, is that the paper approaches the problem from the angle of exam preparation, thus emphasising automated exercise solving above all. This is not very useful for my project, as the algorithms I am working with are less logic based, however, there is a lot of inspiration that can be drawn from the provided implementation. The Java code follows an object oriented approach, with two classes TeXgenerator and SATsolver for exercise generation and solving respectively. In combination with the template-based approach, this model can be applied to the algorithms I work with by describing each template as a class with unique properties and methods, which can be instantiated to create new examples. The TeXgenerator class is especially useful, as it is using templates for both the exercise and the solution in order to generate new exercises in LaTeX format. 
+The main inspiration for this project was a research paper by \citet{Hoz21}, which explores the challenges introduced to examination in higher education by the COVID-19 pandemic and suggests  automated exercise generation as a solution for eliminating student collusion, specifically for logic and computation courses (e.g. \emph{COMPSCI2026 Algorithmics}). The paper has a similar premise to this project, as they are both focused on generating unique exercises for predetermined algorithms (namely SAT, SMT, and first-order theorem proving), with the main challenge being striking a balance between providing different exercises while keeping the difficulty uniform. 
+
+Furthermore. approaches for how different algorithms should be generated are also explored, where quite a bit of variation can be observed for each exercise. For instance in SAT solving (Boolean Satisfiability), \citet{Hoz21} observes that generating truly random examples leads to either trivial questions (tautologies) or extremely challenging problems (boolean clauses which barely make sense). Thus, they formulate a more elaborate strategy. Some syntactical characteristics are identified based on existing SAT exercises and previous experience before constraints are applied on these characteristics. These constraints can be used to adjust the difficulties of the exercises generated. This approach may prove to be useful in my own project, as some algorithms in \emph{COMPSCI2026 Algorithmics} also deal with propositional formulae. 
+
+However, some issues are also brought up regarding this process, namely that the sample space for the aforementioned constraints may be either too sparse or too uniform. Therefore, it is integral to optimise these constraints to avoid these pitfalls. For generating SMT reasoning and ground superposition proving, \citet{Hoz21} applies a template based approach, where quantifier-free first-order templates are designed and randomised in order to generate exercises. One of the main advantages of this approach is that the template can not only be used for exercise generation but also for marking solutions, addressing the problem that is inherently introduced by generating unique exam questions for each student. 
+
+The only issue with this approach is that the number of problems generated is quite low due to the high precision of their templates. This, however, can be addressed by designing templates which are more general, while ensuring that difficulty is still uniform. The aforementioned methods should prove useful at providing relatively equal workloads when applied to the algorithms in this project. \citet{Hoz21} mostly uses Haskell and some Python for the implementation.
+
+\subsubsection{Automated exercise generation for three satisfiability checking algorithms.}
+
+\citet{Esh22} focuses on generating boolean clause exercises, similarly to \citet{Hoz21}, thus many of the core concepts are repeated. What is unique, however, is that the paper approaches the problem from the angle of exam preparation, thus emphasising automated exercise solving above all. This is not very useful for my project, as the algorithms I am working with are less logic based, however, there is a lot of inspiration that can be drawn from the provided implementation. 
+
+The Java code follows an object oriented approach, with two classes TeXgenerator and SATsolver for exercise generation and solving respectively. In combination with the template-based approach, this model can be applied to the algorithms I work with by describing each template as a class with unique properties and methods, which can be instantiated to create new examples. The TeXgenerator class is especially useful, as it is using templates for both the exercise and the solution in order to generate new exercises in LaTeX format. 
 
 \subsection{Automatic exercise generation in MOOCs}
-\citet{Sad12} discusses automated exercise generation in the context of massively open online courses (MOOCs), focusing on not only exercise but also solution generation and automatic grading for an embedded systems course. This course includes several design and modelling questions, which could prove useful for generating exercises for algorithms involving graphs. For generating exercises, they claim that it is undesirable to remove all human input, as designing exams is a creative process. Therefore it is highly recommended to enable certain inputs, such as adjustment to difficulty to suit the lecturer's vision for the exercise. Similarly to \citet{Hoz21}, \citet{Sad12} also utilises the template-based approach, where pre-existing exercises are examined to find patterns (common and different elements), which combined make up the template for the given problem. This template is then instantiated with new parameters in order to generate a unique exercise. Uniform difficulty is ensured by applying a "bounded number of mutations" to an existing exercise with appropriate constraints before double-checking the result. This approach is slightly different to \citet{Hoz21}, since they used more specific models instead of basing generated exercises on each other. Both of these approaches are valid, however preferences can be made based on how similar we want to allow unique exercises to be. Once the exercises are generated, \citet{Sad12} claims that solution generation and auto-grading are more trivial with model checking, Boolean satisfiability or satisfiability modulo theories. The paper first explores automatic exercise generation for model-based problems (state-machines) with three entities: models (finite state-machines themselves), properties (specifications of the model) and traces (expected/unexpected outcomes). These entities are the pillars for creating a template for a model-based problem, such that a new instance of the template creates a unique exercise. However, the entities must be controlled in order to ensure uniform difficulty as previously mentioned, which can be achieved one of four ways, being the mutation operators. Either the initial state can be changed, the target state can be changed, a new transition can be created or the number of states can be changed. Applying one of these small changes creates a new version of a given exercise, referred to as a mutation. This works well for ensuring relative difficulty for new exercises, however a large divergence can still be observed when generating a large number of exercises. For these model-based problems, it is demonstrated that it is useful to produce a template model, visually highlighting how new models are generated. The second half of the paper discusses generating for real-time scheduling problems (solving for an unknown variable), which is less model and more logic based. Creating templates for these problems is slightly more trivial but very similar, as it involves generalising an existing question by making its fixed values into variables, which are then assigned values to generate a new exercise. This, however, makes automatic solving more tedious, as the template cannot simply be reversed in order to get an answer. Instead, SMT solvers are to be applied. Overall, \citet{Sad12} focuses on generating slightly altered versions of existing exercises, which is desirable for MOOC applications however, a more sophisticated form of exercise generation may be desired when designing exam papers.
+\citet{Sad12} discusses automated exercise generation in the context of massively open online courses (MOOCs), focusing on not only exercise but also solution generation and automatic grading for an embedded systems course. This course includes several design and modelling questions, which could prove useful for generating exercises for algorithms involving graphs. 
+
+For generating exercises, they claim that it is undesirable to remove all human input, as designing exams is a creative process. Therefore it is highly recommended to enable certain inputs, such as adjustment to difficulty to suit the lecturer's vision for the exercise. Similarly to \citet{Hoz21}, \citet{Sad12} also utilises the template-based approach, where pre-existing exercises are examined to find patterns (common and different elements), which combined make up the template for the given problem. This template is then instantiated with new parameters in order to generate a unique exercise. Uniform difficulty is ensured by applying a "bounded number of mutations" to an existing exercise with appropriate constraints before double-checking the result. 
+
+This approach is slightly different to \citet{Hoz21}, since they used more specific models instead of basing generated exercises on each other. Both of these approaches are valid, however preferences can be made based on how similar we want to allow unique exercises to be. 
+
+Once the exercises are generated, \citet{Sad12} claims that solution generation and auto-grading are more trivial with model checking, Boolean satisfiability or satisfiability modulo theories. The paper first explores automatic exercise generation for model-based problems (state-machines) with three entities: models (finite state-machines themselves), properties (specifications of the model) and traces (expected/unexpected outcomes). These entities are the pillars for creating a template for a model-based problem, such that a new instance of the template creates a unique exercise. 
+
+However, the entities must be controlled in order to ensure uniform difficulty as previously mentioned, which can be achieved one of four ways, being the mutation operators. Either the initial state can be changed, the target state can be changed, a new transition can be created or the number of states can be changed. Applying one of these small changes creates a new version of a given exercise, referred to as a mutation. This works well for ensuring relative difficulty for new exercises, however a large divergence can still be observed when generating a large number of exercises. For these model-based problems, it is demonstrated that it is useful to produce a template model, visually highlighting how new models are generated. 
+
+The second half of the paper discusses generating for real-time scheduling problems (solving for an unknown variable), which is less model and more logic based. Creating templates for these problems is slightly more trivial but very similar, as it involves generalising an existing question by making its fixed values into variables, which are then assigned values to generate a new exercise. This, however, makes automatic solving more tedious, as the template cannot simply be reversed in order to get an answer. Instead, SMT solvers are to be applied.
+ 
+Overall, \citet{Sad12} focuses on generating slightly altered versions of existing exercises, which is desirable for MOOC applications however, a more sophisticated form of exercise generation may be desired when designing exam papers.
 
 \subsection{Automatic exercise generation in data science}
-\citet{Kot19} approaches automatic exercise generation from the point of view of data science with a web based implementation, mostly focusing on exercise solving. The site facilitates three options for each type of exercise: Exercise creation from scratch, Random exercise creation and Exercise creation based on existing ones. The one most relevant is Random exercise creation, as this involves generating a random problem of a certain type, with the reduced difficulty of not having to generate multiple examples with similar difficulties. This means that their approach for exercise generation is quite naive, however implementations for the supported algorithms may be of use. Unfortunately, there is not a great amount detail mentioned about the specific implementation and the website is non-operational currently.
+\citet{Kot19} approaches automatic exercise generation from the point of view of data science with a web based implementation, mostly focusing on exercise solving. The site facilitates three options for each type of exercise: Exercise creation from scratch, Random exercise creation and Exercise creation based on existing ones. 
+
+The one most relevant is Random exercise creation, as this involves generating a random problem of a certain type, with the reduced difficulty of not having to generate multiple examples with similar difficulties. This means that their approach for exercise generation is quite naive, however implementations for the supported algorithms may be of use. Unfortunately, there is not a great amount detail mentioned about the specific implementation and the website is non-operational currently.
 
 \section{Definitions}
 \subsection{Dijkstra}
-\cite{a}
-\textbf{Dijkstra's algorithm} is a well-known algorithm used to solve the single-source shortest path problem, which involves finding the shortest path between a starting vertex and all other vertices in a weighted graph. The algorithm was named after Edsger W. Dijkstra, who first described it in 1956. The algorithm is widely used in various applications such as routing in computer networks, pathfinding in video games, and logistics planning.
+
+\textbf{Dijkstra's algorithm} \footnote{\dijkurl [Accessed: 18th March 2023]} is a well-known algorithm used to solve the single-source shortest path problem, which involves finding the shortest path between a starting vertex and all other vertices in a weighted graph. The algorithm was named after Edsger W. Dijkstra, who first described it in 1956. The algorithm is widely used in various applications such as routing in computer networks, pathfinding in video games, and logistics planning.
 
 The basic idea behind Dijkstra's algorithm is to iteratively explore the graph by visiting vertices in order of increasing distance from the starting vertex, updating the distances of adjacent vertices if a shorter path is found. This process continues until all vertices have been visited, and the resulting distances are the shortest paths from the starting vertex to all other vertices in the graph.
 
 The generated questions will ask students to use Dijkstra's algorithm to solve a single-source shortest path problem.
 
 The following definitions describe important characteristic for Dijkstra's algorithm:
-\subsubsection{Edge relaxations}
+\subsubsection{Edge relaxations.}
 
 In graph algorithms such as Dijkstra's algorithm, edge relaxation is the process of updating the tentative distance of a vertex in the graph by considering an edge that connects it to another vertex.
 
@@ -169,23 +184,24 @@ Edge relaxation involves comparing the tentative distance of the destination ver
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.6\linewidth]{images/edge_relaxation.png}    
-
-    \caption{Simple weighted, directed graph, used as a demonstration for edge relaxations. https://towardsdatascience.com/algorithm-shortest-paths-1d8fa3f50769}
+    \caption[Caption]{Simple weighted, directed graph, used as a demonstration for edge relaxations. \footnotemark}
     \label{fig:edge_r} 
 \end{figure}
+
+\footnotetext{\url{https://towardsdatascience.com/algorithm-shortest-paths-1d8fa3f50769} [Accessed 18th March 2023]}
 
 As an example, consider the graph in \autoref{fig:edge_r}. If we run Dijkstra's algorithm on this graph with starting vertex \emph{S}, we get distances \emph{A=1} and \emph{B=3} after the first pass. After the second pass however (exploring from vertex \emph{A}), we find an alternate path to \emph{B} (\emph{S->A->B}), the length of which is lower than our tentative distance for \emph{B} (1+1 < 3). Therefore, an \textbf{edge relaxation} is completed as the distance is updated to \emph{B=2} and the graph is fully explored.
 
 \subsection{KMP}
-\cite{a}
-The \textbf{Knuth-Morris-Pratt (KMP)} algorithm is a string searching algorithm that efficiently finds all occurrences of a pattern string \emph{P} in a text string \emph{T}. It was developed by Donald Knuth, James H. Morris, and Vaughan Pratt in 1977. The KMP algorithm is widely used in various applications such as text editors, word processors, and compilers.
+
+The \textbf{Knuth-Morris-Pratt (KMP)} \footnote{\kmpurl [Accessed: 18th March 2023]} algorithm is a string searching algorithm that efficiently finds all occurrences of a pattern string \emph{P} in a text string \emph{T}. It was developed by Donald Knuth, James H. Morris, and Vaughan Pratt in 1977. The KMP algorithm is widely used in various applications such as text editors, word processors, and compilers.
 
 The basic idea behind the KMP algorithm is to use the information of previous matches to avoid unnecessary character comparisons in the text string. Specifically, it constructs a prefix function that computes the length of the longest proper prefix of P that is also a suffix of each prefix of P. This information is then used to determine the starting position of the next comparison when a mismatch occurs.
 
 The generated questions will ask students to use build a border table, which is required for string pattern matching in KMP.
 
 The following definitions describe important characteristics for this process of building a border table:
-\subsubsection{Border}
+\subsubsection{Border.}
 
 A border is a non-empty proper prefix of a string that is also a suffix of that string. More formally, let \emph{s} be a string. A border of \emph{s} is a string\emph{b} that satisfies the following two conditions:
 \begin{enumerate}
@@ -196,9 +212,9 @@ A border is a non-empty proper prefix of a string that is also a suffix of that 
 \end{enumerate}
 For example, the string "abab" has two borders: "a" and "ab". Both "a" and "ab" are non-empty proper prefixes of "abab" and are also suffixes of "abab".
 
-\subsubsection{Border table}
+\subsubsection{Border table.}
 
- A border table is a data structure that stores the lengths of the borders of all prefixes of a given string. It is an array of integers, where each entry \emph{i} corresponds to the length of the longest border of the prefix of the string that ends at position \emph{i}. The first entry of the border table is always zero, since the empty string has no border.
+A border table is a data structure that stores the lengths of the borders of all prefixes of a given string. This can be implemented as an array of integers, let us call it \emph{B}, where each entry \emph{i} corresponds to the length of the longest border of the prefix of the string that ends at position \emph{i}. The first entry of the border table is always zero, since the empty string has no border.
 
 For example, consider the string "ababaca". The border table for this string would be:
 
@@ -220,7 +236,7 @@ For example, consider the string "ababaca". The border table for this string wou
 
 In \autoref{tab:b-table}, the entry B[2] = 1 corresponds to the length of the longest border of the prefix "ab" of the string "ababaca". This border is "a", which has a length of 1. Similarly, the entry B[4] = 3 corresponds to the length of the longest border of the prefix "ababa" of the string "ababaca". This border is "aba", which has a length of 3.
 
-\subsubsection{Overlapping border}
+\subsubsection{Overlapping border.}
 An overlapping border is an informal term for referring to a border of a string where the end of the prefix border and the beginning of the suffix border overlap.
 
 For example, the string "ababa" has a border "aba", where the last \emph{a} in the prefix border and the first \emph{a} in the suffix border refer to the same character in the string. This border would therefore be considered an overlapping border. Note that the overlapping element can be a single character or a longer substring.
@@ -247,7 +263,7 @@ John is a third year computing science students at the University of Glasgow, an
 
 In this section, the requirements for a functional and usable automated exercise generation program are outlined. The MoSCoW method is used to categorise each requirements based on importance, as highlighted below.
 
-\subsubsection{Must Have}
+\subsubsection{Must Have.}
 
 These requirements encapsulate the minimum viable product, thus the program becomes unusable if any of these are not delivered.
 \begin{itemize}
@@ -263,7 +279,7 @@ These requirements encapsulate the minimum viable product, thus the program beco
 	\emph{Generate exercises in a reasonable time frame}: If the generation process takes hours to complete, the main purpose of not hand-designing each unique exercise is lost. Therefore, process of exercise generation must be relatively time efficient. 
 \end{itemize}
 
-\subsubsection{Should Have}
+\subsubsection{Should Have.}
 The features in this section increase the usability of the program significantly but are not strictly required for a functional product.
 \begin{itemize}
 	\item
@@ -273,7 +289,7 @@ The features in this section increase the usability of the program significantly
 	\item
 	\emph{Generate LaTeX files}: The program should output each generating exercise and solution as its own LaTeX, so that these can be easily distributed to students as a compiled PDF file. Having the exercises only within the program itself would make the distribution process very long as they would have to be screenshot individually.
 \end{itemize}
-\subsubsection{Could Have}
+\subsubsection{Could Have.}
 The requirements in this section are in no way essential to the functionality of the program, however they do improve user experience.
 \begin{itemize}
 	\item
@@ -283,7 +299,7 @@ The requirements in this section are in no way essential to the functionality of
 	\item
 	\emph{Generate PDF files}: The generated LaTeX files cannot be viewed directly as they must first be compiled to PDF, PNG or other formats. This process of compiling to a PDF file could be done by the program itself through an API, further automating generation and distribution.
 \end{itemize}
-\subsubsection{Will Not Have}
+\subsubsection{Will Not Have.}
 Since this project has a strict time limit, some requirements which \emph{Could Have} been implemented but are prioritised lower can be found in this section. Note that these features could be seen as a suitable starting point for future work in this field.
 \begin{itemize}
 	\item
@@ -300,12 +316,12 @@ Since this project has a strict time limit, some requirements which \emph{Could 
 In this section, requirements for the generated exercises and solutions can be found, once again categorised by the MoSCoW method. Many characteristics are shared between Dijkstra and KMP which comprise the \emph{Shared Requirements} section, however they both have unique features as well, which are listed separately.
 
 \subsection{Shared requirements}
-\subsubsection{Must Have}
+\subsubsection{Must Have.}
 \begin{itemize}
 	\item
 	\emph{Solvable exercises}: The exercises which are generated must have a unique solution, otherwise they would cause a lot of ambiguity if they were to be used in an examination setting. For example, a graph generated for a Dijkstra exercise must be undirected, weighted and connected. Furthermore, there cannot exist any errors such as duplicate edges or weights between two vertices.
 \end{itemize}
-\subsubsection{Should Have}
+\subsubsection{Should Have.}
 \begin{itemize}
 	\item
 	\emph{Correct Solutions}: For both standard and step-by-step solutions, they should give correct answers to their corresponding exercises. Without this, solutions become redundant.
@@ -316,23 +332,21 @@ In this section, requirements for the generated exercises and solutions can be f
 	\item
 	\emph{Familiar visuals}: The visuals of all exercises and solutions should look similar past exams or in-class examples. This is a necessity for ensuring that no extra burden is being put on students compared to traditional examinations. 
 \end{itemize}
-\subsubsection{Could Have}
-\subsubsection{Will Not Have}
 \subsection{Dijkstra Requirements}
 \label{sec:dijkr}
-\subsubsection{Must Have}
+\subsubsection{Must Have.}
 \begin{itemize}
 	\item
 	\emph{Labelled vertices}: Vertices in the generated graph must labelled, as these will be used as reference in the answer key as well as in students' solutions. 
 	\item
 	\emph{Edges with weight labels}: As Dijkstra's algorithm requires a weighted graph, the edges must have weight labels in order for the shortest paths to be calculated.
 \end{itemize}
-\subsubsection{Should Have}
+\subsubsection{Should Have.}
 \begin{itemize}
 	\item
 	\emph{Answers provided in a table}: As the exercise is asking for the shortest path and length from a chosen vertex to all other vertices, these can be well displayed and tracked in a table where each row corresponds to vertex and the three columns are: vertex label, shortest path and length of path. This also works well in step-by-step solutions, as the table can be updated with each round of the algorithm.
 \end{itemize}
-\subsubsection{Could Have}
+\subsubsection{Could Have.}
 \begin{itemize}
 	\item
 	\emph{Edge and vertex highlights}: In step-by-step solutions, references could be made to the original graph through highlighting certain edges and/or vertices based on what Dijkstra's algorithm is working on in each pass. This would help students visualise how the algorithm works, without having to back to the graph and figuring out for themselves.
@@ -341,30 +355,30 @@ In this section, requirements for the generated exercises and solutions can be f
 	\item
 	\emph{Highlight edge relaxations}: Since students often struggle with finding and handling edge relaxations \cite{} when using Dijkstra's algorithm, they could be highlighted in the solution table in step-by-step answer keys. This can be done by showing which two paths (with distances) are being compared and whether or not this comparison results in an edge relaxation.
 \end{itemize}
-\subsubsection{Will Not Have}
+\subsubsection{Will Not Have.}
 \begin{itemize}
 	\item
 	\emph{Custom edge weight placement}: As mentioned earlier, bigger graphs tend to be harder to read due to overlapping edge weights. This may be solved using a custom algorithm which ensures that they are always visible, however this proved to be slightly too time consuming for the purpose of this project.
 \end{itemize}
 \subsection{KMP Requirements}
-\subsubsection{Must Have}
+\subsubsection{Must Have.}
 \begin{itemize}
 	\item
 	\emph{String with borders}: The one feature that is truly essential for building a border table in KMP is the string itself, which must be built up in a way that it corresponds to the teacher's inputs and has borders which can be found. 
 \end{itemize}
-\subsubsection{Should Have}
+\subsubsection{Should Have.}
 \begin{itemize}
 	\item
 	\emph{Border table in solutions}: In the case of solution generation, the border table can be updated as the algorithm traverses each character in the string, updating the values as borders are found. This helps students visualise how to arrive at the final border table, which is found at the last step.
 \end{itemize}
-\subsubsection{Could Have}
+\subsubsection{Could Have.}
 \begin{itemize}
 	\item
 	\emph{Border table highlights}: To further aid with the visualisation of results, the string itself and the border table can be highlighted to represent the progression of the algorithm. This is especially useful when trying to find a specific step of the algorithm, which can now be done in a glance.
 	\item
 	\emph{Border found highlight}: If a border is ever found, it could also be highlighted (with different visuals to the previous requirement), to show which exact substrings the algorithm is referring to when updating the values of border length. This feature is most useful when dealing with overlapping borders \autoref{}, as these can often be harder to find.
  \end{itemize}
-\subsubsection{Will Not Have}
+\subsubsection{Will Not Have.}
 \begin{itemize}
 	\item
 	\emph{String search}: Since KMP is a string search algorithm, it may be odd to see that the exercises generated do not involve searching for a string. This in fact would require a separate generation algorithm, as it deals with an entirely new type of exercise.
@@ -379,7 +393,7 @@ Towards the end of the development cycle, a decision had to be made between impl
 
 
 %==================================================================================================================================
-\chapter{Design}
+\chapter{General Design}
 \label{chap:des}
 
 This chapter discusses the key design decisions made throughout the project, which aim to create a product that satisfies the requirements drawn up in \autoref{chap:req}. As part of these decisions, the final design will be highlighted along with certain alternatives and why they were rejected.
@@ -387,7 +401,7 @@ This chapter discusses the key design decisions made throughout the project, whi
 \section{Template Design}
 \label{sec:td}
 
-It became apparent quite early on in the project that ensuring uniform difficulty across exercises is one of the greatest challenges of automated exercise generation. This issue can be handled via the \emph{template-based approach} as used successfully in the past. \citet{Hoz21} suggests that for examples with pre-existing exam questions, these should be searched for syntactical characteristics, which must be kept constant to ensure uniform workloads for students (some of these characteristics would be altered to adjust difficulty based on whichever level is required). This is quite helpful for my own project, as there are quite a few past-paper questions to analyse for Algorithmics 1. \citet{Sad12} sports a similar idea, where specific exercises are given templates which highlight their common features while referencing their variables as parameters or "holes". What both of these papers have in common is that it is essential that exercises are deconstructed into fixed and varying parts to ensure uniform difficulty.
+It became apparent quite early on in the project that ensuring uniform difficulty across exercises is one of the greatest challenges of automated exercise generation. This issue can be handled via the \emph{template-based approach} as used successfully in the past. \citet{Hoz21} suggests that for examples with pre-existing exam questions, these should be searched for syntactical characteristics, which must be kept constant to ensure uniform workloads for students (some of these characteristics would be altered to adjust difficulty based on whichever level is required). This is quite helpful for my own project, as there are quite a few past-paper questions to analyse for CompSci4009 and CompSci2026. \citet{Sad12} sports a similar idea, where specific exercises are given templates which highlight their common features while referencing their variables as parameters or "holes". What both of these papers have in common is that it is essential that exercises are deconstructed into fixed and varying parts to ensure uniform difficulty.
 
 In accordance with the aforementioned ideas, the template-based approach was used to design parameters (which will act as user inputs) for both selected exercises as follows.
 
@@ -396,13 +410,13 @@ In accordance with the aforementioned ideas, the template-based approach was use
 
 When designing a weighted graph, the three main components we must consider are the number of \emph{vertices}, the number of \emph{edges} and the values of edge \emph{weights}. While we could just take these three as our template parameters, this would result in very little variation between samples, as the only randomisation possible would be to change up the order of the vertices and edges. To go a step further, we must consider the unique characteristic of Dijkstra's algorithm, being the number of \emph{edge relaxations}. Since we wish to control the difficulty of each exercise, this number must be kept uniform for all samples. From here follows that the number of \emph{edges} does not need to be a parameter because it can be derived from the number of \emph{edge relaxations}. In a similar vein, the values of edge \emph{weights} are also redundant as they can be derived from the number of \emph{vertices} (the more \emph{vertices} the higher \emph{weight} values are needed to avoid collisions). This is desirable, as we want to have as few user inputs as possible, to eliminate illegal values and general confusion. Therefore, the template parameters (user inputs) for Dijkstra are as follows:
 
-\subsubsection{Number of vertices}
+\subsubsection{Number of vertices.}
 
 This is the most straightforward way of manipulating exercise difficulty, since the more \emph{vertices} a graph has, the more time it will take to compute its shortest distances using Dijkstra's algorithm. Therefore, this value must be kept constant for all exercises. 
 
 In terms of the accepted range, it is technically possible to generate for any positive integer, however visualising graphs with more than 20 vertices becomes challenging.
 
-\subsubsection{Number of edge relaxations}
+\subsubsection{Number of edge relaxations.}
 \label{sec:ernum}
 
 In order to control the exercise difficulty for Dijkstra's algorithm specifically, the number of \emph{edge relaxations} must also be kept uniform. This is because graphs with the same number of \emph{vertices} may require significantly different amounts of efforts to solve for Dijkstra depending on their \emph{edge relaxations}. 
@@ -450,12 +464,12 @@ This follows from the fact that (if inserting in order) after the second vertex 
 
 From these two parameters, other characteristics of Dijkstra's algorithm can be acquired in the following way:
 
-\subsubsection{Number of edges}
+\subsubsection{Number of edges.}
 \label{sec:noe}
 
 As previously described, the number of edges is directly controlled by the number of edge relaxations parameter, therefore it gets adjusted automatically by the generation algorithm, thus it cannot be an input variable. Furthermore, having the number of edges as user input along with the number of edge relaxations would cause many input errors, as graphs with many edge relaxations require more edges by design. 
 
-\subsubsection{Edge weights}
+\subsubsection{Edge weights.}
 
 This leaves the challenge of what values to assign to each edge weight. While this could also be a user input (maximum weight, distribution, etc.), we want to keep the generated exercises as simple arithmetically as possible (keep the student's efforts focused on Dijkstra's algorithm) and want to minimise the number of input variables, therefore this can also be handled internally. In essence, there is no hard limit to the values of the weights but they are weakly correlated to the number of vertices, as larger graphs require higher weight values to avoid overlapping when it comes to generating edge relaxations. Furthermore, edges weights have certain limitations to satisfy the number of edge relaxations required, therefore they must be assigned by the algorithm. This process is further explained when exploring the Dijkstra exercise generation algorithm in \autoref{sec:dgen}. 
 
@@ -463,19 +477,19 @@ This leaves the challenge of what values to assign to each edge weight. While th
 
 To arrive at a string from which a border table can be constructed, there are countless user inputs (template parameters) which may be considered. However, we want to optimise this number to minimise the moving parts accessible by users (avoid input errors) while still providing teachers with ample control over the difficulties of the generated exercises. Keeping this in mind, the following parameters were chosen as user input from reviewing existing KMP exercises.
 
-\subsubsection{String size}
+\subsubsection{String size.}
 
 The most straightforward characteristics of a string in KMP is its length. This must be controlled, as the longer the input string, the more effort it will take students to construct its border table. Having this be a fixed input does not cause any issues, as the content of the string can still be randomised to give ample variation between generated samples.
 
 This input must be a natural number, however larger number may be more difficult to visualise.
 
-\subsubsection{Largest border size}
+\subsubsection{Largest border size.}
 
 Since it is very complex to control the entire distribution of borders which make up a string, the next best thing is focus on the border which takes the most effort for students to find, being the largest one. This is because tracking down longer borders mean more chances of error. Taking the longest border as a user input lets teachers manipulate the overall difficulty, as the algorithm will ensure that all other borders are shorter than it.
 
 The range for the largest border is at the minimum \emph{1} and for a non-overlapping border at the maximum $floor(\frac{l-1}{2})$ where \emph{l} is the length of the string. This follows from the fact that the border cannot overlap itself, this it must be short than half of the string. In the case of an overlapping border, its maximum is more complex, so it is explained in \autoref{sec:ob} in detail. More on overlapping borders is discussed in the upcoming section.
 
-\subsubsection{Overlapping or Non-overlapping largest border}
+\subsubsection{Overlapping or Non-overlapping largest border.}
 
 Tracking the largest border size as well as whether or not the largest border is overlapping becomes quite difficult as it can lead to input errors (ie. inputs of largest border size $b > floor(\frac{l-1}{2})$ along with non-overlapping border). These errors must be handled by the generation algorithm. It is necessary to have this overlapping boolean as a user input however, as it significantly alters exercise difficulty. Even though there is no functional difference between overlapping and non-overlapping borders for the KMP algorithm, the way in which humans search for borders (usually separately traversing from the beginning and end of a given substring) makes handling overlapping borders much more challenging. The root cause of this issue deals with complex human psychology, which is outside the scope of this project. \cite{a}
 
@@ -483,124 +497,12 @@ As previously mentioned, the input variable for overlapping border is a boolean.
 
 The following characteristics could have been considered as user inputs, however were omitted due to reasons explained below.
 
-\subsubsection{Alphabet}
+\subsubsection{Alphabet.}
 \label{sec:alphabet}
 
 The last aspect of a KMP border problem which has not yet been addressed is the alphabet (selection of characters) from which characters are pulled in order to build the final string. It is desirable to have a limited alphabet (instead of just generating from all Latin letters or characters), in order to ensure that random selection of characters forms borders instead of getting lost in entropy \cite{a}.
  
 The alphabet is not required to be included in the list of user inputs, since there exists a standard alphabet for border table problems in algorithmics. This alphabet usually consists of a random choice of three characters from the characters \{A,C,G,U,T\}, which originally refer to nucleotides in RNA and DNA composition (adenine, cytosine, guanine, uracil and thymine) \cite{a}.
-
-\section{Generation Algorithm Design}
-
-This section discusses the design process of the custom generation algorithms for Dijkstra and KMP.
-
-\subsection{Dijkstra}
-\label{sec:dgen}
-
-The Dijkstra exercise generation algorithm consists of the following three main steps and essentially works by reversing Dijkstra's algorithm (starting with the shortest lengths/paths and building the graph from there):
-
-\begin{enumerate}
-	\item
-	Generate the lengths of the shortest paths to each vertex from the starting vertex.
-	\item
-	Insert vertices into the graph by connecting them based on their shortest distances.
-	\item
-	Insert additional edges for edge relaxations, creating the final graph.
-\end{enumerate}
-
-The upcoming sections describe each step in detail, including their how they work and why certain design decisions were made. 
-
-\subsubsection{Shortest path length generation}
-\label{sec:shortestpathdesign}
-The first task for generating the lengths of the shortest paths to each vertex is to set an upper bound for these values. It is necessary to choose an appropriate value, since if too low, the number of shortest length variations decreases drastically, and if too high, generated exercises may become arithmetically difficult, which should be avoided. While it could have been included as a user input, the maximum distance for the purpose of this project is $v*3$, where $v$ is the number of vertices in the graph. Since path lengths are randomly chosen unique natural numbers below this limit, it translates to an average difference of $3$ between each shortest path, which is scalable and arithmetically feasible.
-
-Next, the actual shortest lengths to each vertex are generated. As mentioned before, these are randomly chosen (apart from the starting vertex \emph{v1}, which always has a distance of $0$) unique natural numbers below the specified limit. It is most important to note that these values are unique. This limitation is required, since graphs containing some vertices with matching shortest lengths are significantly more difficult to solve than ones without (confusion about which edge to explore next). If the generated values were non-unique, some graphs would display this quality while others would not, breaking the principal aim of the project. Furthermore, later parts of the generation algorithm would have to be redesigned to handle these cases (further explored in \autoref{a}), thus including the unique limitation is much more convenient, while maintaining academic integrity in the generated exercises.
-
-At the end of this process, we are left with randomly generated shortest lengths for each vertex, which are then used to start building the graph.
-
-\subsubsection{Vertex insertion}
-\label{sec:vi}
-
-Throughout the vertex insertion process, vertices are considered one-by-one in increasing order of shortest distance. Therefore, the starting vertex is first, so it is simply added to an empty graph. Then the following vertex is inserted by an edge to the starting vertex with the weight of its shortest distance, since there does not exist any other vertex to connect to. These two vertices are also added to an empty n-ary tree (with the starting vertex as the root), as this will help with the insertion of the remaining vertices. This is possible because we are currently building a graph of shortest paths only, so the graph is acyclic and can be represented as an n-ary tree.
-
-Inserting the remaining vertices becomes much more complex. This is because the generated graph must be able to satisfy the required number of edge relaxations, which may not be possible with random insertion. As an example, if every vertex is by chance directly connected to the starting vertex via their shortest distances, no matter how many edge relaxations are needed, none will be achieved as all the shortest paths are found during the first pass of Dijkstra's algorithm. Therefore vertices must be inserted dynamically, keeping track of edge relaxations during the process.
-
-The number of edge relaxations a single inserted vertex can provide is directly correlated to the number of edges which make up its shortest path to the starting vertex. This is equivalent to the level at which it exists in the n-ary tree representation of graph. More specifically, the number of edge relaxations from a single inserted vertex $er = L-1$, where $L$ is its level in the tree (starting vertex is at level $0$). This follows from the definition in \autoref{sec:ernum}, claiming that each vertex can have an additional edge with its grandparent and up (in the tree), which form edge relaxations. For example, a vertex inserted at $L=4$ can provide $3$ edge relaxations by having edges of certain weights to its ancestors in levels $2$, $1$ and $0$. The reason for using an n-ary tree instead of just the number of edges in vertices' shortest paths, is because there might be separate paths to each level in the tree, each of which can be used to satisfy a certain number of desired edge relaxations, thus there must exist a variable which groups them together, being the tree node level.
-
-The naive approach would be to simply insert each vertex at deepest level in tree, resulting in a graph which allows for the maximum number of edge relaxations possible, meaning that the desired number of edge relaxations can be satisfied no matter what. The issue with this is that the graphs created end up having very uniform answers for Dijkstra's algorithm, as all the shortest paths being able to be found just by following the edges with the lowest weights.
-
-Instead, vertices are to be inserted dynamically ensuring that the graph being built can facilitate the number of edge relaxations required. In order to achieve this, some characteristics of the graph must be tracked, as defined below.
-
-\begin{itemize}
-	\item
-	The number of possible relaxations ($pr$) refers to the maximum number of edge relaxations which is achievable for the current graph, given that the remaining vertices are inserted in a way which facilitates this (at the maximum level each time). This variable is instantiated to the maximum number of edge relaxations for a graph with the corresponding number of vertices (\autoref{sec:ernum}) and decreases if a vertex is inserted in a way that does not maximise the number of edge relaxations. 
-	\item
-	$pr-r$ (where $r$ is the number of relaxations required) is referred to as the disparity ($d$), and can be interpreted as the number of possible relaxations the graph can afford to lose. This variable is used to check whether or not the algorithm can afford to not maximise the number of edge relaxations in the current vertex, by checking the worst case scenario for the upcoming vertex.
-	\item
-	The maximum number of relaxations from one vertex ($mr$) refers to the number of edge relaxations which the last vertex will provide if all vertices from this point are inserted in a way in which the number of edge relaxations in maximised (deepest level in tree). Initially, this variable is $v-2$, where $v$ is the number of vertices in the graph, in accordance with \autoref{sec:ernum}.
-\end{itemize}
-
-The algorithm for inserting vertices must first choose an appropriate level at which the vertex can be added in a way that the desired number of edge relaxations is achievable. The main limitation that the algorithm has to consider is the fact that $pr$ is decreased by $mr$ each time a vertex is not inserted at the deepest possible level. This follows from the definition of $pr$. Thus, if $d < mr$ the chosen level must be the deepest in the tree, as otherwise the graph would lose $mr$ possible relaxations, which it cannot afford according to its $d$. 
-
-In the case where $d >= mr$, the algorithm has a lot more freedom to choose which level to insert the vertex. This is because the graph can afford to lose $mr$ possible relaxations, thus the current vertex vertex can inserted at any existing level (or one higher if inserted at the deepest level), which is handled via a random choice. 
-
-Once a level is selected (through one of the two cases above), an existing vertex is randomly chosen from the group of vertices at the given level, which will be referred to as the \emph{start} vertex. The new vertex is then joined to the graph via an edge to the \emph{start} vertex, setting the weight to be (shortest distance to new vertex - shortest distance to start vertex), which will always be positive as vertices are inserted in order of increasing \emph{shortest distance}.  Additionally, the new vertex is also added to the tree as a child of the start vertex, to match the tree to the graph. At the same time, vertices which can be relaxed are stored in a separate data structure, along with the closest vertex they can be relaxed to (two generations above them).
-
-As a final step, all the variables defined before are updated. If the insertion happened at the deepest level of the tree, a new deepest level is formed but there are otherwise no changes to the variables. In any other case, $pr$ is decreased by $mr$ (since the graph is losing out on $mr$ relaxations by not inserting at the deepest point) followed by $mr$ being decreased by one (since the deepest possible level is also being decreased by one). 
-
-At the end of the entire process of vertex insertion, we are left with an acyclic graph containing all the vertices. Running Dijkstra's algorithm on this current graph would give the correct answers, however the edges which facilitate edge relaxations are still yet to be added, which is the final part of the generation algorithm.
-
-\subsubsection{Edge relaxations}
-
-In order to have Dijkstra's algorithm perform the required number of edge relaxations, the same number of additional edges as desired relaxations are to be inserted into the graph, therefore the following process is executed this many times. There exist certain constraints that apply to these edges, which are explored in this section.
-
-First, the vertex to be relaxed must be selected, referred to as \emph{start}. This is done through a random selection from the list of vertices which can be relaxed (as built in \autoref{sec:vi}), while also retrieving the vertex to which we are relaxing, referred to as \emph{end}. \emph{End} is a vertex that exists along the shortest path to \emph{start}, where adding a new edge between them (of weight larger than the path between them) creates a new edge relaxation. It is important to note that \emph{end} is initially the vertex two levels above \emph{start}, since the relaxed edge weights must increase as \emph{end} gets moved up until reaching the root.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\linewidth]{images/relaxWeight.png}    
-
-    \caption{Weighted graph with 5 vertices and 3 edge relaxations.}
-    \label{fig:relaxWeight} 
-\end{figure}
-
-Once \emph{start} and \emph{end} are selected, they weight of the new relaxed edge between them must be calculated. As previously mentioned, this weight must increase as \emph{end} moves up the tree, so we must first retrieve the weight which was assigned the previous time the vertex was relaxed. If this does not exist (first relaxation), the new weight must simply be larger than the length of the path between \emph{start} and \emph{end}. If it does exist, the new weight must be greater than the sum of the distance between the current \emph{end} and the previous \emph{end} and the previous weight. This is because these two values represent the length of the following path which will be explored to \emph{start}, which would not count as an edge relaxation if larger than the new relaxed edge. In either case, the increase in weight is constituted by a random integer between 1 and 3, optimising arithmetic difficulty and exercise variance.
-
-As an example, consider \autoref{fig:relaxWeight}, where $v3$ is first relaxed to $v2$ (two before it) and then to $v1$ (root). During the first relaxation, the new edge weight ($11$) must be greater than the length of the path between \emph{start} ($v3$) and \emph{end} ($v2$), which it is, since $11 > (12 - 2 = 10)$ ($12$ being the shortest distance to $v3$ (2+5+5) and $2$ being the shortest distance to $v2$. For the second relaxation, the new edge weight ($14$) must now be greater than $(11 + (2-0)) = 13$ (shortest distance to $v1$ is $0$), which is also satisfied.
-
-Now that the \emph{start}, \emph{end} and \emph{weight} are chosen, this information can be used to insert a new edge, facilitating a new relaxation. Additionally, data structures storing previous weights and distances are updated. As a final step, the \emph{end} vertex belonging to the current \emph{start} must be moved one step closer to the root. The only complexity here is checking if \emph{end} already is the root, in which case \emph{start} has not more relaxations and can be ignored in subsequent passes. Otherwise, the vertex to which it is to be relaxed to is updated.
-
-In the end, the algorithm outputs a graph which has the required number of vertices ($v$) and edge relaxations ($r$) for Dijkstra's algorithm. The graph also has $(v-1) + r$ ($v-1$ for initial connection of vertices and $r$ for relaxed edges) edges, reinforcing the claim that the number of edges is directly correlated to the user inputs in \autoref{sec:noe}.
-
-\subsection{KMP}
-\label{sec:kgen}
-
-The KMP exercise generation algorithm consists of two main steps, first the largest border is generated and inserted, and then the rest of the string is filled out. The process of largest border generation differs drastically depending on if it is overlapping or not, so these are addressed in separate sections.
-
-\subsubsection{Overlapping border generation}
-\label{sec:ob}
-
-In order to generate an overlapping border, it must be deconstructed into smaller parts which are more manageable. Every overlapping border must consist of the same beginning and end substring, since the end of the prefix border has to match the beginning of the suffix border, forming the overlap (thus this substring is referred to as the \emph{overlap} or $o$). The remaining of the border (substring between the two \emph{overlaps}) can be randomised from the alphabet, as it does not affect the overlapping process, and is called the \emph{middle} (or $m$). Considering these two substrings, the structure of an overlapping border is $o+m+o$. As an example, the overlapping border "aba" from the string "ababa" has \emph{overlap} "a" (at the beginning and end) and \emph{middle} "b" (could be any other string). Considering both prefix and suffix borders joined, the structure becomes $o+m+o+m+o$ ("$a+b+a+b+a$").
-
-Following from the above definitions, the border generation algorithm must first calculate the length of the \emph{overlap}. If the length of the largest border is longer than half of the entire string, the length of the \emph{overlap} must be a random integer between the amount by which the border overhangs half of the string, and one less than half the size of the largest border. Otherwise, the minimum value is simply $1$. The reason this distinction must be made is because borders longer than half of the output string must have a minimum amount of overlap in order to physically fit in the given string length, while the maximum is dictated by the two \emph{overlaps} which make up the border not being bigger than the border itself.
-
-This information can be used to calculate the maximum length of an overlapping border. Taking the maximum overlap length (the shortest the prefix + suffix can be), if the length of $o+m+o+m+o$ is greater than the required length of the string, then the given border length is too long (cannot be fit into string). This hold true because if the border required is too long, the \emph{overlap} length must increase to try and fit the borders, however if the overlap gets too large, the generated borders will once again be too long as well (the prefix and suffix have three instances of \emph{overlap}).
-
-Once the length of the \emph{overlap} ($o_l$) is decided, the length of the \emph{middle} $m_l = b_l - 2 * o_l$ where $b_l$ is the length of the longest border (as follows from $b_l = 2 * o_l + m_l$). From here, $m$ and $o$ are randomly generated from the selected alphabet, and inserted at the beginning of the string in accordance with the pattern $o+m+o+m+o$, forming the largest overlapping border. Note that this border will always be at the beginning of the string, since the prefix and suffix must physically overlap.
-
-\subsubsection{Non-overlapping border generation}
-
-Generating and inserting a non-overlapping border is much more straightforward. First, the starting position for the suffix string must be defined (prefix is always at the beginning), which is to be after the prefix border (so they do not overlap) and 'largest border length' spaces before the end of the string (so it fits). This position is chosen randomly. Once this is done, a random border can be generated from the selected alphabet and trivially inserted at the beginning of the string (prefix) and chosen starting position (prefix). 
-
-\subsubsection{Remainder of string}
-
-Before the rest of the string is filled in with random characters, a certain edge case must be handled. Namely, the off-chance that the "random" character following the prefix border matches the "random" character following the suffix border, as this would form a border that is longer than required. To handle this, the algorithm first inserts a random character after the prefix and then inserts a character which is different after the suffix.
-
-Once this is resolved, the remaining unfilled spaces in the string are populated with random characters. However with this approach, there is a possibility that the longest border appears more than two times (prefix and suffix). This in itself would not be a problem, since the longest border found in the string would still be the required length. The issue comes from when the subsequent character from this new largest border matches the subsequent character from the prefix border, creating a longer than desired largest border.
-
-The way this issue is addressed, is by searching for the largest border in the temporary final string. Once an instance of the largest border is found, if it is not the original prefix or suffix border, the first character of it is changed, so that there is no longer a unintended match with the longest border.
-
-At the end of the process, the program outputs a string of required length, which contains a largest border of the desired length.
 
 \section{User Interface Design}
 
@@ -622,58 +524,6 @@ The following section introduces the prompts in the order of which they appear i
 
 After these general questions, the UI displays specific questions belonging to each selected algorithm. These questions correspond to the user inputs highlighted in \autoref{sec:td} and all include guides and error checking.
 
-\section{Exercise and Solution Design}
-\label{sec:exerciseDesign}
-
-\cite{a}
-
-Similarly to how templates are designed for the chosen exercises in \autoref{sec:td}, templates for the visualisation of exercises and their corresponding solutions must also be formulated as per the requirements in \autoref{sec:dijkr}. Many ideas for the execution of this task are inspired by existing examples of exercises and solutions, while ensuring that the visuals are mostly scalable (readable for small and large inputs). Note that only step-by-step solutions are analysed when it comes to solution design, as "simple" solutions always match the outcome at which the last step arrives.
-
-\subsection{Dijkstra}
-\subsubsection{Exercise}
-\label{sec:dijkstraExerciseDesign}
-
-The Dijkstra exercise task description comes from \cite{a}, as it perfectly outlines what students are expected to do, and has been tested in real world examinations. A clarifying clause is included afterwards, informing students that the values of edge weights appear just off the centre points of each edge. This is to help with visualisations of larger graphs, where identifying which weight belongs to which edge can sometimes be difficult.
-
-Another feature which helps with the scalability of generated graphs is the included adjacency matrix. The adjacency matrix acts as a last resort (since it is always readable) for when some edge weights are completely obscured due to having a very large graph with many edges. 
-
-The greatest challenge with displaying a graph comes from deciding on where to place each vertex. This is a unique issue to automatic generation, since custom vertex placement (as done by hand) is not a viable option, especially as graphs get larger. The approach taken for handling vertex placement is inspired by the example exercise \cite{a}, which places each vertex in a circle, with equal space between them. This is generalised by starting with \emph{v1} at \emph{0 \textdegree} (right of the circle) and adding each consecutive vertex at $p+\frac{360 }{v}$\textdegree where $v$ is the number of vertices in the graph and $p$ is the angle of the previous vertex until all the vertices are displayed. The result is a placement of vertices where they all sit on the circumference of a circle while evenly spaced, making the graph highly scalable (at least until vertex markers physically start overlapping).
-
-\subsubsection{Solution}
-
-An instance of a Dijkstra exercise solution consists of the following three parts, which update at each step of the algorithm:
-
-\begin{enumerate}
-	\item
-	Table showing the current shortest path to each vertex and their lengths.
-	\item
-	Graph from exercise highlighted to show the progression of the algorithm.
-	\item
-	Short description about what happened in the current step and what is going happen in the following step.
-\end{enumerate}
-
-The solution table is very similar to the example solution \cite{a}, however it does have some unique features. Since it represents the state of Dijkstra's algorithm as it explores each vertex, early on during execution there will vertices which have not yet been found, which are represented as a path of $null$ and length $\infty$. These values are then updated continuously, displaying each comparison and its result (ie. $11 = min(\infty, 2+9)$). This also applies to edge relaxations, which are specifically in bold to highlight them (this is indicated to students at the end of each step).
-
-The main graph is also altered at each step. Vertices are highlighted to showcase which one of them have been visited and highlighted edges show which new edges are considered in the current pass of the algorithm. These make it easy to visualise how Dijkstra's algorithm explores the entire graph.
-
-The short description at the end of each step highlights the current and the next vertices to be explored. This may be helpful for colour blind or visually impaired students, who find it easier to follow text rather than the colours on the graph.
-
-\subsection{KMP}
-
-\subsubsection{Exercise}
-\label{sec:KMPExerciseDesign}
-
-The design for KMP exercises is less complex than Dijkstra, since a string is inherently less visual than a graph, thus needs less adjustments. The task description comes from a combination of example exercises \cite{a}, which importantly specify that students need not to use the KMP algorithm, they must simply construct the border table required for KMP. 
-
-The alphabet of the generated string is also displayed, to provide context.
-
-\subsubsection{Solution}
-\label{sec:KMPSolutionDesign}
-
-The step-by-step solutions are similar to the exercises in their simplicity, as they merely show how the border table gets updated as the generated string is being traversed.
-
-However there are some additional features which help students with understanding how border tables are built. Firstly, the substring which is currently being checked is highlighted in both the string itself (red) and border table (bold). This aids with the ease of following the progress the algorithm is making. Additionally, whenever a border is found, it is pointed out in two different ways. It is displayed in bold in the string for one, and it is also mentioned in words (along with the length of the border) at the end of the step for two. This text says "No border found." in any other case.
-
 \section{Technologies}
 
 In order to make implementation as trouble free as possible, the correct development tools had to be chosen, ensuring that they can facilitate the program as designed. This section discusses how and why certain technologies were chosen.
@@ -687,6 +537,207 @@ Since this project is dealing with generating for different \emph{types} of exer
 \subsection{LaTeX}
 
 In terms of the actual exercises and solutions generated, there is really no alternative to LaTeX which provides the same amount of flexibility. Writing .tex files of the generated exercises gives teachers the freedom to choose which format they wish to distribute them in, as well as the option to modify or combine them freely.
+ 
+%==============================================================================================================
+
+\chapter{Dijkstra design}
+\label{sec:dgen}
+\section{Generation algorithm}
+
+The Dijkstra exercise generation algorithm consists of the following three main steps and essentially works by reversing Dijkstra's algorithm (starting with the shortest lengths/paths and building the graph from there):
+
+\begin{enumerate}
+	\item
+	Generate the lengths of the shortest paths to each vertex from the starting vertex. (\autoref{sec:shortestpathdesign})
+	\item
+	Insert vertices into the graph by connecting them based on their shortest distances. (\autoref{sec:vi})
+	\item
+	Insert additional edges for edge relaxations, creating the final graph. (\autoref{sec:er})
+\end{enumerate}
+
+The upcoming sections describe each step in detail, including their how they work and why certain design decisions were made. 
+
+\subsection{Shortest path length generation}
+\label{sec:shortestpathdesign}
+\begin{enumerate}[i]
+	\item
+	\emph{Set an upper bound for the lengths of the shortest paths.} It is necessary to choose an appropriate value, since if too low, the number of shortest length variations decreases drastically, and if too high, generated exercises may become arithmetically difficult, which should be avoided. While it could have been included as a user input, the maximum distance for the purpose of this project is $v*3$, where $v$ is the number of vertices in the graph. Since path lengths are randomly chosen unique natural numbers below this limit, it translates to an average difference of $3$ between each shortest path, which is scalable and arithmetically feasible.
+
+	\item
+	\emph{Generate shortest distances.} As mentioned before, these are randomly chosen (apart from the starting vertex \emph{v1}, which always has a distance of $0$) unique natural numbers below the specified limit. It is most important to note that these values are unique. This limitation is required, since graphs containing some vertices with matching shortest lengths are significantly more difficult to solve than ones without (confusion about which edge to explore next). If the generated values were non-unique, some graphs would display this quality while others would not, breaking the principal aim of the project. Furthermore, later parts of the generation algorithm would have to be redesigned to handle these cases (further explored in \autoref{sec:future_work}), thus including the unique limitation is much more convenient, while maintaining academic integrity in the generated exercises.
+\end{enumerate}
+
+At the end of this process, we are left with randomly generated shortest lengths for each vertex, which are then used to start building the graph.
+
+\subsection{Vertex insertion}
+\label{sec:vi}
+
+Throughout the vertex insertion process, vertices are considered one-by-one in increasing order of shortest distance. This process can be broken down into two main parts:
+
+\begin{enumerate}[i]
+	\item
+	\emph{Insert the first two vertices}. The starting (root) vertex is inserted first, so it is simply added to an empty graph. Then, the following vertex is inserted by an edge to the starting vertex with the weight of its shortest distance, since there does not exist any other vertex to connect to. These two vertices are also added to an empty n-ary tree (with the starting vertex as the root), as this will help with the insertion of the remaining vertices. This is possible because we are currently building a graph of shortest paths only, so the graph is acyclic, so it can be represented as an n-ary tree.
+
+	\item
+	\emph{Insert the remaining vertices.} Adding the remaining vertices becomes much more complex. This is because the generated graph must be able to satisfy the required number of edge relaxations, which may not be possible with random insertion. As an example, if every vertex is by chance directly connected to the starting vertex via their shortest distances, no matter how many edge relaxations are needed, none will be achieved as all the shortest paths are found during the first pass of Dijkstra's algorithm. Therefore vertices must be inserted dynamically, keeping track of edge relaxations during the process.
+\end{enumerate}
+
+The number of edge relaxations a single inserted vertex can provide is directly correlated to the number of edges which make up its shortest path to the starting vertex. This is equivalent to the level at which it exists in the n-ary tree representation of graph. More specifically, the number of edge relaxations from a single inserted vertex $er = L-1$, where $L$ is its level in the tree (starting vertex is at level $0$). This follows from the definition in \autoref{sec:ernum}, claiming that each vertex can have an additional edge with its grandparent and up (in the tree), which form edge relaxations. 
+
+For example, a vertex inserted at $L=4$ can provide $3$ edge relaxations by having edges of certain weights to its ancestors in levels $2$, $1$ and $0$. The reason for using an n-ary tree instead of just the number of edges in vertices' shortest paths, is because there might be separate paths to each level in the tree, each of which can be used to satisfy a certain number of desired edge relaxations, thus there must exist a variable which groups them together, being the tree node level.
+
+The naive approach would be to simply insert each vertex at deepest level in tree, resulting in a graph which allows for the maximum number of edge relaxations possible, meaning that the desired number of edge relaxations can be satisfied no matter what. The issue with this is that the graphs created end up having very uniform answers for Dijkstra's algorithm, as all the shortest paths being able to be found just by following the edges with the lowest weights.
+
+Instead, vertices are to be inserted dynamically ensuring that the graph being built can facilitate the number of edge relaxations required. In order to achieve this, some characteristics of the graph must be tracked, as defined below.
+
+\begin{itemize}
+	\item
+	The number of possible relaxations ($pr$) refers to the maximum number of edge relaxations which is achievable for the current graph, given that the remaining vertices are inserted in a way which facilitates this (at the maximum level each time). This variable is instantiated to the maximum number of edge relaxations for a graph with the corresponding number of vertices (\autoref{sec:ernum}) and decreases if a vertex is inserted in a way that does not maximise the number of edge relaxations. 
+	\item
+	Disparity ($d = p - r$) is to be interpreted as the number of possible relaxations the graph can afford to lose (where $r$ is the number of relaxations required). This variable is used to check whether or not the algorithm can afford to not maximise the number of edge relaxations in the current vertex, by checking the worst case scenario for the upcoming vertex.
+	\item
+	The maximum number of relaxations from one vertex ($mr$) refers to the number of edge relaxations which the last vertex will provide if all vertices from this point are inserted in a way in which the number of edge relaxations in maximised (deepest level in tree). Initially, this variable is $v-2$, where $v$ is the number of vertices in the graph, in accordance with \autoref{sec:ernum}.
+\end{itemize}
+
+Given these definitions, the algorithm for \emph{ii} is the following:
+
+\begin{enumerate}[I]
+	\item
+	\emph{Choose an appropriate level at which the vertex can be added in a way that the desired number of edge relaxations is achievable.} The main limitation that has to be considered is the fact that $pr$ is decreased by $mr$ each time a vertex is not inserted at the deepest possible level. This follows from the definition of $pr$. Thus, we are left with two cases.
+
+	\begin{description}
+		\item[$d < mr$:]
+		The chosen level must be the deepest in the tree, as otherwise the graph would lose $mr$ possible relaxations, which it cannot afford according to its $d$. 
+		\item[$d >= mr$:]
+		The algorithm has a lot more freedom to choose which level to insert the vertex. This is because the graph can afford to lose $mr$ possible relaxations, thus the current vertex vertex can inserted at any existing level (or one higher if inserted at the deepest level), which is handled via a random choice.
+	\end{description} 
+
+	\item
+	\emph{Connect new vertex.} Randomly choose an existing vertex from the group of vertices at the given level, which will be referred to as the \emph{start} vertex. The new vertex is then joined to the graph via an edge to the \emph{start} vertex, setting the weight to be (shortest distance to new vertex - shortest distance to start vertex), which will always be positive as vertices are inserted in order of increasing \emph{shortest distance}.  Additionally, the new vertex is also added to the tree as a child of the start vertex, to match the tree to the graph. At the same time, vertices which can be relaxed are stored in a separate data structure, along with the closest vertex they can be relaxed to (two generations above them).
+
+	\item
+	\emph{Update variables.} If the insertion happened at the deepest level of the tree, a new deepest level is formed but there are otherwise no changes to the variables. In any other case, $pr$ is decreased by $mr$ (since the graph is losing out on $mr$ relaxations by not inserting at the deepest point) followed by $mr$ being decreased by one (since the deepest possible level is also being decreased by one). 
+\end{enumerate}
+
+At the end of the entire process of vertex insertion, we are left with an acyclic graph containing all the vertices. Running Dijkstra's algorithm on this current graph would give the correct answers, however the edges which facilitate edge relaxations are still yet to be added, which is the final part of the generation algorithm.
+
+\subsection{Edge relaxations}
+\label{sec:er}
+
+In order to have Dijkstra's algorithm perform the required number of edge relaxations, the same number of additional edges as desired relaxations are to be inserted into the graph, therefore the following process is executed this many times. There exist certain constraints that apply to these edges, which are also explored in this section.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/relaxWeight.png}    
+
+    \caption{Weighted graph with 5 vertices and 3 edge relaxations.}
+    \label{fig:relaxWeight} 
+\end{figure}
+
+\begin{enumerate}[i]
+	\item
+	\emph{Select the vertex to be relaxed (start) and vertex relaxed to (end).} This is done through a random selection from the list of vertices which can be relaxed (as built in \autoref{sec:vi}), while also retrieving the vertex to which we are relaxing. \emph{End} is a vertex that exists along the shortest path to \emph{start}, where adding a new edge between them (of weight larger than the path between them) creates a new edge relaxation. It is important to note that \emph{end} is initially the vertex two levels above \emph{start}, since the relaxed edge weights must increase as \emph{end} gets moved up until reaching the root.
+
+	\item
+	\emph{Calculate the weight of the new relaxed edge.} As previously mentioned, this weight must increase as \emph{end} moves up the tree, so we must first retrieve the weight which was assigned the previous time the vertex was relaxed. If this does not exist (first relaxation), the new weight must simply be larger than the length of the path between \emph{start} and \emph{end}. If it does exist, the new weight must be greater than the sum of the distance between the current \emph{end} and the previous \emph{end} and the previous weight. This is because these two values represent the length of the following path which will be explored to \emph{start}, which would not count as an edge relaxation if larger than the new relaxed edge. In either case, the increase in weight is constituted by a random integer between 1 and 3, optimising arithmetic difficulty and exercise variance.
+
+As an example, consider \autoref{fig:relaxWeight}, where $v3$ is first relaxed to $v2$ (two before it) and then to $v1$ (root). During the first relaxation, the new edge weight ($11$) must be greater than the length of the path between \emph{start} ($v3$) and \emph{end} ($v2$), which it is, since $11 > (12 - 2 = 10)$ ($12$ being the shortest distance to $v3$ (2+5+5) and $2$ being the shortest distance to $v2$. For the second relaxation, the new edge weight ($14$) must now be greater than $(11 + (2-0)) = 13$ (shortest distance to $v1$ is $0$), which is also satisfied.
+
+\item
+\emph{Use start, end and weight to insert a new edge, facilitating a new relaxation.} Additionally, data structures storing previous weights and distances are updated. As a final step, the \emph{end} vertex belonging to the current \emph{start} must be moved one step closer to the root. The only complexity here is checking if \emph{end} already is the root, in which case \emph{start} has not more relaxations and can be ignored in subsequent passes. Otherwise, the vertex to which it is to be relaxed to is updated.
+\end{enumerate}
+
+In the end, the algorithm outputs a graph which has the required number of vertices ($v$) and edge relaxations ($r$) for Dijkstra's algorithm. The graph also has $(v-1) + r$ ($v-1$ for initial connection of vertices and $r$ for relaxed edges) edges, reinforcing the claim that the number of edges is directly correlated to the user inputs in \autoref{sec:noe}.
+
+\section{Exercise and solution design}
+
+
+Similarly to how templates are designed for the chosen exercises in \autoref{sec:td}, templates for the visualisation of exercises and their corresponding solutions must also be formulated as per the requirements in \autoref{sec:dijkr}. Many ideas for the execution of this task are inspired by existing examples of exercises and solutions, while ensuring that the visuals are mostly scalable (readable for small and large inputs). Note that only step-by-step solutions are analysed when it comes to solution design, as "simple" solutions always match the outcome at which the last step arrives.
+
+\subsection{Exercise layout}
+\label{sec:dijkstraExerciseDesign}
+
+The Dijkstra exercise task description comes from \autoref{fig:dijkstra_example_exercise}, as it perfectly outlines what students are expected to do, and has been tested in real world examinations. A clarifying clause is included afterwards, informing students that the values of edge weights appear just off the centre points of each edge. This is to help with visualisations of larger graphs, where identifying which weight belongs to which edge can sometimes be difficult.
+
+Another feature which helps with the scalability of generated graphs is the included adjacency matrix. The adjacency matrix acts as a last resort (since it is always readable) for when some edge weights are completely obscured due to having a very large graph with many edges. 
+
+The greatest challenge with displaying a graph comes from deciding on where to place each vertex. This is a unique issue to automatic generation, since custom vertex placement (as done by hand) is not a viable option, especially as graphs get larger. The approach taken for handling vertex placement is inspired by the example exercise  \autoref{fig:dijkstra_example_exercise}, which places each vertex in a circle, with equal space between them. This is generalised by starting with \emph{v1} at \emph{0 \textdegree} (right of the circle) and adding each consecutive vertex at $p+\frac{360 }{v}$\textdegree where $v$ is the number of vertices in the graph and $p$ is the angle of the previous vertex until all the vertices are displayed. The result is a placement of vertices where they all sit on the circumference of a circle while evenly spaced, making the graph highly scalable (at least until vertex markers physically start overlapping).
+
+\subsection{Solution layout}
+
+An instance of a Dijkstra exercise solution consists of the following three parts, which update at each step of the algorithm:
+
+\begin{enumerate}
+	\item
+	Table showing the current shortest path to each vertex and their lengths.
+	\item
+	Graph from exercise highlighted to show the progression of the algorithm.
+	\item
+	Short description about what happened in the current step and what is going happen in the following step.
+\end{enumerate}
+
+The solution table is very similar to the example solution  \autoref{fig:dijkstra_example_solution}, however it does have some unique features. Since it represents the state of Dijkstra's algorithm as it explores each vertex, early on during execution there will vertices which have not yet been found, which are represented as a path of $null$ and length $\infty$. These values are then updated continuously, displaying each comparison and its result (ie. $11 = min(\infty, 2+9)$). This also applies to edge relaxations, which are specifically in bold to highlight them (this is indicated to students at the end of each step).
+
+The main graph is also altered at each step. Vertices are highlighted to showcase which one of them have been visited and highlighted edges show which new edges are considered in the current pass of the algorithm. These make it easy to visualise how Dijkstra's algorithm explores the entire graph.
+
+The short description at the end of each step highlights the current and the next vertices to be explored. This may be helpful for colour blind or visually impaired students, who find it easier to follow text rather than the colours on the graph.
+
+%===============================================================================================================
+
+\chapter{KMP}
+\label{sec:kgen}
+
+\section{Generation algorithm}
+
+The KMP exercise generation algorithm consists of two main steps, first the largest border is generated and inserted, and then the rest of the string is filled out. The process of largest border generation differs drastically depending on if it is overlapping or not, so these are addressed in separate sections.
+
+\subsection{Overlapping border generation}
+\label{sec:ob}
+
+In order to generate an overlapping border, it must be deconstructed into smaller parts which are more manageable. Every overlapping border must consist of the same beginning and end substring, since the end of the prefix border has to match the beginning of the suffix border, forming the overlap (thus this substring is referred to as the \emph{overlap} or $o$). The remaining of the border (substring between the two \emph{overlaps}) can be randomised from the alphabet, as it does not affect the overlapping process, and is called the \emph{middle} (or $m$). Considering these two substrings, the structure of an overlapping border is $o+m+o$. As an example, the overlapping border "aba" from the string "ababa" has \emph{overlap} "a" (at the beginning and end) and \emph{middle} "b" (could be any other string). Considering both prefix and suffix borders joined, the structure becomes $o+m+o+m+o$ ("$a+b+a+b+a$").
+
+Following from the above definitions, the overlapping border generation algorithm is the following:
+
+\begin{enumerate}[i]
+	\item
+	\emph{Calculate the length of the overlap.} If the length of the largest border is longer than half of the entire string, the length of the \emph{overlap} must be a random integer between the amount by which the border overhangs half of the string, and one less than half the size of the largest border. Otherwise, the minimum value is simply $1$. The reason this distinction must be made is because borders longer than half of the output string must have a minimum amount of overlap in order to physically fit in the given string length, while the maximum is dictated by the two \emph{overlaps} which make up the border not being bigger than the border itself.
+
+	\item
+	 \emph{Calculate the maximum length of an overlapping border.} Taking the maximum overlap length (the shortest the prefix + suffix can be), if the length of $o+m+o+m+o$ is greater than the required length of the string, then the given border length is too long (cannot be fit into string). This hold true because if the border required is too long, the \emph{overlap} length must increase to try and fit the borders, however if the overlap gets too large, the generated borders will once again be too long as well (the prefix and suffix have three instances of \emph{overlap}).
+
+\item
+\emph{Insert border.} The length of the \emph{middle} is $m_l = b_l - 2 * o_l$ where $b_l$ is the length of the longest border (as follows from $b_l = 2 * o_l + m_l$). From here, $m$ and $o$ are randomly generated from the selected alphabet, and inserted at the beginning of the string in accordance with the pattern $o+m+o+m+o$, forming the largest overlapping border. Note that this border will always be at the beginning of the string, since the prefix and suffix must physically overlap.
+\end{enumerate}
+
+\subsection{Non-overlapping border generation}
+
+Generating and inserting a non-overlapping border is much more straightforward. First, the starting position for the suffix string must be defined (prefix is always at the beginning), which is to be after the prefix border (so they do not overlap) and 'largest border length' spaces before the end of the string (so it fits). This position is chosen randomly. Once this is done, a random border can be generated from the selected alphabet and trivially inserted at the beginning of the string (prefix) and chosen starting position (prefix). 
+
+\subsection{Remainder of string}
+
+Before the rest of the string is filled in with random characters, a certain edge case must be handled. Namely, the off-chance that the "random" character following the prefix border matches the "random" character following the suffix border, as this would form a border that is longer than required. To handle this, the algorithm first inserts a random character after the prefix and then inserts a character which is different after the suffix.
+
+Once this is resolved, the remaining unfilled spaces in the string are populated with random characters. However with this approach, there is a possibility that the longest border appears more than two times (prefix and suffix). This in itself would not be a problem, since the longest border found in the string would still be the required length. The issue comes from when the subsequent character from this new largest border matches the subsequent character from the prefix border, creating a longer than desired largest border.
+
+The way this issue is addressed, is by searching for the largest border in the temporary final string. Once an instance of the largest border is found, if it is not the original prefix or suffix border, the first character of it is changed, so that there is no longer a unintended match with the longest border.
+
+At the end of the process, the program outputs a string of required length, which contains a largest border of the desired length.
+
+\section{Exercise and solution design}
+
+\subsection{Exercise layout}
+\label{sec:KMPExerciseDesign}
+
+The design for KMP exercises is less complex than Dijkstra, since a string is inherently less visual than a graph, thus needs less adjustments. The task description comes from a combination of example exercises  \autoref{fig:kmp_example_exercise}, which importantly specify that students need not to use the KMP algorithm, they must simply construct the border table required for KMP. 
+
+The alphabet of the generated string is also displayed, to provide context.
+
+\subsection{Solution layout}
+\label{sec:KMPSolutionDesign}
+
+The step-by-step solutions are similar to the exercises in their simplicity, as they merely show how the border table gets updated as the generated string is being traversed (\autoref{fig:kmp_example_solution}).
+
+However there are some additional features which help students with understanding how border tables are built. Firstly, the substring which is currently being checked is highlighted in both the string itself (red) and border table (bold). This aids with the ease of following the progress the algorithm is making. Additionally, whenever a border is found, it is pointed out in two different ways. It is displayed in bold in the string for one, and it is also mentioned in words (along with the length of the border) at the end of the step for two. This text says "No border found." in any other case.
 
 %==================================================================================================================================
 \chapter{Implementation}
@@ -694,19 +745,19 @@ In terms of the actual exercises and solutions generated, there is really no alt
 
 The Java implementation of the program utilises an object oriented design. Both chosen exercises (\textbf{Dijkstra} and \textbf{KMP}) have custom classes, which describe important characteristics of each exercise and handle generation. Additionally, the \textbf{Visualiser} class includes the implementation of the user interface along with the LaTeX and pdf generations.
 
-\subsection{Dijkstra}
+\section{Dijkstra}
 
-\subsubsection{Constructor}
+\subsection{Constructor}
 
 Every Dijkstra exercise is generated through the constructor. This method takes the designed user inputs (int \emph{vertices} and int \emph{relaxations} from \autoref{sec:tdd}) as arguments, and  starts by doing error checking on them. If any input is not within the legal range, Java throws an IllegalArgumentException with an error message, otherwise fields are instantiated as with any other constructor. The two most important methods called by the constructor are \emph{generateDistances} (computes the output for Dijkstra's algorithm) and \emph{generateGraph} (builds the graph itself), details of which are explained in the following sections.
 
-\subsubsection{generateDistances}
+\subsection{generateDistances}
 
 This method generates the shortest distances to each vertex in the graph, as per the maximum distance defined in \autoref{sec:shortestpathdesign}. This result is stored in a LinkedHashMap, mapping from each vertex (represented as unique integers from $0$ to $v-1$) to their respective distance (unique integer). The reason a LinkedHashMap is used as opposed to a regular HashMap is because during graph generation we wish to traverse vertices based on increasing shortest distance, thus this data structure must be able to be sorted (regular HashMaps have no order so they cannot be used). This sort is done after the distances are generated, by calling the \emph{sortMap} method. This method sorts by converting the entries in the original map to a list of entries and then utilising the Java Collections package to call \emph{Collections.sort}. Since this function cannot handle sorting between entries by default, it is fed a custom comparator class (\emph{valueComparator}) is defined, which compares entries based on their values. Finally, the sorted list is converted to a new LinkedHashMap and returned.
 
 As with all future mentions of randomly selected integers, this is handled by \emph{ThreadLocalRandom.current().nextInt}.
 
-\subsubsection{generateGraph}
+\subsection{generateGraph}
 \label{sec:generateGraph}
 
 This method constitutes the main chunk of the program (implementation of \autoref{sec:dgen}, building a weighted graph based on the user inputs and shortest distances generated in the previous method. The returned graph is a custom object of type \textbf{WeightedGraph.Graph}. Each instance of this class contains its number of vertices (int) and two LinkedLists of lists of edges, constituting the directed and undirected adjacency lists of a graph. It is useful to have both, as undirected is important for functionality, while directed is used for visualisations. \textbf{Edge} is also a custom class, which has \emph{start} (int), \emph{end} (int) and \emph{weight} (int) attributes.
@@ -761,17 +812,17 @@ To add an edge relaxation, a random key-value pair is taken from \emph{relaxedTo
 
 As a last step, \emph{relaxedTo} must be updated as seen in \autoref{fig:relaxedToUpdate}. The next vertex to which our selected vertex is to be relaxed to is retrieved by moving one up the shortest path (\emph{newRelax = path.get(path.indexOf(end)-1)}). This is done in a try statement, since it would be null if \emph{end} was the root. In this case, the current vertex is removed from \emph{relaxedTo}, as it cannot provide any more relaxations, so it should no longer be chosen. If \emph{newRelax} is successfully retrieved however, \emph{relaxedTo} is updated with it.
 
-\subsection{KMP}
+\section{KMP}
 
-\subsubsection{Constructor}
+\subsection{Constructor}
 
 The KMP constructor works much the same way as the one in Dijkstra. There is some added complexity when it comes to input error checking, in the case where the length of the largest border is greater than half the size of the string and is non-overlapping. When this is true, the largest border must be overlapping, as it would physically not fit otherwise, so attributes are defined accordingly. The two main methods which are called by the constructor are \emph{generateAlphabet} and \emph{generateString}, which are further explored in the following sections.
 
-\subsubsection{generateAlphabet}
+\subsection{generateAlphabet}
 
 In order to generate a unique alphabet for a given exercise, the algorithm considers the base alphabet (A, C, G, U, T from \autoref{sec:alphabet}) as an array of characters (since it never changes. Then it builds the actual alphabet for the exercise by choosing three random characters from the base, while ensuring no duplicates. The result is stored in the class attribute \emph{alphabet}, since it is unique for each exercise.
 
-\subsubsection{generateString}
+\subsection{generateString}
 
 This method handles the final string generation (returned as a string), as per \autoref{sec:kgen}. Throughout the process, the following variables are updated:
 
@@ -798,11 +849,11 @@ The \emph{borderStart} variable is used similarly in non-overlapping borders, ho
 
 Once the strings are completed, they must be checked for accidental generations of the longest border, which is handled by \autoref{fig:borderSearch}. First, \emph{String.join} is used to convert the array of characters \emph{result} to a string. Then \emph{index = string.indexOf(longestBorder, index+1)} searches for the first appearance of the border. The second argument of \emph{indexOf} specifies the start of the search and since this equates to $0+1$ in the first pass, the prefix border will never be found (it starts at index $0$). This means that the only two conditions we must check for is if \emph{index} is $-1$ (\emph{break} from while loop since no more borders are found) and if \emph{index != borderStart - this.largestBorder} (meaning that the border found is not the suffix, thus must be eliminated).
 
-\subsection{Visualiser}
+\section{Visualiser}
 
 This class acts as the main driver for the program, as it handles the user interface and the final generated output files. Running the program jar file will launch the main method of this class, which calls several visualisation methods to handle the user's requests. 
 
-\subsubsection{main}
+\subsection{main}
 
 The first thing the main method does is create new directories, in which file will be placed (separate for exercises, solution, tex and pdf) using \emph{File.mkdirs}. Then, these directories are emptied (from previously generated exercises) by calling \emph{FileUtils.cleanDirectory}, \emph{FileUtils} being a class from the \emph{Java commons io} package.
 
@@ -814,7 +865,7 @@ The actual exercises are generated by instantiating as many objects of the selec
 
 As a final step, the folders where the generated files are saved are opened using \emph{Desktop.getDesktop().open}.
 
-\subsubsection{Visualisation methods}
+\subsection{Visualisation methods}
 
 \begin{figure}
     \centering
@@ -860,7 +911,7 @@ Even though the aims of the project are highlighted in \autoref{sec:aim} (genera
 	\item
 	\emph{What are some of the ethical implications of automatic exercise generation?} We asked key parties involved about their personal opinions on automated exercise generation, to gather some ethical (or otherwise) concerns they may have.
 	\item
-	\emph{How usable is the program?} 
+	\emph{How good is the usability of the application?} 
 	\item
 	\emph{To what extent are controlled and uncontrolled variables handled effectively?} This mostly refers to the template design from \autoref{sec:td} and how it could be improved.
 \end{enumerate}
@@ -950,11 +1001,11 @@ Once lecturers are introduced to the project, they are given simple instructions
 
 The survey contains the following two sections.
 
-\subsubsection{System Usability Scale}
+\subsubsection{System Usability Scale.}
 
 The first part is a usability evaluation for the program conducted according to the \emph{System Usability Scale} (SUS \cite{a}). The approach is ideal, since it is an industry standard for usability testing, especially for small sample sizes (while still delivering reliable and valid results). The results from this section can be used to deduct whether or not it would be worth it to implement a more complex user interface.
 
-\subsubsection{General Questions}
+\subsubsection{General Questions.}
 
 To keep the user study as short as possible, lecturers are not asked about specific exercises, instead focusing on more general questions as follows:
 
@@ -978,7 +1029,7 @@ This section shares the results of the surveys described in \autoref{sec:exp_des
 
 The student participants were all third year computing science students to ensure that they have recent experience with the algorithms involved. The teacher participants were all lecturers of computing science possessing enough technical knowledge to use the program.
 
-To be able to more easily compare results, each response to a question is assigned a value from $0$ to $4$ (Strongly disagree = 0, Strongly Agree = 4) to form a Likert scale.
+To be able to more easily compare results, each response to a question is assigned a value from $0$ to $4$ (Strongly disagree = 0, Strongly Agree = 4) to form a five point Likert scale \cite{a}.
 
 Visuals of all the Likert results can be found in the \autoref{sec:survey_responses}.
 
@@ -1011,8 +1062,7 @@ A similar overwhelmingly positive response was seen for the usefulness of KMP st
 Participants felt that the highlights / colours helped them significantly in making each solution step be more descriptive in KMP  (mean = $3.714$, s = $0.452$, median = $4$). Full results can be found in \autoref{fig:k_highlights}.
 
 \subsection{Usability}
-\cite{a}
-Since the usability of the system is evaluated using \emph{SUS}, a definite score can be calculated from responses through the following method. First, take the mean result (value from $0$ to $4$ from each question across all participants. Then, for questions \autoref{fig:usability1}, \autoref{fig:usability3}, \autoref{fig:usability5}, \autoref{fig:usability7}, and \autoref{fig:usability9}, the score is simply its mean result, while for questions \autoref{fig:usability2}, \autoref{fig:usability4}, \autoref{fig:usability6} and \autoref{fig:usability8}, the score is $4$ minus its mean result (since they are worded in a way that \emph{Strongly Disagree} is the best answer). Finally, the sum of the each question's scores is multiplied by $2.5$, giving the final \emph{SU} score out of $100$.
+Since the usability of the system is evaluated using \emph{SUS} \footnote{\url{https://www.researchgate.net/publication/228593520_SUS_A_quick_and_dirty_usability_scale} [Accessed 18th March 2023]}, a definite score can be calculated from responses through the following method. First, take the mean result (value from $0$ to $4$ from each question across all participants. Then, for questions \autoref{fig:usability1}, \autoref{fig:usability3}, \autoref{fig:usability5}, \autoref{fig:usability7}, and \autoref{fig:usability9}, the score is simply its mean result, while for questions \autoref{fig:usability2}, \autoref{fig:usability4}, \autoref{fig:usability6} and \autoref{fig:usability8}, the score is $4$ minus its mean result (since they are worded in a way that \emph{Strongly Disagree} is the best answer). Finally, the sum of the each question's scores is multiplied by $2.5$, giving the final \emph{SU} score out of $100$.
 
 The mean results and converted scores for our evaluation are shown in \autoref{tab:sus}. From these individual scores, the final \emph{SU} score can be be calculated: $(3 + 3.25 + 3.25 + 3.5 + 2.75 + 3.75 + 2.5 + 3.25 + 3.25 + 3.75) * 2.5 = 32.25 * 2.5 = 80.625$.
 
@@ -1034,7 +1084,7 @@ The mean results and converted scores for our evaluation are shown in \autoref{t
 
 \subsection{General Feedback}
 
-\subsubsection{Personal questions}
+\subsubsection{General questions.}
 \label{sec:personal_questions}
 
 The large majority of participants believed that the practice of automated exercise generation is academically fair (mean = $3.429$, s = $0.904$, median = $4$). Full results can be found in \autoref{fig:s_academic_fair}.
@@ -1043,7 +1093,7 @@ Most students reported that they would only be comfortable with automated exerci
 
 On the other hand, lecturers generally thought that automated exercise generation is suitable for both formative or summative assessments ($2$ formative, $0$ summative, $2$ both).  Full results can be found in \autoref{fig:t_summative_formative}.
 
-\subsubsection{Long answer questions}
+\subsubsection{Open-ended questions.}
 
 As long answer responses were not \emph{required} in the surveys, not many participants provided answers. The answers that were provided however, shed a light on a lot of the future work that can be explored in the context of the project (\autoref{sec:future_work}).
 
@@ -1051,7 +1101,7 @@ One student brought up the idea of vertices having the same length shortest dist
 
 Another student praised the similar format and difficulty of questions, along with the solutions, claiming that they would use the program for self-study.
 
-One lecturer gave some very detailed feedback on the program. They claimed that the interface was easy to use, however they did have some suggestions for improvement. For instance, some edge weights sometimes overlap for Dijkstra and the red highlights in the solutions do communicate anything useful. Additionally, they thought that the program should not clear the target directories before generation, as this could accidentally remove files that are still needed.
+One lecturer gave some very detailed feedback on the program. They claimed that the interface was easy to use, however they did have some suggestions for improvement. For instance, edge weights sometimes overlap for Dijkstra and the edge highlights in solutions do not communicate anything useful. Additionally, they thought that the program should not clear the target directories before generation, as this could accidentally remove files that are still needed.
 
 On the opposite end of the spectrum, another lecturer claimed that "The text-based interface is not very easy to use.". They had further suggestions for KMP specifically, being that the number of \emph{shifts} could have been a constraint. They also commented on execution time being quite slow for generating step-by-step solutions.
 
@@ -1060,7 +1110,7 @@ On the opposite end of the spectrum, another lecturer claimed that "The text-bas
 
 In this section, we use the results of our user studies (\autoref{sec:results}) as well as personal findings to address the aims of our evaluation (\autoref{sec:evalAims}).
 
-\subsection{How similar are generated exercises/solutions to pre-existing example exercises/solutions of the same type?}
+\subsection*{How similar are generated exercises/solutions to pre-existing example exercises/solutions of the same type?}
 
 From the results in \autoref{sec:d_results} and \autoref{sec:k_results}, we can quite confidently conclude that students found no discernible differences between exercises/solutions that were automatically generated, and hand-designed ones that they had seen previously in classes. This applies to both content and format, which is an important distinction, since it is easy to overlook visuals and focus on the seemingly more complex aspect, being the exercises themselves. Neglecting the format would not be a great idea however, as an exercise with confusing visuals is inherently more difficult to solve, which is something that we want to avoid.
 
@@ -1072,7 +1122,7 @@ The reason why students did not comment on the overlapping edge weight issue is 
 
 For instance, even though students reported that the exercises they received are similar to something they would receive in class, there is currently not much guarantee that two examples of generated exercises (with the same parameters) are similar in difficulty, which is the main aim of the project. To address this, further user studies must be conducted (\autoref{sec:future_work}).
 
-\subsection{What are some of the ethical implications of automatic exercise generation?}
+\subsection*{What are some of the ethical implications of automatic exercise generation?}
 
 Even if we assume that the exercises generated are comparable in difficulty, there are still ethical issues surrounding the topic of automated exercises generation, which must be addressed.
 
@@ -1088,7 +1138,7 @@ Another such ethical issue deals with the fact that different people might appro
 
 Even though the template based approach used in designing these generation algorithms works very well at increasing difficulty for computers (more difficult exercises will require more passes of the exercise algorithm), this does not necessarily mean that the same effect is achieved in the case of humans, as mentioned above. Solving this issue is very difficult, as it deals with complex human psychology (how people solve problems), which should be further investigated (\autoref{sec:future_work}).
 
-\subsection{How usable is the program?}
+\subsection*{How good is the usability of the application?}
 
 According to the \emph{System Usability Scale}, a \emph{SUS} score of above $68$ is considered above average, so our score of $80.625$ indicates an interface that works well for its purpose.This should by no means suggest that the system is perfect, as a number of its flaws were highlighted by our user study and personal experiences with using it.
 
@@ -1098,7 +1148,7 @@ While some participants thought that the interface was quite easy to use, others
 
 Another observation that was reported by a lecturer is the fact that execution time is quite slow when generating step-by-step solutions. This happens because the logic for creating these visualisations is done in Java, so a lot of repeated strings are written to the output .tex file, which is a computationally expensive process. Instead, the logic should be done in LaTeX, minimising the number of strings that must be written to the .tex file. Another benefit is that the file sizes would also be smaller.
 
-\subsection{To what extent are controlled and uncontrolled variables handled effectively?}
+\subsection*{To what extent are controlled and uncontrolled variables handled effectively?}
 
 While our choices of constraints were mostly praised by participants, they did have a few suggestions about areas that we did not consider.
 
@@ -1108,6 +1158,7 @@ A student had a different suggestion for Dijkstra, where vertices with \emph{non
 
 %==================================================================================================================================
 \chapter{Conclusion}    
+\label{chap:conc}
 \section{Summary}
 
 As online examinations became the norm overnight due to the COVID-19 pandemic lock-downs, student collusions increased drastically, threatening the academic integrity of these examinations. With the solution of monitoring students at home introducing serious difficulties and ethical concerns, educators seek alternate approaches for eliminating the chance for collusion.
@@ -1124,7 +1175,7 @@ The generation program was then evaluated through user studies involving both st
 	\item
 	What are some of the ethical implications of automatic exercise generation?
 	\item
-	How usable is the program?
+	How good is the usability of the application?
 	\item
 	To what extent are controlled and uncontrolled variables handled effectively?
 \end{itemize}
@@ -1133,12 +1184,14 @@ These questions were answered by getting participants to review examples of gene
 
 From the results of our evaluation, we find that participants are in general happy with the format of the exercises, the user interface and the constraints chosen. On the other hand, they did report that most of them would only be comfortable with introducing automated exercise generation in formative assessments. Another implication that was considered is the idea that humans approach solving exercises differently to computers, so perhaps working backwards from the chosen algorithms is not the best approach for exercise generation.
 
-Overall, we believe that our current solution does a good job at automated exercise generation for select algorithmics courses, however more user testing is required to ensure that our main aim of delivering exercises of similar difficulty is met.
+Overall, we believe that our current solution does a very good job at automated exercise generation for the two types of exercise, however more user testing is required to ensure that our main aim of delivering exercises of similar difficulty is met.
 
 \section{Future Work}
 \label{sec:future_work}
 
 From the results of our evaluation and personal observations during development, it is apparent that there is much more work to be done not only on automated exercise generation in general but on this project specifically as well.
+
+Firstly, there are a few steps which must be taken in order to legitimise our findings. Namely, we should provide formalised descriptions of the designed generation algorithms along with rigorous mathematical proofs, as well as validation for the implementation (unit tests, etc.). 
 
 Since our study was limited by its scope, it would be beneficial to run a large scale user study to answer the main problem proposed in the paper (uniform difficulty of exercises). This could be done by giving participants examples of exercises generated with the same parameters and asking them to decide how close in difficulty they were to each other. This process would require a large number of participants, as exercise difficulty is very ambiguous, thus a big sample size is needed to arrive at a sound conclusion. This study would truly allow us to evaluate the effectiveness of our solution.
 
@@ -1148,7 +1201,7 @@ To explore the area of how humans solve exercises, a collaborative study could b
 
 Automated exercise generation relates closely to another area of research, being automated grading. This involves taking student answers as inputs, and calculating their marks by comparing the inputs to the actual solution. Automated grading comes with its own complexities, so it was not considered for this project, however it should be looked at in the future, as it is the last step for completing the automated generation pipeline (exercise $\rightarrow$ solution $\rightarrow$ grade).
 
-In terms of short term improvements to our program, a more sophisticated UI (JavaFX perhaps) becomes more and more desirable as new generation algorithms are implemented. Additionally, the issue of overlapping edge weights must be solved through some sort of custom edge weight placing algorithm, which keeps track of the positions of existing weights, so that new labels are not placed on top. 
+In terms of short term improvements to our program, a more sophisticated UI (JavaFX perhaps) becomes more and more desirable as new generation algorithms are implemented. Additionally, the issue of overlapping edge weights must be solved through some sort of custom edge weight placing algorithm, which keeps track of the positions of existing weights, so that new labels are not placed on top. Chosen user inputs could also be re-evaluated, to perhaps include \emph{shifts} for KMP or even a list of student IDs to make assigning exercises more simple.
 
 %==================================================================================================================================
 %
@@ -1157,11 +1210,42 @@ In terms of short term improvements to our program, a more sophisticated UI (Jav
 %  APPENDICES  
 
 \begin{appendices}
-
-\chapter{Appendices}
 \label{chap:appendices}
+\chapter{Example exercises and solutions}
 
-\section{Survey responses}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/dijkstra_example_exercise}    
+
+    \caption{Example exercise for Dijkstra. (Dr. Oana Andrei, CompSci2026)}
+    \label{fig:dijkstra_example_exercise} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/dijkstra_example_solution}    
+
+    \caption{Example solution for Dijkstra. (Dr. Oana Andrei, CompSci2026)}
+    \label{fig:dijkstra_example_solution} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/kmp_example_exercise}    
+
+    \caption{Example exercise for KMP. (Dr. Oana Andrei, CompSci2026)}
+    \label{fig:kmp_example_exercise} 
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/kmp_example_solution}    
+
+    \caption{Example solution for KMP. (Dr. Oana Andrei, CompSci2026)}
+    \label{fig:kmp_example_solution} 
+\end{figure}
+
+\chapter{Survey responses}
 \label{sec:survey_responses}
 \begin{figure}[h]
     \centering
