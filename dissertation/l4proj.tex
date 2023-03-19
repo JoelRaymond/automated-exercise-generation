@@ -11,6 +11,7 @@
 \usepackage{textcomp}
 \usepackage{url}
 \usepackage{enumerate}
+\usepackage{pdfpages}
 
 %urldefs
 
@@ -36,6 +37,13 @@
 \end{abstract}
 
 %==============================================================================
+
+\renewcommand{\abstractname}{Acknowledgements}
+\begin{abstract}
+I would like to thank my supervisor, Dr. Oana Andrei for her continued guidance throughout this project. Without all this support, this work would not have been possible.
+
+Further acknowledgements are due to my parents, who have supported me unconditionally through my undergraduate degree, whether academically or beyond.
+\end{abstract}
 
 % EDUCATION REUSE CONSENT FORM
 % If you consent to your project being shown to future students for educational purposes
@@ -99,7 +107,7 @@ For the purpose of this project, two algorithms were selected (one graph and one
 	\item
 	\textbf{Dijkstra's algorithm} for finding the shortest path between two vertices in a weighted graph. The exercise generated asks students to identify the shortest paths from a given a vertex to all other vertices in a weighted graph.
 	\item
-	The \textbf{Knuth–Morris–Pratt (KMP) algorithm} for string search. For this exercise, students are required to build the border table of a given string, so that the KMP algorithm can be applied to search for a string.
+	The \textbf{Knuth–Morris–Pratt (KMP) algorithm} for string search. For this exercise, students are required to build the border table of a given string, so that the KMP algorithm can be applied to search for a string. For the sake of simplicity, we refer to these generated exercises as \emph{KMP exercises} (even though the KMP algorithm is not used).
 \end{itemize}
 The reason these specific algorithms were chosen is because they are popular amongst computing scientists (usually taught in undergraduate algorithmics courses), so that they have a familiar point of reference when they are analysing the generation algorithms. Even though the selected algorithms are not overly complex, this does not directly translate to the complexity of the generation algorithms (it is considerably more difficult to generate than to solve). 
 
@@ -170,8 +178,6 @@ The one most relevant is Random exercise creation, as this involves generating a
 
 The basic idea behind Dijkstra's algorithm is to iteratively explore the graph by visiting vertices in order of increasing distance from the starting vertex, updating the distances of adjacent vertices if a shorter path is found. This process continues until all vertices have been visited, and the resulting distances are the shortest paths from the starting vertex to all other vertices in the graph.
 
-The generated questions will ask students to use Dijkstra's algorithm to solve a single-source shortest path problem.
-
 The following definitions describe important characteristic for Dijkstra's algorithm:
 \subsubsection{Edge relaxations.}
 
@@ -192,13 +198,17 @@ Edge relaxation involves comparing the tentative distance of the destination ver
 
 As an example, consider the graph in \autoref{fig:edge_r}. If we run Dijkstra's algorithm on this graph with starting vertex \emph{S}, we get distances \emph{A=1} and \emph{B=3} after the first pass. After the second pass however (exploring from vertex \emph{A}), we find an alternate path to \emph{B} (\emph{S->A->B}), the length of which is lower than our tentative distance for \emph{B} (1+1 < 3). Therefore, an \textbf{edge relaxation} is completed as the distance is updated to \emph{B=2} and the graph is fully explored.
 
+\subsubsection{Vertex to be relaxed and vertex relaxed to.}
+
+When looking at edge relaxations, the two vertices which the relaxed edge connects are referred to as the \emph{vertex to be relaxed} (or \emph{vertex relaxed}) and \emph{vertex relaxed to}. More specifically, the vertex further away (in terms of shortest distance) from the starting vertex is the \emph{vertex relaxed}, while the one closer is the \emph{vertex relaxed to}. So, in the example in \autoref{fig:edge_r}, \emph{B} is the \emph{vertex relaxed} and \emph{S} is the \emph{vertex relaxed to}.
+
 \subsection{KMP}
 
 The \textbf{Knuth-Morris-Pratt (KMP)} \footnote{\kmpurl [Accessed: 18th March 2023]} algorithm is a string searching algorithm that efficiently finds all occurrences of a pattern string \emph{P} in a text string \emph{T}. It was developed by Donald Knuth, James H. Morris, and Vaughan Pratt in 1977. The KMP algorithm is widely used in various applications such as text editors, word processors, and compilers.
 
 The basic idea behind the KMP algorithm is to use the information of previous matches to avoid unnecessary character comparisons in the text string. Specifically, it constructs a prefix function that computes the length of the longest proper prefix of P that is also a suffix of each prefix of P. This information is then used to determine the starting position of the next comparison when a mismatch occurs.
 
-The generated questions will ask students to use build a border table, which is required for string pattern matching in KMP.
+
 
 The following definitions describe important characteristics for this process of building a border table:
 \subsubsection{Border.}
@@ -429,15 +439,11 @@ In order to control the exercise difficulty for Dijkstra's algorithm specificall
         \caption{Graph with 5 vertices and 0 edge relaxations from \emph{v1}.}
         \label{fig:0rel}
     \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-      %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{images/4relax.png}
         \caption{Graph with 5 vertices and 4 edge relaxations from \emph{v1}.}
         \label{fig:4rel}
-    \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-    %(or a blank line to force the subfigure onto a new line)    
+    \end{subfigure}   
     \caption{Two random weighted graphs with the same number of vertices (5) but different numbers of edge relaxations (0, 4) from \emph{v1}. Shown side by side to demonstrate how edge relaxations control the number of edges. }\label{fig:relax_compare}
 \end{figure}
 
@@ -506,7 +512,7 @@ The alphabet is not required to be included in the list of user inputs, since th
 
 \section{User Interface Design}
 
-Initially, a simple command line user interface was developed, as it was a quick and easy way of testing the functionality of the generation algorithms. Later on in the development cycle, it was decided that the entire process of designing and implementing a more sophisticated UI would not be the most efficient use of time, as it may even hurt the usability of the program if poorly designed. Therefore, the command line interface was improved to be more user friendly instead.
+Initially, a simple command line user interface was developed, as it was a quick and easy way of testing the functionality of the generation algorithms. Later on in the development cycle, it was decided that the entire process of designing and implementing a more sophisticated UI would not be the most efficient use of time, as it may even hurt the usability of the program if poorly designed. Therefore, the command line interface was improved to be more user friendly instead. A screenshot of the final user interface can be found in \autoref{chap:user_interface}
 
 The advantages of a command line UI lie in its simplicity, meaning that it is easy to use regardless of experience and relatively fast. However, this simplicity comes at the price of functionality. This is because command lines only deal with strings as inputs and outputs, sometimes causing confusion when it comes to what users are expected to input. Therefore, the main aim of a successful command line interface design is to minimise this confusion as much as possible by formulating questions/prompts with straightforward answers, as well as providing ample error checking.
 
@@ -541,8 +547,9 @@ In terms of the actual exercises and solutions generated, there is really no alt
 %==============================================================================================================
 
 \chapter{Dijkstra design}
-\label{sec:dgen}
+
 \section{Generation algorithm}
+\label{sec:dgen}
 
 The Dijkstra exercise generation algorithm consists of the following three main steps and essentially works by reversing Dijkstra's algorithm (starting with the shortest lengths/paths and building the graph from there):
 
@@ -684,12 +691,20 @@ The short description at the end of each step highlights the current and the nex
 
 %===============================================================================================================
 
-\chapter{KMP}
-\label{sec:kgen}
+\chapter{KMP Design}
 
 \section{Generation algorithm}
+\label{sec:kgen}
 
-The KMP exercise generation algorithm consists of two main steps, first the largest border is generated and inserted, and then the rest of the string is filled out. The process of largest border generation differs drastically depending on if it is overlapping or not, so these are addressed in separate sections.
+The KMP exercise generation algorithm consists of two main steps:
+\begin{enumerate}
+	\item
+	Generate the largest border. (\autoref{sec:ob} and \autoref{sec:nob})
+	\item
+	Fill out the rest of the string. (\autoref{sec:remainder})
+\end{enumerate}
+
+The process of largest border generation differs drastically depending on if it is overlapping or not, so these are addressed in separate sections.
 
 \subsection{Overlapping border generation}
 \label{sec:ob}
@@ -710,16 +725,31 @@ Following from the above definitions, the overlapping border generation algorith
 \end{enumerate}
 
 \subsection{Non-overlapping border generation}
+\label{sec:nob}
 
-Generating and inserting a non-overlapping border is much more straightforward. First, the starting position for the suffix string must be defined (prefix is always at the beginning), which is to be after the prefix border (so they do not overlap) and 'largest border length' spaces before the end of the string (so it fits). This position is chosen randomly. Once this is done, a random border can be generated from the selected alphabet and trivially inserted at the beginning of the string (prefix) and chosen starting position (prefix). 
+Generating and inserting a non-overlapping border is much more straightforward. 
+\begin{enumerate}[i]
+	\item
+	\emph{Define starting position for the suffix} (prefix is always at the beginning). This is to be after the prefix border (so they do not overlap) and 'largest border length' spaces before the end of the string (so it fits) and is chosen randomly. 
+	\item
+	\emph{Generate random border.} Given the starting position, a random border can be generated from the selected alphabet and trivially inserted at the beginning of the string (prefix) and chosen starting position (prefix). 
+\end{enumerate}
 
 \subsection{Remainder of string}
+\label{sec:remainder}
 
-Before the rest of the string is filled in with random characters, a certain edge case must be handled. Namely, the off-chance that the "random" character following the prefix border matches the "random" character following the suffix border, as this would form a border that is longer than required. To handle this, the algorithm first inserts a random character after the prefix and then inserts a character which is different after the suffix.
+The last step is to fill in the remainder of the string, while handling edge cases.
 
-Once this is resolved, the remaining unfilled spaces in the string are populated with random characters. However with this approach, there is a possibility that the longest border appears more than two times (prefix and suffix). This in itself would not be a problem, since the longest border found in the string would still be the required length. The issue comes from when the subsequent character from this new largest border matches the subsequent character from the prefix border, creating a longer than desired largest border.
+\begin{enumerate}[i]
+	\item
+	\emph{Handle longest border edge case.}  If the "random" character following the prefix border matches the "random" character following the suffix border, we have an issue, as this would form a border that is longer than required. To handle this, the algorithm first inserts a random character after the prefix and then inserts a character which is different after the suffix.
 
-The way this issue is addressed, is by searching for the largest border in the temporary final string. Once an instance of the largest border is found, if it is not the original prefix or suffix border, the first character of it is changed, so that there is no longer a unintended match with the longest border.
+	\item
+	\emph{Populate remaining unfilled spaces with random characters from alphabet.}. With this approach, there is a possibility that the longest border appears more than two times (prefix and suffix). This in itself would not be a problem, since the longest border found in the string would still be the required length. The issue comes from when the subsequent character from this new largest border matches the subsequent character from the prefix border, creating a longer than desired largest border.
+
+	\item
+	\emph{Handle duplicate border edge case}. Search for the largest border in the temporary final string. Once an instance of the largest border is found, if it is not the original prefix or suffix border, the first character of it is changed, so that there is no longer a unintended match with the longest border.
+\end{enumerate}
 
 At the end of the process, the program outputs a string of required length, which contains a largest border of the desired length.
 
@@ -728,9 +758,7 @@ At the end of the process, the program outputs a string of required length, whic
 \subsection{Exercise layout}
 \label{sec:KMPExerciseDesign}
 
-The design for KMP exercises is less complex than Dijkstra, since a string is inherently less visual than a graph, thus needs less adjustments. The task description comes from a combination of example exercises  \autoref{fig:kmp_example_exercise}, which importantly specify that students need not to use the KMP algorithm, they must simply construct the border table required for KMP. 
-
-The alphabet of the generated string is also displayed, to provide context.
+The design for KMP exercises is less complex than Dijkstra, since a string is inherently less visual than a graph, thus needs less adjustments. The task description comes from a combination of example exercises  \autoref{fig:kmp_example_exercise}, which importantly specify that students need not to use the KMP algorithm, they must simply construct the border table required for KMP. The alphabet of the generated string is also displayed, to provide context.
 
 \subsection{Solution layout}
 \label{sec:KMPSolutionDesign}
@@ -804,7 +832,7 @@ To add an edge relaxation, a random key-value pair is taken from \emph{relaxedTo
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\linewidth]{images/relaxedToUpdate.png}    
+    \includegraphics[width=0.5\linewidth]{images/relaxedToUpdate.png}    
 
     \caption{Algorithm for updating \emph{relaxedTo}.}
     \label{fig:relaxedToUpdate} 
@@ -841,7 +869,7 @@ The \emph{borderStart} variable is used similarly in non-overlapping borders, ho
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.99\linewidth]{images/borderSearch.png}    
+    \includegraphics[width=0.7\linewidth]{images/borderSearch.png}    
 
     \caption{Code searching for and removing duplicate longest borders.}
     \label{fig:borderSearch} 
@@ -869,7 +897,7 @@ As a final step, the folders where the generated files are saved are opened usin
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.99\linewidth]{images/pdf.png}    
+    \includegraphics[width=0.9\linewidth]{images/pdf.png}    
 
     \caption{API calls for rendering a .tex for as a .pdf file.}
     \label{fig:pdf} 
@@ -916,10 +944,10 @@ Even though the aims of the project are highlighted in \autoref{sec:aim} (genera
 	\emph{To what extent are controlled and uncontrolled variables handled effectively?} This mostly refers to the template design from \autoref{sec:td} and how it could be improved.
 \end{enumerate}
 
-\section{Experimental Design}
+\section{User Study Design}
 \label{sec:exp_design}
 
-Since this project delivers products to two separate groups of users - namely students (receive exercises and solutions) and teachers (use program itself) - it is only appropriate to design and conduct two distinct user studies. This is important not only important because they interact with different outputs, they might also have drastically differing personal opinions about the impact of automated exercise generation on computer science education altogether. As they are both key stakeholders in this field, their ideas must be equally considered, hence the two experiments.
+Since this project delivers products to two separate groups of users - namely students (receive exercises and solutions) and teachers (use program itself) - it is only appropriate to design and conduct two distinct user studies. This is important not only because they interact with different outputs, they might also have drastically differing personal opinions about the impact of automated exercise generation on computer science education altogether. As they are both key stakeholders in this field, their ideas must be equally considered, hence the two experiments. The full user surveys can be found in \autoref{chap:user_surveys}, along with participant instructions in \autoref{chap:participant_instructions}.
 
 \subsection{Student User Study}
 
@@ -1025,48 +1053,66 @@ All in all, this user study addresses questions $2.$, $3.$ and $4.$ from \autore
 \section{Results}
 \label{sec:results}
 
-This section shares the results of the surveys described in \autoref{sec:exp_design}. Note that the user studies conducted had a limited number of participants (7 students and 4 lecturers), so the results may not accurately represent the views of the entire user-base.
+This section shares the results of the surveys described in \autoref{sec:exp_design}. Note that the user studies conducted had a limited number of participants (7 students and 4 lecturers), so the results may not accurately represent the views of the entire user-base. Both user studies were conducted in accordance to the ethics form found in \autoref{chap:ethics_form}.
 
 The student participants were all third year computing science students to ensure that they have recent experience with the algorithms involved. The teacher participants were all lecturers of computing science possessing enough technical knowledge to use the program.
 
-To be able to more easily compare results, each response to a question is assigned a value from $0$ to $4$ (Strongly disagree = 0, Strongly Agree = 4) to form a five point Likert scale \cite{a}.
+To be able to more easily compare results, each response to a question is assigned a value from $0$ to $4$ (Strongly disagree = 0, Strongly Agree = 4) to form a five point Likert scale \footnote{\url{https://www.britannica.com/topic/Likert-Scale} [Accessed 18th March 2023]}.
 
 Visuals of all the Likert results can be found in the \autoref{sec:survey_responses}.
 
 \subsection{Dijkstra}
 \label{sec:d_results}
 
-Participants felt that the generated Dijkstra exercises were very similar in difficulty to examples they had seen in class (mean = $3.714$, s = $0.452$, median = $4$). Full results can be found in \autoref{fig:d_similar_difficulty}.
+The results of all Dijkstra related questions are presented in \autoref{tab:dijkstra_results}.
 
-They felt the same way about how similar the format of each exercise was to examples they are used to (mean = $3.714$, s = $0.452$, median = $4$). Full results can be found in \autoref{fig:d_similar_format}.
-
-Including adjacency matrices turned out to be less desirable (mean = $3.286$, s = $0.700$, median = $3$). Full results can be found in \autoref{fig:adjacency_matrix}.
-
-Participants responded that the model solutions for Dijkstra were easy to understand (mean = $3.286$, s = $0.452$, median = $3$).  Full results can be found in \autoref{fig:d_model_solution}.
-
-Step-by-step solutions were found to be overwhelmingly useful (mean = $3.714$, s = $0.700$, median = $4$; taking yes=$4$, maybe=$2$, no=$0$).  Full results can be found in \autoref{fig:d_step_by_step}.
-
-Similar results were seen when it comes to highlights and other design decisions in Dijkstra's step-by-step solutions (mean = $3.714$, s = $0.452$, median = $4$).  Full results can be found in \autoref{fig:d_highlights}.
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{| c || c | c | c | c | c | c |}
+	\hline
+	Question & \autoref{fig:d_similar_difficulty} & \autoref{fig:d_similar_format} & \autoref{fig:adjacency_matrix} & \autoref{fig:d_model_solution} & \autoref{fig:d_step_by_step} & \autoref{fig:d_highlights} \\
+	\hline
+	\hline
+	Mean & 3.7143 & 3.714 & 3.286 & 3.286 & 3.714 & 3.714 \\
+	\hline
+	Standard deviation & 0.452 & 0.452 & 0.700 & 0.452 & 0.700 & 0.452 \\
+	\hline
+	Median & 4 & 4 & 3 & 3 & 4 & 4 \\
+	\hline
+\end{tabular}
+\caption{\label{tab:dijkstra_results} Results of Dijkstra questions}
+\end{center}
+\end{table}
 
 \subsection{KMP}
 \label{sec:k_results}
 
-Participants felt the same way about KMP exercise difficulty as they did about Dijkstra  (mean = $3.714$, s = $0.452$, median = $4$). Full results can be found in \autoref{fig:k_similar_difficulty}.
+The results of all KMP related questions are presented in \autoref{tab:kmp_results}.
 
-However, they were slightly less happy with formatting of KMP questions when compared to Dijkstra  (mean = $3.571$, s = $0.495$, median = $4$). Full results can be found in \autoref{fig:k_similar_format}.
-
-The KMP model solutions were significantly easier to understand on the other hand (mean = $3.857$, s = $0.345$, median = $4$). Full results can be found in \autoref{fig:k_model_solution}.
-
-A similar overwhelmingly positive response was seen for the usefulness of KMP step-by-step solutions, achieving a perfect score  (mean = $4$, s = $0$, median = $4$). Full results can be found in \autoref{fig:k_step_by_step}.
-
-Participants felt that the highlights / colours helped them significantly in making each solution step be more descriptive in KMP  (mean = $3.714$, s = $0.452$, median = $4$). Full results can be found in \autoref{fig:k_highlights}.
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{| c || c | c | c | c | c |}
+	\hline
+	Question & \autoref{fig:k_similar_difficulty} & \autoref{fig:k_similar_format} & \autoref{fig:k_model_solution} & \autoref{fig:k_step_by_step} & \autoref{fig:k_highlights} \\
+	\hline
+	\hline
+	Mean & 3.714 & 3.571 & 3.857 & 4.000 & 3.714 \\
+	\hline
+	Standard deviation & 0.452 & 0.495 & 0.345 & 0.000 & 0.452 \\
+	\hline
+	Median & 4 & 4 & 4 & 4 & 4 \\
+	\hline
+\end{tabular}
+\caption{\label{tab:kmp_results} Results of KMP questions}
+\end{center}
+\end{table}
 
 \subsection{Usability}
 Since the usability of the system is evaluated using \emph{SUS} \footnote{\url{https://www.researchgate.net/publication/228593520_SUS_A_quick_and_dirty_usability_scale} [Accessed 18th March 2023]}, a definite score can be calculated from responses through the following method. First, take the mean result (value from $0$ to $4$ from each question across all participants. Then, for questions \autoref{fig:usability1}, \autoref{fig:usability3}, \autoref{fig:usability5}, \autoref{fig:usability7}, and \autoref{fig:usability9}, the score is simply its mean result, while for questions \autoref{fig:usability2}, \autoref{fig:usability4}, \autoref{fig:usability6} and \autoref{fig:usability8}, the score is $4$ minus its mean result (since they are worded in a way that \emph{Strongly Disagree} is the best answer). Finally, the sum of the each question's scores is multiplied by $2.5$, giving the final \emph{SU} score out of $100$.
 
 The mean results and converted scores for our evaluation are shown in \autoref{tab:sus}. From these individual scores, the final \emph{SU} score can be be calculated: $(3 + 3.25 + 3.25 + 3.5 + 2.75 + 3.75 + 2.5 + 3.25 + 3.25 + 3.75) * 2.5 = 32.25 * 2.5 = 80.625$.
 
-\begin{table}[!h]
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{| c || c | c | c | c | c | c | c | c | c | c |}
 	\hline
@@ -1244,6 +1290,34 @@ In terms of short term improvements to our program, a more sophisticated UI (Jav
     \caption{Example solution for KMP. (Dr. Oana Andrei, CompSci2026)}
     \label{fig:kmp_example_solution} 
 \end{figure}
+
+\chapter{User Interface}
+\label{chap:user_interface}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.99\linewidth]{images/user_interface}    
+
+    \caption{Command line user interface.}
+    \label{fig:user_interface} 
+\end{figure}
+
+\chapter{Ethics Form}
+\label{chap:ethics_form}
+
+\includepdf[pages=-]{images/ethics.pdf}
+
+\chapter{Participant Instructions}
+\label{chap:participant_instructions}
+
+\includepdf[pages=-]{images/student_instructions.pdf}
+\includepdf[pages=-]{images/lecturer_instructions.pdf}
+
+\chapter{User surveys}
+\label{chap:user_surveys}
+
+\includepdf[pages=-]{images/student_survey.pdf}
+\includepdf[pages=-]{images/lecturer_survey.pdf}
 
 \chapter{Survey responses}
 \label{sec:survey_responses}
