@@ -493,4 +493,5 @@
 
 * ## 20 Mar 2023
 
-* *8 hours* Fixing up repo. 1630
+* *2 hours* Fixing up repo. 
+* *2 hours* Presentation. 
