@@ -230,7 +230,7 @@
 * *0.5 hours* Supervisor meeting
 * *0.5 hours* Took notes about supervisor meeting / completed status report and submitted
 
-#Winter break
+# Winter break
 
 ## 27 Dec 2022
 
@@ -268,7 +268,7 @@
 
 * *2 hours* Improved user experience for visualisations.
 
-#Semester 2 Week 1
+# Semester 2 Week 1
 
 ## 9 Jan 2023
 
