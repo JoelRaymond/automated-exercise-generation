@@ -323,175 +323,175 @@
 
 * *4 hours* Requirements and user stories for generated exercises/solutions. \
 
-* ## 24 Jan 2023
+## 24 Jan 2023
 
 * *1 hours* Wrote up agenda for supervisor meeting.
 
-* ## 25 Jan 2023
+## 25 Jan 2023
 
 * *1 hours* Supervisor meeting and prep.
 
-* ## 29 Jan 2023
+## 29 Jan 2023
 
 * *5 hours* Edge relaxation highlight + bug fixing Dijkstra algorithm 
 
 ## Week 4
 
-* ## 30 Jan 2023
+## 30 Jan 2023
 
 * *1 hours* Merge requirements 
 
-* ## 31 Jan 2023
+## 31 Jan 2023
 
 * *1 hours* Ethics Form
 * *4 hours* Design user study 
 * *1 hours* Supervisor meeting agenda 
 
-* ## 1 Feb 2023
+## 1 Feb 2023
 
 * *1 hours* Supervisor meeting + prep + notes
 * *1 hours* Dijkstra algorithm redesign
 
-* ## 2 Feb 2023
+## 2 Feb 2023
 
 * *2 hours* Dijkstra algorithm redesign 
 * *2 hours* Further work on Dijkstra algorithm 
 
 ## Week 5
 
-* ## 6 Feb 2023
+## 6 Feb 2023
 
 * *3 hours* Dijkstra algorithm redesign (edge relaxations now add properly, just need to create proper graph)
 * *5 hours* Finish Dijkstra algorithm (Some random errors still but works for purpose)
 
-* ## 7 Feb 2023
+## 7 Feb 2023
 
 * *1 hours* Agenda for supervisor meeting
 * *2 hours* User study final design
 
-* ## 8 Feb 2023
+## 8 Feb 2023
 
 * *1 hours* Supervisor meeting + notes
 
-* ## 9 Feb 2023
+## 9 Feb 2023
 
 * *2 hours* Finished final documents/files to be sent out for lecturer user study
 
-* ## 10 Feb 2023
+## 10 Feb 2023
 
 * *1 hours* Work on student user study
 
 ## Week 6
 
-* ## 13 Feb 2023
+## 13 Feb 2023
 
 * *1 hours* Finish user study setup and start sending them out to students.
 
-* ## 14 Feb 2023
+## 14 Feb 2023
 
 * *1 hours* Final touches on user study.
 * *1 hours* Program bug fixes.
 
-* ## 16 Feb 2023
+## 16 Feb 2023
 
 * *1 hours* Sent out user study.
 * *2 hours* Dissertation writing.
 
-* ## 18 Feb 2023
+## 18 Feb 2023
 
 * *3 hours* Dissertation writing.
 
-* ## 19 Feb 2023
+## 19 Feb 2023
 
 * *5 hours* Dissertation writing.
 
 ## Week 7
 
-* ## 20 Feb 2023
+## 20 Feb 2023
 
 * *4 hours* Dissertation writing.
 
-* ## 21 Feb 2023
+## 21 Feb 2023
 
 * *2 hours* Dissertation writing.
 
-* ## 22 Feb 2023
+## 22 Feb 2023
 
 * *1 hours* Supervisor meeting.
 
-* ## 23 Feb 2023
+## 23 Feb 2023
 
 * *4 hours* Dissertation writing.
 
-* ## 26 Feb 2023
+## 26 Feb 2023
 
 * *3 hours* Dissertation writing.
 
 ## Week 8
 
-* ## 27 Feb 2023
+## 27 Feb 2023
 
 * *4 hours* Dissertation writing.
 
-* ## 28 Feb 2023
+## 28 Feb 2023
 
 * *3 hours* Dissertation writing.
 
-* ## 1 Mar 2023
+## 1 Mar 2023
 
 * *4 hours* Dissertation writing. 
 
-* ## 2 Mar 2023
+## 2 Mar 2023
 
 * *7 hours* Dissertation writing.
 
-* ## 3 Mar 2023
+## 3 Mar 2023
 
 * *6 hours* Dissertation writing.
 
-* ## 4 Mar 2023
+## 4 Mar 2023
 
 * *10 hours* Dissertation writing.
 
-* ## 5 Mar 2023
+## 5 Mar 2023
 
 * *11 hours* Dissertation writing.
 
 ## Week 9
 
-* ## 8 Mar 2023
+## 8 Mar 2023
 
 * *2 hours* Supervisor meeting and prep.
 
 ## Week 10
 
-* ## 13 Mar 2023
+## 13 Mar 2023
 
 * *9 hours* Dissertation writing.
 
-* ## 14 Mar 2023
+## 14 Mar 2023
 
 * *3 hours* Dissertation writing.
 
-* ## 15 Mar 2023
+## 15 Mar 2023
 
 * *1 hours* Supervisor meeting.
 
-* ## 18 Mar 2023
+## 18 Mar 2023
 
 * *8 hours* Dissertation writing.
 
-* ## 19 Mar 2023
+## 19 Mar 2023
 
 * *5 hours* Dissertation writing. 
 
 ## Week 11
 
-* ## 20 Mar 2023
+## 20 Mar 2023
 
 * *8 hours* Dissertation writing. 
 
-* ## 20 Mar 2023
+## 20 Mar 2023
 
 * *2 hours* Fixing up repo. 
 * *2 hours* Presentation. 
