@@ -1,6 +1,13 @@
 # Readme
 
-The program consists of five Java files: `Dijkstra.java`, (handling Dijktstra exercise generation) `KMP.java` (handling KMP exercise generations), `NaryTreeNode.java` (custom representations of an n-ary tree for Dijkstra vertex insertion), `Visualiser.java`(user interface and LaTeX/pdf generation), and `WeightedGraph.java` (custom representation of graphs for Dijkstra exercises). These raw Java files can be found in the exercise_generation package (`exercise_generation/src/exercise_generation`). Generated exercises and solutions are saved in `exercise_generation/exercises`and `exercise_generation/solutions` respectively. 
+The program consists of five Java files: 
+* `Dijkstra.java` (handling Dijktstra exercise generation) 
+* `KMP.java` (handling KMP exercise generations)
+* `NaryTreeNode.java` (custom representations of an n-ary tree for Dijkstra vertex insertion)
+* `Visualiser.java`(user interface and LaTeX/pdf generation)
+* `WeightedGraph.java` (custom representation of graphs for Dijkstra exercises)
+
+These raw Java files can be found in the exercise_generation package (`exercise_generation/src/exercise_generation`). Generated exercises and solutions are saved in `exercise_generation/exercises`and `exercise_generation/solutions` respectively. 
 
 ## Build instructions
 
