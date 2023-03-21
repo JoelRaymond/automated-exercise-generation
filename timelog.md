@@ -452,3 +452,7 @@
 * ## 19 Mar 2023
 
 * *5 hours* Dissertation writing. 
+
+* ## 20 Mar 2023
+
+* *8 hours* Dissertation writing. 
