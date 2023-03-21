@@ -31,6 +31,8 @@
 * *0.5 hour* Wrote up meeting notes
 * *0.5 hour* Updated project timeline
 
+## Week 3
+
 ## 4 Oct 2022
 
 * *0.5 hour* Reviewed Project Outline
@@ -46,6 +48,8 @@
 
 * *0.5 hour* Supervisor meeting
 * *0.5 hour* Took notes on the meeting
+
+## Week 4
 
 ## 11 Oct 2022
 
@@ -68,6 +72,8 @@
 * *0.5 hour* Supervisor meeting
 * *0.5 hour* Wrote up meeting notes
 
+## Week 5
+
 ## 18 Oct 2022
 
 * *0.5 hour* Fixed bibliography
@@ -82,6 +88,8 @@
 ## 21 Oct 2022
 
 * *0.5 hour* Supervisor meeting and notes taken
+
+## Week 6
 
 ## 25 Oct 2022
 
@@ -98,6 +106,8 @@
 * *0.5 hours* Supervisor meeting
 * *0.5 hour* Notes taken from meeting
 
+## Week 7
+
 ## 1 Nov 2022
 
 * *3 hours* Improved the details of template document
@@ -111,6 +121,8 @@
 * *0.5 hours* Created meeting agenda
 * *3 hours* Finished template document
 * *0.5 hours* Updated requirements
+
+## Week 8
 
 ## 7 Nov 2022
 
@@ -140,6 +152,8 @@
 
 * *1.5 hours* Prepare for presentation 
 
+## Week 9
+
 ## 14 Nov 2022
 
 * *1 hours* Presentation of a brief introduction of the project at the Centre for Computing Science Education
@@ -161,6 +175,8 @@
 
 * *0.5 hours* Supervisor meeting
 
+## Week 10
+
 ## 21 Nov 2022
 
 * *1 hours* KMP implementation
@@ -177,6 +193,8 @@
 ## 25 Nov 2022
 
 * *0.5 hours* Supervisor meeting and notes taken
+
+## Week 12
 
 ## 5 Dec 2022
 
@@ -203,6 +221,8 @@
 
 * *1 hours* Worked on status report
 
+## Week 13
+
 ## 13 Dec 2022
 
 * *2.5 hours* Worked on status report
@@ -217,6 +237,7 @@
 * *0.5 hours* Supervisor meeting
 * *0.5 hours* Took notes about supervisor meeting / completed status report and submitted
 
+#Winter break
 
 ## 27 Dec 2022
 
@@ -254,6 +275,8 @@
 
 * *2 hours* Improved user experience for visualisations.
 
+#Semester 2 Week 1
+
 ## 9 Jan 2023
 
 * *3 hours* Further improvements to existing code (refactoring, polishing generated solutions)
@@ -273,6 +296,8 @@
 * *1 hours* Improved visualisation of step-by-step KMP.
 * *1 hours* Improved accessibility by replacing some colours with bold text.
 * *1 hours* Separate programs for Dijkstra and KMP (for scalability).
+
+## Week 2
 
 ## 16 Jan 2023
 
@@ -299,10 +324,11 @@
 
 * *1 hours* Requirements and user stories for generated exercises/solutions.
 
+## Week 3
+
 ## 23 Jan 2023
 
 * *4 hours* Requirements and user stories for generated exercises/solutions. \
-
 
 * ## 24 Jan 2023
 
@@ -315,6 +341,8 @@
 * ## 29 Jan 2023
 
 * *5 hours* Edge relaxation highlight + bug fixing Dijkstra algorithm 
+
+## Week 4
 
 * ## 30 Jan 2023
 
@@ -335,6 +363,8 @@
 
 * *2 hours* Dijkstra algorithm redesign 
 * *2 hours* Further work on Dijkstra algorithm 
+
+## Week 5
 
 * ## 6 Feb 2023
 
@@ -358,6 +388,7 @@
 
 * *1 hours* Work on student user study
 
+## Week 6
 
 * ## 13 Feb 2023
 
@@ -381,6 +412,8 @@
 
 * *5 hours* Dissertation writing.
 
+## Week 7
+
 * ## 20 Feb 2023
 
 * *4 hours* Dissertation writing.
@@ -400,6 +433,8 @@
 * ## 26 Feb 2023
 
 * *3 hours* Dissertation writing.
+
+## Week 8
 
 * ## 27 Feb 2023
 
@@ -429,9 +464,13 @@
 
 * *11 hours* Dissertation writing.
 
+## Week 9
+
 * ## 8 Mar 2023
 
 * *2 hours* Supervisor meeting and prep.
+
+## Week 10
 
 * ## 13 Mar 2023
 
@@ -453,6 +492,12 @@
 
 * *5 hours* Dissertation writing. 
 
+## Week 11
+
 * ## 20 Mar 2023
 
 * *8 hours* Dissertation writing. 
+
+* ## 20 Mar 2023
+
+* *8 hours* Fixing up repo. 1630
