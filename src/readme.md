@@ -1,41 +1,21 @@
 # Readme
 
-Put a brief description of your code here. This should at least describe the file structure.
+The program consists of five Java files: `Dijkstra.java`, (handling Dijktstra exercise generation) `KMP.java` (handling KMP exercise generations), `NaryTreeNode.java` (custom representations of an n-ary tree for Dijkstra vertex insertion), `Visualiser.java`(user interface and LaTeX/pdf generation), and `WeightedGraph.java` (custom representation of graphs for Dijkstra exercises). These raw Java files can be found in the exercise_generation package (`exercise_generation/src/exercise_generation`). Generated exercises and solutions are saved in `exercise_generation/exercises`and `exercise_generation/solutions` respectively. 
 
 ## Build instructions
 
-**You must** include the instructions necessary to build and deploy this project successfully. If appropriate, also include 
-instructions to run automated tests. 
-
 ### Requirements
 
-List the all of the pre-requisites software required to set up your project (e.g. compilers, packages, libraries, OS, hardware)
-
-For example:
-
-* Python 3.7
-* Packages: listed in `requirements.txt` 
-* Tested on Windows 10
-
-or another example:
-
-* Requires Raspberry Pi 3 
-* a Linux host machine with the `arm-none-eabi` toolchain (at least version `x.xx`) installed
-* a working LuaJIT installation > 2.1.0
+* Java 8
+* Packages: `aspose-tex-22.12.jar` and `commons-io-2.11.0.jar` both of which can be found in `exercise_generation/dependencies/`
+* Tested on Windows 10 and MacOS 13
 
 ### Build steps
 
-List the steps required to build software. 
-
-Hopefully something simple like `pip install -e .` or `make` or `cd build; cmake ..`. In
-some cases you may have much more involved setup required.
+* Open project (`exercise_generation`) in Java IDE (tested in Eclipse).
+* Add packages highlighted above to runtime.
+* Export to runnable JAR file.
 
 ### Test steps
 
-List steps needed to show your software works. This might be running a test suite, or just starting the program; but something that could be used to verify your code is working correctly.
-
-Examples:
-
-* Run automated tests by running `pytest`
-* Start the software by running `bin/editor.exe` and opening the file `examples/example_01.bin`
-
+* Start the software by running `java -jar AutomatedExerciseGenerator.jar` in command line (JAR file can be found in this folder or built as described).
