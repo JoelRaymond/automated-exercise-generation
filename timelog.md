@@ -491,7 +491,11 @@
 
 * *8 hours* Dissertation writing. 
 
-## 20 Mar 2023
+## 21 Mar 2023
 
 * *2 hours* Fixing up repo. 
+* *2 hours* Presentation. 
+
+## 22 Mar 2023
+
 * *2 hours* Presentation. 
