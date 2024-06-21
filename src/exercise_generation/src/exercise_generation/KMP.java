@@ -237,10 +237,10 @@ public class KMP {
 		return result;
 	}
 
-	public static void main(String[] args) {
-		for (int i = 0; i < 1; i++) {
-			KMP test = new KMP(14, 9, true);
-			System.out.println(test.alphabet);
-		}
-	}
+	// public static void main(String[] args) {
+	// 	for (int i = 0; i < 1; i++) {
+	// 		KMP test = new KMP(14, 9, true);
+	// 		System.out.println(test.alphabet);
+	// 	}
+	// }
 }

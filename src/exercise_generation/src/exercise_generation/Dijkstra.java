@@ -243,13 +243,13 @@ public class Dijkstra {
 		return result;
 	}
 
-	public static void main(String[] args) {
-		for (int i = 0; i < 1; i++) {
-			Dijkstra test = new Dijkstra(10, 10);
-			System.out.println(test.maxDistance);
-			System.out.println(test.shortestDistance);
-			System.out.println(test.shortestPaths);
-			test.graph.printGraph();
-		}
-	}
+	// public static void main(String[] args) {
+	// 	for (int i = 0; i < 1; i++) {
+	// 		Dijkstra test = new Dijkstra(10, 10);
+	// 		System.out.println(test.maxDistance);
+	// 		System.out.println(test.shortestDistance);
+	// 		System.out.println(test.shortestPaths);
+	// 		test.graph.printGraph();
+	// 	}
+	// }
 }
