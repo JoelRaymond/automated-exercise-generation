@@ -425,6 +425,72 @@ public class Visualiser {
 		}
 	}
 
+	public static void generateRadixSort(RadixSort radix, String filename, boolean pdf) {
+		try {
+			FileWriter f = new FileWriter(filename);
+			f.write("\\documentclass{article}\n");
+			f.write("\\begin{document}\n");
+			f.write("\\textbf{Radix Sort Exercise}\n");
+			f.write("\\newline Sort the following numbers using radix sort (m=" + radix.m + ", b=" + radix.b + "):\n");
+
+			f.write("\\begin{center}\n");
+			for (int num : radix.numbers) {
+				f.write(num + " ");
+			}
+			f.write("\\end{center}\n");
+
+			f.write("\\end{document}\n");
+			f.close();
+		} catch (IOException e) {
+			System.out.println("Error generating Radix Sort exercise.");
+			e.printStackTrace();
+		}
+
+		if (pdf) {
+			TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
+			options.setInputWorkingDirectory(new InputFileSystemDirectory("exercises/tex"));
+			options.setOutputWorkingDirectory(new OutputFileSystemDirectory("exercises/pdf"));
+			options.setTerminalOut(new OutputMemoryTerminal());
+			options.setSaveOptions(new PdfSaveOptions());
+
+			new TeXJob(filename, new PdfDevice(), options).run();
+		}
+	}
+
+	public static void generateRadixSortSolution(RadixSort radix, String filename, boolean pdf) {
+		try {
+			FileWriter f = new FileWriter(filename);
+			f.write("\\documentclass{article}\n");
+			f.write("\\begin{document}\n");
+			f.write("\\textbf{Radix Sort Solution}\n");
+
+			for (int i = 0; i < radix.steps.size(); i++) {
+				f.write("\\textbf{Iteration " + (i + 1) + "}: ");
+				for (int num : radix.steps.get(i)) {
+					f.write(num + " ");
+				}
+				f.write("\\newline\n");
+			}
+
+			f.write("\\end{document}\n");
+			f.close();
+		} catch (IOException e) {
+			System.out.println("Error generating Radix Sort solution.");
+			e.printStackTrace();
+		}
+
+		if (pdf) {
+			TeXOptions options = TeXOptions.consoleAppOptions(TeXConfig.objectLaTeX());
+			options.setInputWorkingDirectory(new InputFileSystemDirectory("solutions/tex"));
+			options.setOutputWorkingDirectory(new OutputFileSystemDirectory("solutions/pdf"));
+			options.setTerminalOut(new OutputMemoryTerminal());
+			options.setSaveOptions(new PdfSaveOptions());
+
+			new TeXJob(filename, new PdfDevice(), options).run();
+		}
+	}
+
+
 	public static void main(String[] args) throws IOException {
 		File exTex = new File("exercises/tex");
 		exTex.mkdirs();
@@ -486,6 +552,7 @@ public class Visualiser {
 		HashMap<String, Boolean> algorithms = new HashMap<String, Boolean>();
 		algorithms.put("(1) Dijkstra", false);
 		algorithms.put("(2) KMP", false);
+		algorithms.put("(3) Radix Sort", false);
 
 		System.out.println(
 				"Which algorithm/s would you like to generate for? (Can choose multiple, " + "enter to confirm)");
@@ -493,52 +560,51 @@ public class Visualiser {
 		while (true) {
 			String algString = sc.nextLine().toLowerCase();
 			StringBuilder sb = new StringBuilder();
+
 			switch (algString) {
-			case "1":
-			case "dijkstra":
-				algorithms.put("(1) Dijkstra", true);
-				for (String a : algorithms.keySet()) {
-					if (algorithms.get(a)) {
-						sb.append(a);
-						sb.append(", ");
-					}
-				}
-				System.out.println("Currently selected algorithms:" + sb);
-				if (algorithms.get("(2) KMP") == true)
+				case "1":
+				case "dijkstra":
+					algorithms.put("(1) Dijkstra", true);
 					break;
-				continue;
-			case "2":
-			case "kmp":
-				algorithms.put("(2) KMP", true);
-				for (String a : algorithms.keySet()) {
-					if (algorithms.get(a)) {
-						sb.append(a);
-						sb.append(", ");
-					}
-				}
-				System.out.println("Currently selected algorithms:" + sb);
-				if (algorithms.get("(1) Dijkstra") == true)
+				case "2":
+				case "kmp":
+					algorithms.put("(2) KMP", true);
 					break;
-				continue;
-			case "":
-				break;
-			default:
-				System.out.println("Illegal input, please try again.");
-				for (String a : algorithms.keySet()) {
-					if (algorithms.get(a)) {
-						sb.append(a);
-						sb.append(", ");
-					}
-				}
-				System.out.println("Currently selected algorithms:" + sb);
-				continue;
+				case "3":
+				case "radix sort":
+					algorithms.put("(3) Radix Sort", true);
+					break;
+				case "":
+					break;
+				default:
+					System.out.println("Illegal input, please try again.");
+					continue;
 			}
-			break;
+
+			sb.setLength(0); // Clear the StringBuilder
+			for (String a : algorithms.keySet()) {
+				if (algorithms.get(a)) {
+					sb.append(a).append(", ");
+				}
+			}
+
+			if (sb.length() > 0) {
+				sb.setLength(sb.length() - 2); // Remove trailing comma and space
+			}
+			System.out.println("Currently selected algorithms: " + sb);
+
+			if (algString.isEmpty()) {
+				break;
+			}
+
+			if (!algorithms.containsValue(false)) {
+				break;
+			}
 		}
 
 		int dijkstraLimit = 0;
 		int v = 0;
-		int e = 0;
+		int edgeRelaxations = 0;
 		if (algorithms.get("(1) Dijkstra")) {
 			System.out.println("How many Dijkstra graphs would you like to generate? ");
 			dijkstraLimit = sc.nextInt();
@@ -547,7 +613,7 @@ public class Visualiser {
 				v = sc.nextInt();
 
 				System.out.println("How many edge-relaxations? ");
-				e = sc.nextInt();
+				edgeRelaxations = sc.nextInt();
 			}
 		}
 
@@ -580,13 +646,35 @@ public class Visualiser {
 			}
 		}
 
+		int radixSortLimit = 0;
+		int m = 0, n = 0, b = 0;
+		boolean allowEmptyBuckets = false;
+		if (algorithms.get("(3) Radix Sort")) {
+			System.out.println("How many Radix Sort exercises would you like to generate?");
+			radixSortLimit = sc.nextInt();
+
+			if (radixSortLimit != 0) {
+				System.out.println("Enter number of bits per number (6 or 8): ");
+				m = sc.nextInt();
+
+				System.out.println("Enter length of array (8, 9, or 10): ");
+				n = sc.nextInt();
+
+				System.out.println("Enter factor for iterations (b): ");
+				b = sc.nextInt();
+
+				System.out.println("Allow empty buckets? (y/n): ");
+				allowEmptyBuckets = sc.next().equalsIgnoreCase("y");
+			}
+		}
+
 		sc.close();
 
 		System.out.println("Generating...");
 
 		if (algorithms.get("(1) Dijkstra")) {
 			for (int i = 0; i < dijkstraLimit; i++) {
-				Dijkstra test = new Dijkstra(v, e);
+				Dijkstra test = new Dijkstra(v, edgeRelaxations);
 				generateGraph(test, "exercises/tex/dijkstra" + Integer.toString(i + 1) + ".tex", pdf);
 				if (sol && !fullSol) {
 					generateGraphSolution(test, "solutions/tex/dijkstra_answer" + Integer.toString(i + 1) + ".tex",
@@ -609,6 +697,21 @@ public class Visualiser {
 				if (fullSol) {
 					generateFullStringSolution(test, "solutions/tex/kmp_answer" + Integer.toString(i + 1) + ".tex",
 							pdf);
+				}
+			}
+		}
+
+		if (algorithms.get("(3) Radix Sort")) {
+			for (int i = 0; i < radixSortLimit; i++) {
+				try {
+					RadixSort radixSort = new RadixSort(m, n, b, allowEmptyBuckets);
+					radixSort.sort();
+					generateRadixSort(radixSort, "exercises/tex/radix_sort" + (i + 1) + ".tex", pdf);
+					if (sol) {
+						generateRadixSortSolution(radixSort, "solutions/tex/radix_sort_answer" + (i + 1) + ".tex", pdf);
+					}
+				} catch (IllegalArgumentException e) {
+					System.out.println("Error: " + e.getMessage());
 				}
 			}
 		}
