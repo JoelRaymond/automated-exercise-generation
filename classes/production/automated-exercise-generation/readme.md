@@ -1,28 +1,63 @@
-# Readme
+# README
 
-The program consists of five Java files: 
-* `Dijkstra.java` (handling Dijktstra exercise generation) 
-* `KMP.java` (handling KMP exercise generations)
-* `NaryTreeNode.java` (custom representations of an n-ary tree for Dijkstra vertex insertion)
-* `Visualiser.java`(user interface and LaTeX/pdf generation)
-* `WeightedGraph.java` (custom representation of graphs for Dijkstra exercises)
+This project is an automated exercise generation tool for computing science algorithms. It allows users to generate LaTeX-formatted questions and solutions for three algorithms: **Dijkstra's algorithm**, **Knuth-Morris-Pratt (KMP)** string matching, and **Radix Sort**. The exercises are customisable, printable, and optionally rendered to PDF using the Aspose TeX engine.
 
-These raw Java files can be found in the exercise_generation package (`exercise_generation/src/exercise_generation`). Generated exercises and solutions are saved in `exercise_generation/exercises`and `exercise_generation/solutions` respectively. 
+## Java Files
 
-## Build instructions
+The main logic of the program is implemented across six Java files:
+
+* `Dijkstra.java` — Generates shortest path exercises using Dijkstra's algorithm.
+* `KMP.java` — Generates border table exercises based on the Knuth-Morris-Pratt algorithm.
+* `RadixSort.java` — Generates exercises that trace the Radix Sort algorithm, including customisable bucket sizes and binary representations.
+* `NaryTreeNode.java` — Custom n-ary tree used internally for graph generation in Dijkstra exercises.
+* `WeightedGraph.java` — Custom graph representation for Dijkstra graphs.
+* `Visualiser.java` — Command-line interface for exercise generation, LaTeX rendering, and PDF export.
+
+All source files are located in the `automated-exercise-generation/src` directory.  
+Generated LaTeX and PDF files are saved under:
+- `automated-exercise-generation/exercises`
+- `automated-exercise-generation/solutions`
+
+## Build Instructions
 
 ### Requirements
 
-* Java 8
-* Packages: `aspose-tex-22.12.jar` and `commons-io-2.11.0.jar` both of which can be found in `exercise_generation/dependencies/`
-* Tested on Windows 10 and MacOS 13
+- **Java 8**
+- JAR dependencies (included in `automated-exercise-generation/dependencies/`):
+    - `aspose-tex-22.12.jar`
+    - `commons-io-2.11.0.jar`
+- Compatible with **macOS** and **Windows**
 
-### Build steps
+### Using IntelliJ IDEA (Recommended)
 
-* Open project (`exercise_generation`) in Java IDE (tested in Eclipse).
-* Add packages highlighted above to runtime.
-* Export to runnable JAR file.
+1. Open IntelliJ and select **Open Project**, then choose the `automated-exercise-generation` directory.
+2. In Project Structure:
+    - Add the `.jar` files in `dependencies/` as **external libraries**.
+3. Set the main class to `exercise_generation.Visualiser`.
+4. Run the project using IntelliJ's run configuration.
 
-### Test steps
+### Using Command Line
 
-* Start the software by running `java -jar AutomatedExerciseGenerator.jar` in command line (JAR file can be found in this folder or built as described).
+1. Compile the Java files:
+   ```bash
+   javac -d out -cp "dependencies/*:src" $(find src -name "*.java")
+   ```
+2. Create a runnable JAR:
+   ```bash
+   jar cfe AutomatedExerciseGenerator.jar exercise_generation.Visualiser -C out .
+   ```
+3. Run the JAR:
+   ```bash
+   java -jar AutomatedExerciseGenerator.jar
+   ```
+
+## Features
+
+- Interactive CLI to choose which algorithms to generate exercises for.
+- PDF generation from LaTeX using Aspose TeX (optional).
+- Customisability of input size, difficulty, borders, and bucket configurations.
+
+## Notes
+
+- The Radix Sort implementation includes features such as user-defined number of bits, bucket factors, and support for empty bucket rules.
+- The project has been updated to support evaluations specific to the Radix Sort module for teaching and testing purposes.
